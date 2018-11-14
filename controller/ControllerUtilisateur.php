@@ -12,6 +12,16 @@ class ControllerUtilisateur{
 
 	}	
 
+	public static function show_perso_page(){
+
+
+		$view='pageperso';
+		$pagetitle="Bienvenue sur votre espace personnel - Agora";
+		require (File::build_path(array('view', 'view.php')));
+
+
+	}
+
 }
 
 ?>

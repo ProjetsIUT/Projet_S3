@@ -3,7 +3,7 @@
     <head>
 		<meta charset="utf-8" />
 		<title><?php echo $pagetitle?></title>
-			<link rel="stylesheet" type="text/css" href="./style.css">
+			<link rel="stylesheet" type="text/css" href=<?php echo (File::build_path(array('style.css'))) ?>>
 	</head>
 	<body>
 	
