@@ -2,7 +2,7 @@
 
 require_once("File.php");
 
-require (File::build_path(array('model', 'Model.php')));
+require (File::build_path(array('Model.php')));
 
 $userName=$_GET['login'];
 $password=$_GET['password'];

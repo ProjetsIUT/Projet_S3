@@ -78,11 +78,20 @@ nav{
   
 }
 
+
 body{
 
   background-image:url("img/fond-1.jpg");
   background-size: 100%;
+
 }
+
+#body_page_perso{
+
+    background-image:url("img/fond-2.jpg");
+   
+}
+
 
 #formulaire_connexion{
 

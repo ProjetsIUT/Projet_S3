@@ -5,7 +5,7 @@
 		<title><?php echo $pagetitle?></title>
 			<link rel="stylesheet" type="text/css" href=<?php echo (File::build_path(array('style.css'))) ?>>
 	</head>
-	<body>
+	<body id=<?php if(isset($page_id)){ echo ("body_" . $page_id); } ?>>
 	
 		<header>
 				<div id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </div>
