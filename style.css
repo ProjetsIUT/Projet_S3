@@ -107,6 +107,19 @@ body{
 
 }
 
+#formulaire_ajouterqcm{
+
+  margin:auto;
+  text-align: center;
+  padding:50px 140px;
+  background-color: rgba(130, 161, 192, 0.9);
+  color:white;
+  padding-top:10px;
+
+
+}
+
+
 form>p{
 
   font-size:33px;

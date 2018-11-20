@@ -49,10 +49,6 @@ class ModelQCM extends Model {
 }
 
 
-
-
-
-
 }
 
 

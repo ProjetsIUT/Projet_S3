@@ -16,8 +16,8 @@
 						<div class="menu">
 							Cours
 						</div>
-						<div class="menu">
-							Exercices
+						<div class="menu" href="./index.php/?controller=QCM&action=show_form_new">
+							<a href=<?php echo (File::build_path(array('index.php'))) . '?controller=QCM&action=show_form_new' ?>>Exercices</a>
 						</div>
 						<div class="menu">
 							Statistiques
