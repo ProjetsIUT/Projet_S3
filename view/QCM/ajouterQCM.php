@@ -1,9 +1,15 @@
 
 <article id="page_ajouterqcm">
+
+
 			<form id="formulaire_ajouterqcm" methode="get" action="ajouterQCM.php">
 				<p>Formulaire de création de QCM</p>
 				<div id="part_form">
 					<p>Saisissez l'énoncé du QCM</p>
+					<input type="text" name="code" required placeholder="Donner un code au QCM"/>
+					<br>
+					<input type="text" name="nom" required placeholder="Donner un nom au QCM"/>
+					<br>
 					<input type="text" name="enonce" required placeholder="Saisir l'énoncé"/>
 					<br>
 					<br>
@@ -26,5 +32,15 @@
 				<input type="submit" value="Soumettre le QCM"/>
 				<br>
 			</form>
+
+
+
+
+
+
+
+
+
+
 </article>
 
