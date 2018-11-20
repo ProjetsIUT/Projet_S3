@@ -1,6 +1,6 @@
-        <form method="post" action="index.php" enctype="multipart/form-data">
+        <form method="post" action="index.php?controller=ExerciceClassique&action=created" enctype="multipart/form-data">
             <fieldset>
-            <legend>My form:</legend>
+            <legend>Creer un exercice :</legend>
 		<p>
                     <label for="nomExercice_id">Nom de l'exercice</label> :
                     <input type="text" name="nomExercice" id="nomExercice_id" required/>
@@ -15,7 +15,7 @@
 		</p>
                 <p>	
                     <label for="acces_id">Choisir si l'exercice est privé ou public :</label>
-                    <SELECT name="acces" id="acces_id" size="1">
+                    <SELECT name="acces" id="acces_id" size="1" required>
                         <OPTION value="1">Public
                         <OPTION value="0">Privé 
                     </SELECT>
@@ -40,8 +40,7 @@
 
 
 		<p>
-                    <input type='hidden' name='action' value='created'>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Valider" />
 		</p>
             </fieldset> 
 	</form>

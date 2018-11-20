@@ -3,15 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/ann2/chaptala/public_html/Projet_S3-master/controller/routeur.php</file>
-            <file>file:/home/ann2/chaptala/public_html/Projet_S3-master/controller/ControllerExerciceClassique.php</file>
-            <file>file:/home/ann2/chaptala/public_html/Projet_S3-master/view/Exercice/creer.php</file>
-            <file>file:/home/ann2/chaptala/public_html/Projet_S3-master/model/ModelExerciceClassique.php</file>
-            <file>file:/home/ann2/chaptala/public_html/Projet_S3-master/view/QCM/ajouterQCM.php</file>
-            <file>file:/home/ann2/chaptala/public_html/Projet_S3-master/index.php</file>
-            <file>file:/home/ann2/chaptala/public_html/Projet_S3-master/model/ModelQCM.php</file>
-            <file>file:/home/ann2/chaptala/public_html/Projet_S3-master/model/Model.php</file>
-            <file>file:/home/ann2/chaptala/public_html/Projet_S3-master/controller/ControllerQCM.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/controller/ControllerQCM.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/controller/ControllerExerciceClassique.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/view/ExerciceClassique/creer.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/model/ModelExerciceClassique.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/controller/routeur.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/model/ModelEtudiants.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/model/Model.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/model/ModelQCM.php</file>
         </group>
     </open-files>
 </project-private>

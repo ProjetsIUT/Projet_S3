@@ -4,9 +4,11 @@ require_once (File::build_path(array('model','ModelExerciceClassique.php')));
 
 Class ControllerExerciceClassique {
     
+    protected static $object = 'ExerciceClassique';
+    
     public static function creerExercice()
     {
-        $path_array = array("view", "Exercice", "creer.php");
+        $path_array = array("view", "ExerciceClassique", "creer.php");
 
         $PATH = File::build_path($path_array);
         require "$PATH";
@@ -34,10 +36,11 @@ Class ControllerExerciceClassique {
         if ( in_array($extension_upload,$extensions_valides) ) echo "Extension correcte";
         
         $name = File::build_path(array('lib',"corrections/{$idExercice}.{$extension_upload}")); //on donne l'id de l'exercice comme nom de fichier
-        $resultat = move_uploaded_file($_FILES['icone']['tmp_name'],$nom);
+        $resultat = move_uploaded_file($_FILES['correction']['tmp_name'],$name);
         
-        $e = new ModelExerciceClassique($nomExercice, $difficulte, $acces, $idMatiere, $tempsLimite, $coeff,$ennonce);
-        $e::save();
+        $data = array("id" => $idExercice,"nom" => $nomExercice, "difficulte" =>$difficulte, "acces" => $acces,"temps" => $tempsLimite, "coeff" => $coeff,"ennonce" =>$ennonce);
+        $e = new ModelExerciceClassique($idExercice,$nomExercice, $difficulte, $acces, $tempsLimite, $coeff,$ennonce);
+        $e->save($data);
     }
     
     public static function afficherCorrection():void

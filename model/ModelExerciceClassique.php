@@ -1,33 +1,24 @@
 
 <?php
 
+require_once (File::build_path(array('model','Model.php')));
 
-
-class ModelExerciceClassique extends Model
-{
-
+class ModelExerciceClassique extends Model{
+    
+    protected static $primary = 'idExercice';
+    protected static $object = 'ExerciceClassique';
 
     private $idExercice;
-
     private $nomExercice;
-
     private $difficulte;
-    
     private $tempsLimite;
-
-
     private $coeff;
-
-
-    private $acces;
-    
-    private $ennonce;
-    
+    private $acces;  
+    private $ennonce;    
     private $correction;
          
 
-
-    public function __construct($idExercice, $nomExercice, $difficulte, $tempsLimite = NULL, $coeff = NULL, $acces, $ennonce, $Correction)
+    public function __construct($idExercice, $nomExercice, $difficulte, $tempsLimite = NULL, $coeff = NULL, $acces = NULL,$ennonce)
     {
         
         $this->$idExercice =$idExercice; //uniqid genere un String !
@@ -38,8 +29,7 @@ class ModelExerciceClassique extends Model
 
         $this->$tempsLimite = $tempsLimite;
         $this->$coeff = $coeff;
-        $this->$ennonce = $enonce;
-        $this->$correction = $correction;
+        $this->$ennonce = $ennonce;
         
     }
     
@@ -59,25 +49,7 @@ class ModelExerciceClassique extends Model
     return false;
   }
 
-    public function save(){
-    $sql = "INSERT INTO agora_exerciceClassique VALUES (:idExercice,:nomExercice,:difficulte,:tempsLimite,:coeff,:acces,:ennonce)";
-
-    $req_prep = Model::$pdo->prepare($sql);
-
-    $values = array(
-        "idExercice" => $this->$idExercice,
-        "nomExercice" => $this->$nomExercice,
-        "difficulte" => $this->$difficulte,
-        "tempsLimite" => $this->$tempsLimite,
-        "coeff" => $this->$coeff,
-        "acces" => $this->$acces,
-        "ennonce" => $this->$ennonce,
-    );
-    $req_prep->execute($values);
-    
-  }
 }
-    
 
 
 
