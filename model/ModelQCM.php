@@ -32,10 +32,8 @@ class ModelQCM extends Model {
 
   public function __construct($data = array()) {
   if (!empty($data)) {
-    // If both $m, $c and $i are not NULL, 
-    // then they must have been supplied
-    // so fall back to constructor with 3 arguments
-    $this->codeQCM= $data["codeQCM"];
+
+   
     $this->nomQCM = $data["nomQCM"];
     $this->question=$data["question"];
     $this->proposition1=$data["proposition1"];
