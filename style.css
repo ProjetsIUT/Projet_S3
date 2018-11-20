@@ -78,11 +78,20 @@ nav{
   
 }
 
+
 body{
 
   background-image:url("img/fond-1.jpg");
   background-size: 100%;
+
 }
+
+#body_page_perso{
+
+    background-image:url("img/fond-2.jpg");
+   
+}
+
 
 #formulaire_connexion{
 
@@ -97,6 +106,19 @@ body{
 
 
 }
+
+#formulaire_ajouterqcm{
+
+  margin:auto;
+  text-align: center;
+  padding:50px 140px;
+  background-color: rgba(130, 161, 192, 0.9);
+  color:white;
+  padding-top:10px;
+
+
+}
+
 
 form>p{
 
