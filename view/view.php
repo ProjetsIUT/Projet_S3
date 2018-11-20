@@ -27,14 +27,14 @@
 				</nav>
 
 				
-				<div id="connexion"><a id="connexion_inscription">Connexion | Inscription</a></div>
+				<div id="connexion" ><a href=<?php echo (File::build_path(array('index.php'))) . '?controller=Utilisateur&action=show_login_page' ?> style="text-decoration:none;" id="connexion_inscription">Connexion | Inscription</a></div>
 		</header>
 
 		<?php
 
 
 			$filepath = File::build_path(array("view", ucfirst(self::$object), "$view.php"));
-			require $filepath;
+			require $filepath; 
 
 		?>
 

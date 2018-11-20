@@ -143,7 +143,7 @@
           }
 
           public function save($data) {
-            $table_name = static::$object;
+            $table_name = "agora_" . static::$object;
             $primary_key = static::$primary;
             $attributs = "";
             $variables = "";
@@ -166,6 +166,7 @@
                     }
             }
 
+
             $sql = "INSERT INTO $table_name ($attributs) VALUES ($variables)";
 
             // Préparation de la requête
@@ -176,10 +177,12 @@
             }
               catch(PDOException $e) {
                 if (Conf::getDebug()) {
+                    
+                    $error_code="Erreur au niveau de la base de données";
                     $view = 'error';
                     $pagetitle = 'Erreur';
                     require (File::build_path(array('view', 'view.php')));
-                  //echo 'Cette voiture existe déja dans la BD de notre site ! <br> <a href="?action=readAll"> retour a la page d\'accueil </a>'; affiche un message d'erreur
+                  
               } else {
                   echo 'Une erreur est survenue cette voiture existe déja dans la base de données ! <br> <a href="?action=readAll&controller=voiture"> Retour a la page d\'accueil </a>';
               }
