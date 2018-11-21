@@ -29,8 +29,8 @@
                     <input type="number" name="coeff" id="coeff_id" />
                 </p>
                 <p>
-                    <label for="ennonce_id">Ennoncé de l'exercice :</label>
-                    <textarea name="ennonce" id="ennonce_id" required></textarea>
+                    <label for="enonce_id">Ennoncé de l'exercice :</label>
+                    <textarea name="enonce" id="enonce_id" required></textarea>
                 </p>
                 <p>
                     <label for="correction_id">Correction (max 1mo)</label>

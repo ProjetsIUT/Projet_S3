@@ -15,11 +15,11 @@ class ModelExerciceClassique extends Model{
     private $tempsLimite;
     private $coeff;
     private $acces;  
-    private $ennonce;    
+    private $enonce;    
     private $correction;
          
 
-    public function __construct($idExercice, $nomExercice, $difficulte, $tempsLimite = NULL, $coeff = NULL, $acces = NULL,$ennonce)
+    public function __construct($idExercice, $nomExercice, $difficulte, $tempsLimite = NULL, $coeff = NULL, $acces = NULL,$enonce)
     {
         
         $this->$idExercice =$idExercice; //uniqid genere un String !
@@ -30,7 +30,7 @@ class ModelExerciceClassique extends Model{
 
         $this->$tempsLimite = $tempsLimite;
         $this->$coeff = $coeff;
-        $this->$ennonce = $ennonce;
+        $this->$enonce = $enonce;
         
     }
     
