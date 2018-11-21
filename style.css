@@ -95,6 +95,21 @@ body{
 }
 
 
+#formulaire_ajouterCours{
+
+  margin:auto;
+  text-align: center;
+  padding:50px 140px;
+  background-color:lightblue;
+  width:287px;
+  background-color: rgba(130, 161, 192, 0.9);
+  color:white;
+  padding-top:10px;
+
+
+}
+
+
 #formulaire_connexion{
 
   margin:auto;
@@ -138,23 +153,13 @@ form>p{
 
 }
 
-#part_form>input{
-
-  width: 200px;
-  height: 20px;
-
-}
 
 input[type=submit]{
 
   width:216px;
 }
 
-form>input{
 
-  height: 30px;
-  width: 150px;
-}
 
 #connexion {
 

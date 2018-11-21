@@ -14,7 +14,7 @@
 				<nav>
 
 						<div class="menu">
-							Cours
+							<a href=<?php echo (File::build_path(array('index.php'))) . '?controller=cours&action=show_form_new' ?>>Cours</a>
 						</div>
 						<div class="menu" href="./index.php/?controller=QCM&action=show_form_new">
 							<a href=<?php echo (File::build_path(array('index.php'))) . '?controller=QCM&action=show_form_new' ?>>Exercices</a>

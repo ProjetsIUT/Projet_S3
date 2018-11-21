@@ -16,14 +16,13 @@ class ModelQCM extends Model {
   private $proposition4;
   private $propositionCorrecte;
 
-  // Getter générique (pas expliqué en TD)
   public function get($nom_attribut) {
     if (property_exists($this, $nom_attribut))
         return $this->$nom_attribut;
     return false;
   }
 
-  // Setter générique (pas expliqué en TD)
+
   public function set($nom_attribut, $valeur) {
     if (property_exists($this, $nom_attribut))
         $this->$nom_attribut = $valeur;
