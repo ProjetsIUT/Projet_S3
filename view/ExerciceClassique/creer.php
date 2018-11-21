@@ -1,4 +1,4 @@
-        <form method="post" action="index.php?controller=ExerciceClassique&action=created" enctype="multipart/form-data">
+        <form method="post" action="index.php?controller=ExerciceClassique&action=created" enctype="multipart/form-data" id="formulaire_ajouterqcm">
             <fieldset>
             <legend>Creer un exercice :</legend>
 		<p>

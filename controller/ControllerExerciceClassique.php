@@ -51,10 +51,12 @@ Class ControllerExerciceClassique {
             $data = array("idExercice" => $idExercice,"nomExercice" => $nomExercice, "difficulte" =>$difficulte, "acces" => $acces,"tempsLimite" => $tempsLimite, "coeff" => $coeff,"ennonce" =>$ennonce);
             $e = new ModelExerciceClassique($idExercice,$nomExercice, $difficulte, $acces, $tempsLimite, $coeff,$ennonce);
             $e->save($data);
+            
+            $view = "created";
+            $pagetitle = "Créé !!!";
+            require (File::build_path(array('view', 'view.php')));
         }
-        $view = "created";
-        $pagetitle = "Créé !!!";
-        require (File::build_path(array('view', 'view.php')));
+        
     }    
     
     
