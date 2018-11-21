@@ -31,8 +31,8 @@ class ModelQCM extends Model {
 
   public function __construct($data = array()) {
   if (!empty($data)) {
-
-   
+  
+    $this->codeQCM=uniqid();
     $this->nomQCM = $data["nomQCM"];
     $this->question=$data["question"];
     $this->proposition1=$data["proposition1"];

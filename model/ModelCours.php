@@ -31,7 +31,7 @@ class ModelCours extends Model{
 	 public function __construct($data = array()) {
     if (!empty($data)) {
 
-     
+      $this->codeCours=uniqid();
       $this->nomCours= $data["nomCours"];
       $this->codeMatiere=$data["codeMatiere"];
       $this->acces=$data["acces"];
@@ -47,26 +47,25 @@ class ModelCours extends Model{
 
   public function upload(){
 
-    ini_set('upload_tmp_dir','./upload');
-
-    $uploaddir = (File::build_path(array('data')));
-    $uploadfile = $uploaddir . '/' . basename($_FILES['fichierCours']['name']);
-
-    echo '<pre>';
-    if (move_uploaded_file($_FILES['fichierCours']['tmp_name'], $uploadfile)) {
-        echo "Le fichier est valide, et a été téléchargé
-               avec succès. Voici plus d'informations :\n";
-    } else {
-        echo "Attaque potentielle par téléchargement de fichiers.
-              Voici plus d'informations :\n";
-    }
-
-    echo 'Voici quelques informations de débogage :';
-    print_r($_FILES);
-
-    echo '</pre>';
-
-
+        
+        //Traitement du fichier de correction
+        if ($_FILES['fichierCours']['error'] > 0) $error_code = "Erreur lors du transfert du cours";
+        $maxsize = 1048576;
+        if ($_FILES['fichierCours']['size'] > $maxsize) $error_code = "Le fichier est trop volumineux. Veuillez sélectionner un fichier adapté à la limite imposée";
+        
+        $extensions_valides = array( 'pdf' , 'docx');
+        //strrchr renvoie l'extension avec le point (« . »).
+        //substr(chaine,1) ignore le premier caractère de chaine.
+        //strtolower met l'extension en minuscules.
+        $extension_upload = strtolower(  substr(  strrchr($_FILES['fichierCours']['name'], '.')  ,1)  );
+        if ( in_array($extension_upload,$extensions_valides) ){
+            $name = File::build_path(array('data',"cours/{$this->codeCours}.{$extension_upload}")); //on donne l'id de l'exercice comme nom de fichier
+            $resultat = move_uploaded_file($_FILES['fichierCours']['tmp_name'],$name);
+        }else{
+            $error_code = "L'extension du fichier choisi est incorrecte. Veuillez sélectionner un fichier adapté au format imposé";
+        }
+        
+        return $name;
   }
 
 }  

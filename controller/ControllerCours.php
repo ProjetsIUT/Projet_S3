@@ -17,16 +17,16 @@ class ControllerCours {
 
 	public static function upload_cours(){
 
-	//	$view="uploaded";
-	//	$pagetitle="Votre cours a été enregistré - Agora";
-	//	require(File::build_path(array('view','view.php')));
 
-		$data=array("nomCours"=>$_POST['nomCours'],"codeMatiere"=>$_POST['nomMatiere'],"acces"=>$_POST['accesCours'],"file"=>$_FILES["fichierCours"]['name']);
+		$data=array("nomCours"=>$_POST['nomCours'],"codeMatiere"=>$_POST['nomMatiere'],"acces"=>$_POST['accesCours'],"file"=>"vide");
+		$cours_temporaire = new ModelCours($data);
+		$chemin_fichier_cours=$cours_temporaire->upload();
+		$cours_temporaire->set("file",$chemin_fichier_cours);
+		$cours_temporaire->save($data);
 
-		$nouveau_cours = new ModelCours($data);
-
-		$nouveau_cours->upload();
-
+		$view="uploaded";
+		$pagetitle="Votre cours a été enregistré - Agora";
+		require(File::build_path(array('view','view.php')));
 
 
 		
