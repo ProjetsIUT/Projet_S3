@@ -5,8 +5,9 @@ require_once (File::build_path(array('model','Model.php')));
 
 class ModelExerciceClassique extends Model{
     
-    protected static $primary = 'idExercice';
     protected static $object = 'ExerciceClassique';
+    protected static $primary = 'idExercice';
+    
 
     private $idExercice;
     private $nomExercice;
