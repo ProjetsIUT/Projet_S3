@@ -24,6 +24,7 @@ Class ControllerExerciceClassique {
         $coeff = $_POST['coeff'];
         $ennonce = $_POST['ennonce'];
         
+        //Traitement du fichier de correction
         if ($_FILES['correction']['error'] > 0) $erreur = "Erreur lors du transfert de la correction";
         $maxsize = $_POST['MAX_FILE_SIZE'];
         if ($_FILES['correction']['size'] > $maxsize) $erreur = "Le fichier est trop gros";
@@ -37,6 +38,7 @@ Class ControllerExerciceClassique {
         
         $name = File::build_path(array('lib',"corrections/{$idExercice}.{$extension_upload}")); //on donne l'id de l'exercice comme nom de fichier
         $resultat = move_uploaded_file($_FILES['correction']['tmp_name'],$name);
+        
         
         $data = array("id" => $idExercice,"nom" => $nomExercice, "difficulte" =>$difficulte, "acces" => $acces,"temps" => $tempsLimite, "coeff" => $coeff,"ennonce" =>$ennonce);
         $e = new ModelExerciceClassique($idExercice,$nomExercice, $difficulte, $acces, $tempsLimite, $coeff,$ennonce);
