@@ -12,8 +12,8 @@ class ModelCours extends Model{
 	private $codeCours;
 	private $nomCours;
 	private $codeMatiere;
-	private $acces; //Privé ou public, à définir
-	private $file;
+	private $accesCours; //Privé ou public, à définir
+	private $fichierCours;
 
   public function get($nom_attribut) {
     if (property_exists($this, $nom_attribut))
@@ -31,11 +31,11 @@ class ModelCours extends Model{
 	 public function __construct($data = array()) {
     if (!empty($data)) {
 
-      $this->codeCours=uniqid();
+      $this->codeCours=$data['codeCours'];
       $this->nomCours= $data["nomCours"];
       $this->codeMatiere=$data["codeMatiere"];
-      $this->acces=$data["acces"];
-      $this->file=$data["file"];
+      $this->accesCours=$data["accesCours"];
+      $this->fichierCours=$data["fichierCours"];
 
 
 

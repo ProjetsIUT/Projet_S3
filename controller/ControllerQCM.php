@@ -15,7 +15,7 @@ class ControllerQCM{
 
 	public static function save_qcm(){
 
-		$data=array("nomQCM"=>$_GET["nom"], "question"=>$_GET['enonce'], "proposition1"=>$_GET['proposition_1'], "proposition2"=>$_GET['proposition_2'],"proposition3"=>$_GET['proposition_3'],"proposition4"=>$_GET['proposition_4'], "propositionCorrecte"=>$_GET['reponse_juste']);
+		$data=array("codeQCM"=>uniqid(),"nomQCM"=>$_GET["nom"], "question"=>$_GET['enonce'], "proposition1"=>$_GET['proposition_1'], "proposition2"=>$_GET['proposition_2'],"proposition3"=>$_GET['proposition_3'],"proposition4"=>$_GET['proposition_4'], "propositionCorrecte"=>$_GET['reponse_juste']);
 		$new_qcm=new ModelQCM($data);
 		$new_qcm->save($data);  
 

@@ -18,11 +18,13 @@ class ControllerCours {
 	public static function upload_cours(){
 
 
-		$data=array("nomCours"=>$_POST['nomCours'],"codeMatiere"=>$_POST['nomMatiere'],"acces"=>$_POST['accesCours'],"file"=>"vide");
+		$data=array("codeCours"=>uniqid(),"nomCours"=>$_POST['nomCours'],"codeMatiere"=>$_POST['nomMatiere'],"accesCours"=>$_POST['accesCours'],"fichierCours"=>"vide");
 		$cours_temporaire = new ModelCours($data);
 		$chemin_fichier_cours=$cours_temporaire->upload();
 		$cours_temporaire->set("file",$chemin_fichier_cours);
-		$cours_temporaire->save($data);
+		$data=array("codeCours"=>uniqid(),"nomCours"=>$_POST['nomCours'],"codeMatiere"=>$_POST['nomMatiere'],"accesCours"=>$_POST['accesCours'],"fichierCours"=>$chemin_fichier_cours);
+		$cours=new ModelCours($data);
+		$cours->save($data);
 
 		$view="uploaded";
 		$pagetitle="Votre cours a été enregistré - Agora";
@@ -31,6 +33,10 @@ class ControllerCours {
 
 		
 	}
+
+
+
+
 }
 
 ?>
