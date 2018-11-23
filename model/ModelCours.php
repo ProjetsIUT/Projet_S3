@@ -61,6 +61,7 @@ class ModelCours extends Model{
         $extension_upload = strtolower(  substr(  strrchr($_FILES['fichierCours']['name'], '.')  ,1)  );
         if ( in_array($extension_upload,$extensions_valides) ){
             $name = File::build_path(array('data',"{$this->codeCours}.{$extension_upload}")); //on donne l'id de l'exercice comme nom de fichier
+          
             $source=$_FILES['fichierCours']['tmp_name'];
             $resultat = move_uploaded_file($source,$name);
         }else{
