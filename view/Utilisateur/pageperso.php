@@ -1,11 +1,28 @@
 
-	<article id="page_perso">
+	<div class="div_page_perso">
 
-	<div>
-			<a>Bienvenue dans votre espace personnel</a>
+		<div id="tab_derniers_cours">
+
+			<h3>Derniers cours consultés</h3>
+
+		</div>
+	
+		<div id="tab_rappels">
+
+			<h3>Évènements à venir</h3>
+
+		</div>
+
+		<div id="tab_stats">
+
+			<h3>Ma progression</h3>
+
+		</div>
+	
+
 
 	</div>
 
 	
-	</article>
+	
 			

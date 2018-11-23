@@ -14,8 +14,10 @@ class ModelEtudiants extends Model {
   	  private $prenomEtudiant;
   	  private $mdpEtudiant;
   	  private $emailEtudiant;
-  	  private $anneCourantEtudiant;
+  	  private $anneeCourantEtudiant;
   	  private $SemestreCourantEtudiant;
+  	  private $codeEtablissement;
+  	  private $codeDepartement;
 
 
   // Getter générique (pas expliqué en TD)
@@ -42,8 +44,11 @@ class ModelEtudiants extends Model {
 	    $this->prenomEtudiant=$data["prenomEtudiant"];
 	    $this->mdpEtudiant=$data["mdpEtudiant"];
 	    $this->emailEtudiant=$data["emailEtudiant"];
-	    $this->anneCourantEtudiant=$data["anneCourantEtudiant"];    
+	    $this->anneeCourantEtudiant=$data["anneeCourantEtudiant"];    
 	    $this->SemestreCourantEtudiant=$data["SemestreCourantEtudiant"];
+	    $this->codeEtablissement=$data["codeEtablissement"];
+	    $this->codeDepartement=$data["codeDepartement"];
+
 
 
 
