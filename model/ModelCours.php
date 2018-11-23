@@ -1,5 +1,6 @@
 <?php
 
+
 require_once (File::build_path(array('model','Model.php')));
 
 class ModelCours extends Model{
@@ -59,10 +60,14 @@ class ModelCours extends Model{
         //strtolower met l'extension en minuscules.
         $extension_upload = strtolower(  substr(  strrchr($_FILES['fichierCours']['name'], '.')  ,1)  );
         if ( in_array($extension_upload,$extensions_valides) ){
-            $name = File::build_path(array('data',"cours/{$this->codeCours}.{$extension_upload}")); //on donne l'id de l'exercice comme nom de fichier
-            $resultat = move_uploaded_file($_FILES['fichierCours']['tmp_name'],$name);
+            $name = File::build_path(array('data',"{$this->codeCours}.{$extension_upload}")); //on donne l'id de l'exercice comme nom de fichier
+            $source=$_FILES['fichierCours']['tmp_name'];
+            $resultat = move_uploaded_file($source,$name);
         }else{
+            $object="";
+            $view="error";
             $error_code = "L'extension du fichier choisi est incorrecte. Veuillez sélectionner un fichier adapté au format imposé";
+            require (File::build_path(array('view', 'view.php')));
         }
         
         return $name;
