@@ -95,12 +95,31 @@ html{
 
 }
 
-#page_page_perso{
+#page_perso_etudiants{
 
     background-image:url("img/fond-2.jpg");
    
 }
 
+#page_perso_enseignants{
+
+    background-image:url("img/fond-3.jpg");
+   
+}
+
+
+#formulaire_mdp_etudiant{
+
+  margin:auto;
+  text-align: center;
+  padding:50px 140px;
+  background-color:lightblue;
+  width:620px;
+  background-color: rgba(130, 161, 192, 0.9);
+  color:white;
+  padding-top:10px;
+
+}
 
 #formulaire_ajouterCours{
 
@@ -323,6 +342,7 @@ footer{
   width:400px;
   height: 300px;
   transition-duration:0.5s;
+  border-radius:10px;
 
 
 
