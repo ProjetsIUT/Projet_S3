@@ -57,7 +57,26 @@ Class ControllerExerciceClassique {
             require (File::build_path(array('view', 'view.php')));
         }
         
-    }    
+    }
+
+    public static function faireExercice(){
+        $id = $_GET['id'];
+        
+        $e = new ModelExerciceClassique();
+        
+        $e = ModelExerciceClassique::select($id);
+        
+      
+        $nomE = $e->get('nomExercice');
+        $ennonce = $e->get('enonce');
+        
+        $view="faire";
+	$pagetitle="Faire exercice - Agora";
+        $path_array = array("view", "view.php");
+
+        $PATH = File::build_path($path_array);
+        require "$PATH";
+    }
     
     
 }

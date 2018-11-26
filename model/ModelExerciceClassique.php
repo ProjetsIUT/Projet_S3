@@ -16,10 +16,9 @@ class ModelExerciceClassique extends Model{
     private $coeff;
     private $acces;  
     private $enonce;    
-    private $correction;
-         
+     
 
-    public function __construct($idExercice, $nomExercice, $difficulte, $tempsLimite = NULL, $coeff = NULL, $acces = NULL,$enonce)
+    public function __construct($idExercice = NULL, $nomExercice = NULL, $difficulte = NULL, $tempsLimite = NULL, $coeff = NULL, $acces = NULL,$enonce = NULL)
     {
         
         $this->$idExercice =$idExercice; //uniqid genere un String !

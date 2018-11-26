@@ -1,4 +1,4 @@
-        <form method="post" action="index.php?controller=ExerciceClassique&action=created" enctype="multipart/form-data" id="formulaire_ajouterqcm">
+        <form method="post" action="index.php?" enctype="multipart/form-data" id="formulaire_ajouterqcm">
             <fieldset>
             <legend>Creer un exercice :</legend>
 		<p>
@@ -37,7 +37,8 @@
                     <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
                     <input type="file" name="correction" id="correction_id">
                 </p>
-
+                <input type="hidden" name="action" value="created" />
+                <input type="hidden" name="controller" value="ExerciceClassique" />
 
 		<p>
                     <input type="submit" value="Valider" />

@@ -4,8 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/ann2/chaptala/public_html/ProjetS3GIT/Projet_S3/controller/ControllerExerciceClassique.php</file>
+            <file>file:/home/ann2/chaptala/public_html/ProjetS3GIT/Projet_S3/controller/ControllerQCM.php</file>
             <file>file:/home/ann2/chaptala/public_html/ProjetS3GIT/Projet_S3/model/ModelExerciceClassique.php</file>
-            <file>file:/home/ann2/chaptala/public_html/ProjetS3GIT/Projet_S3/view/ExerciceClassique/creer.php</file>
+            <file>file:/home/ann2/chaptala/public_html/ProjetS3GIT/Projet_S3/model/ModelQCM.php</file>
+            <file>file:/home/ann2/chaptala/public_html/ProjetS3GIT/Projet_S3/model/Model.php</file>
+            <file>file:/home/ann2/chaptala/public_html/ProjetS3GIT/Projet_S3/view/ExerciceClassique/faire.php</file>
+            <file>file:/home/ann2/chaptala/public_html/ProjetS3GIT/Projet_S3/controller/routeur.php</file>
         </group>
     </open-files>
 </project-private>
