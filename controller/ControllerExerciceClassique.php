@@ -62,13 +62,10 @@ Class ControllerExerciceClassique {
     public static function faireExercice(){
         $id = $_GET['id'];
         
-        $e = new ModelExerciceClassique();
-        
         $e = ModelExerciceClassique::select($id);
-        
-      
-        $nomE = $e->get('nomExercice');
-        $ennonce = $e->get('enonce');
+              
+        $nomE = $e['nomExercice'];
+        $enonce = $e['enonce'];
         
         $view="faire";
 	$pagetitle="Faire exercice - Agora";
@@ -78,5 +75,10 @@ Class ControllerExerciceClassique {
         require "$PATH";
     }
     
-    
+    public static function reponse(){
+        
+        $reponse = $_POST['reponse'];
+        $e['reponse'] = $reponse;
+        update($e);     
+    }
 }
