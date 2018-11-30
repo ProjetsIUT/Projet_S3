@@ -15,26 +15,26 @@ class ModelExerciceClassique extends Model{
     private $tempsLimite;
     private $coeff;
     private $acces;  
-    private $enonce;    
-    private $correction;
-         
+    private $ennonce; 
+    private $reponse;
+     
 
-    public function __construct($idExercice, $nomExercice, $difficulte, $tempsLimite = NULL, $coeff = NULL, $acces = NULL,$enonce)
+    public function __construct($idExercice = NULL, $nomExercice = NULL, $difficulte = NULL, $tempsLimite = NULL, $coeff = NULL, $acces = NULL,$enonce = NULL)
     {
+        if(isset($idExercice)){
         
-        $this->$idExercice =$idExercice; //uniqid genere un String !
+            $this->$idExercice =$idExercice; //uniqid genere un String !
         
-        $this->$nomExercice = $nomExercice;
-        $this->$difficulte = $difficulte;
-        $this->$acces = $acces;
+            $this->$nomExercice = $nomExercice;
+            $this->$difficulte = $difficulte;
+            $this->$acces = $acces;
 
-        $this->$tempsLimite = $tempsLimite;
-        $this->$coeff = $coeff;
-        $this->$enonce = $enonce;
-        
-    }
+            $this->$tempsLimite = $tempsLimite;
+            $this->$coeff = $coeff;
+            $this->$enonce = $enonce;               
+        }
     
-
+    }
 
     // Getter générique (pas expliqué en TD)
   public function get($nom_attribut) {

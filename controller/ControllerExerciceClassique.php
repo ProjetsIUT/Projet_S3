@@ -37,7 +37,9 @@ Class ControllerExerciceClassique {
         //strtolower met l'extension en minuscules.
         $extension_upload = strtolower(  substr(  strrchr($_FILES['correction']['name'], '.')  ,1)  );
         if ( in_array($extension_upload,$extensions_valides) ){
-            $name = File::build_path(array('lib',"corrections/{$idExercice}.{$extension_upload}")); //on donne l'id de l'exercice comme nom de fichier
+            //$name = File::build_path(array('lib',"corrections/{$idExercice}.{$extension_upload}")); //on donne l'id de l'exercice comme nom de fichier
+            $name = "./lib/corrections/".$idExercice.".".$extension_upload;
+            echo "chemin d'écriture : ".$name;
             $resultat = move_uploaded_file($_FILES['correction']['tmp_name'],$name);
         }else{
             $error_code = "extension incorecte";
@@ -57,7 +59,22 @@ Class ControllerExerciceClassique {
             require (File::build_path(array('view', 'view.php')));
         }
         
-    }    
-    
+    }
+
+    public static function faireExercice(){
+        $id = $_GET['id'];
+        
+        $e = ModelExerciceClassique::select($id);
+              
+        $nomE = $e['nomExercice'];
+        $enonce = $e['enonce'];
+        
+        $view="faire";
+	    $pagetitle="Faire exercice - Agora";
+        $path_array = array("view", "view.php");
+
+        $PATH = File::build_path($path_array);
+        require "$PATH";
+    }
     
 }
