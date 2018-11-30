@@ -6,7 +6,7 @@ require_once (File::build_path(array('lib', 'Security.php')));
 
 class ControllerUtilisateurs{
 
-	protected static $object= 'utilisateur';
+	protected static $object= 'utilisateurs';
 
     public static function show_password_page(){
 
@@ -28,7 +28,7 @@ class ControllerUtilisateurs{
         $data=array("loginUtilisateur"=>$_POST["login"],"mdpUtilisateur"=>$mdp_crypte);
         $e->update($data);
 
-        $redirection = (File::build_path(array('?controller=utilisateur&action=show_login_page')));
+        $redirection = (File::build_path(array('?controller=utilisateurs&action=show_login_page')));
 
         header('Location: '.$redirection);
         exit();
@@ -45,15 +45,6 @@ class ControllerUtilisateurs{
 
 	}	
 
-	public static function show_perso_page(){
-
-
-		$view='pageperso';
-		$pagetitle="Agora - La nouvelle façon d'apprendre";
-		require (File::build_path(array('view', 'view.php')));
-
-
-	}
 
     public static function connect() {
 

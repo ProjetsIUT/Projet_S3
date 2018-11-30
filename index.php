@@ -10,7 +10,4 @@ $ROOT_FOLDER = __DIR__ . $DS . "controller";
 require_once $ROOT_FOLDER .$DS . "routeur.php";
 
 
-
-
-
 ?>

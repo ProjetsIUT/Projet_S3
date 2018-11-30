@@ -12,7 +12,7 @@
 					<br>
 					<div id="part_form">
 
-						<input type="hidden" name="controller" value="etudiants" />
+						<input type="hidden" name="controller" value="utilisateurs" />
 						<input type="hidden" name="action" value="connect" />
 						<input type="text" name="login" required placeholder="Nom d'utilisateur"/>
 						<br>

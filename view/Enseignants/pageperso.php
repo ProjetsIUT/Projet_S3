@@ -1,5 +1,5 @@
 
-	<div class="page_content" id="div_page_perso_etudiant">
+	<div class="page_content" id="div_page_perso_enseignant">
 
 		<div class="ligne">
 
@@ -32,7 +32,7 @@
 
 			<div class="tab" id="tab_stats">
 
-				<h3>Ma progression <a class="bouton"> Voir tous les stats</a></h3>
+				<h3>Progression des élèves <a class="bouton"> Voir tous les stats</a></h3>
 
 			</div>
 
