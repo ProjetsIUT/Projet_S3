@@ -3,9 +3,9 @@
 
 require_once (File::build_path(array('model','Model.php')));
 
-class ModelExerciceClassique extends Model{
+class ModelFaireExercice extends Model{
     
-    protected static $object = 'FaireExercice';
+    protected static $object = 'faireExercice';
     protected static $primary = array('exercice' =>'idExercice', 'etudiant' =>'loginEtudiant');
     
     private $loginEtudiant;
