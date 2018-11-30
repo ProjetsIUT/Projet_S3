@@ -11,7 +11,7 @@
                 <textarea name="reponse" id="reponse_id" required></textarea>
                 
                 <input type="hidden" name="action" value="reponse" />
-                <input type="hidden" name="controller" value="ExerciceClassique" />
+                <input type="hidden" name="controller" value="FaireExercice" />
             </p>
             
             <p>
