@@ -1,4 +1,3 @@
-
 <?php
 require_once (File::build_path(array('model','ModelrepondreQCM.php')));
 
@@ -10,19 +9,24 @@ class ControllerrepondreQCM{
 	public static function show_form_new(){
 
 		$view="repondreQCM";
-		$pagetitle="Créer un nouvel exercice - Agora";
+		$pagetitle="QCM - Agora";
 		require (File::build_path(array('view', 'view.php')));
 	}
 
-	public static function save_qcm(){
-
-		$data=array("codeQCM"=>uniqid(),"nomQCM"=>$_GET["nom"], "question"=>$_GET['enonce'], "proposition1"=>$_GET['proposition_1'], "proposition2"=>$_GET['proposition_2'],"proposition3"=>$_GET['proposition_3'],"proposition4"=>$_GET['proposition_4'], "propositionCorrecte"=>$_GET['reponse_juste']);
-		$new_qcm=new ModelQCM($data);
-		$new_qcm->save($data);  
-
+	public static function generer_qcm(){
+		echo 'Veuillez fournir une unique réponse à chacune des questions suivantes !';
+		$tabQuestion=
+		random_int();
+		for($i = 1; $i < 9; $i++){
+			
+			$data=array("codeQCM"=>uniqid(),"nomQCM"=>$_GET["nom"], "question"=>$_GET['enonce'], "proposition1"=>$_GET['proposition_1'], "proposition2"=>$_GET['proposition_2'],"proposition3"=>$_GET['proposition_3'],"proposition4"=>$_GET['proposition_4'], "propositionCorrecte"=>$_GET['reponse_juste']);
+			$new_qcm=new ModelQCM($data);
+			$new_qcm->save($data); 
+						
+		}
 		$view="created";
-		$pagetitle="Votre QCM a été enregistré - Agora";
-        require (File::build_path(array('view', 'view.php')));
+		$pagetitle="Vos réponses ont été envoyées - Agora";
+		require (File::build_path(array('view', 'view.php')));
 	}
 
 	

@@ -41,9 +41,15 @@ class ModelQCM extends Model {
     $this->proposition3=$data["proposition3"];    
     $this->proposition4=$data["proposition4"];
     $this->propositionCorrecte=$data["propositionCorrecte"];
-
-
   }
+  
+  public static function getAllQuestion(){
+    $rep = Model::$pdo->query("SELECT * FROM agora_qcm");
+    $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelQCM');
+    $tab_qcm = $rep->fetchAll();
+	return $tab_voit;
+  }
+  
 }
 
 

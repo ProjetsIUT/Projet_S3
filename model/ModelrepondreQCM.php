@@ -4,18 +4,17 @@
 require_once (File::build_path(array('model','Model.php')));
 
 class ModelQCM extends Model {
-
-  protected static $primary = 'codeQCM';
-  protected static $object = 'repondreQCM';
-
-	private $codeQCM;
-	private $nomQCM;
-	private $question;
-	private $proposition1;
-  private $proposition2;
-  private $proposition3;
-  private $proposition4;
-  private $propositionCorrecte;
+	protected static $object = 'repondreQCM';
+	private $question1;
+	private $question2;
+	private $question3;
+	private $question4;
+	private $question5;
+	private $question6;
+	private $question7;
+	private $question8;
+	private $question9;
+	private $question10;
 
   public function get($nom_attribut) {
     if (property_exists($this, $nom_attribut))
@@ -33,14 +32,16 @@ class ModelQCM extends Model {
   public function __construct($data = array()) {
   if (!empty($data)) {
  
-    $this->codeQCM =$data["codeQCM"];
-    $this->nomQCM = $data["nomQCM"];
-    $this->question=$data["question"];
-    $this->proposition1=$data["proposition1"];
-    $this->proposition2=$data["proposition2"];
-    $this->proposition3=$data["proposition3"];    
-    $this->proposition4=$data["proposition4"];
-    $this->propositionCorrecte=$data["propositionCorrecte"];
+    $this->question1 =$data["codeQCM"];
+    $this->question2 = $data["nomQCM"];
+    $this->question3 =$data["question"];
+    $this->question4 =$data["proposition1"];
+    $this->question5 =$data["proposition2"];
+    $this->question6 =$data["proposition3"];    
+    $this->question7 =$data["proposition4"];
+    $this->question8 =$data["propositionCorrecte"];
+    $this->question9 = $data["nomQCM"];
+    $this->question10 = $data["nomQCM"];
 
 
   }

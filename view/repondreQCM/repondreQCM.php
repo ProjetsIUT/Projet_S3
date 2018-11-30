@@ -1,4 +1,3 @@
-
 <article id="page_repondreqcm">
 	<form id="formulaire_repondreqcm" methode="get" action="repondreQCM.php">
 		<p>Afficher le titre de l'exercice</p>
