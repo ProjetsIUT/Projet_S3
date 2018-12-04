@@ -238,7 +238,7 @@ header{
 
 #connexion_inscription{
 
-
+  text-decoration:none;
   display: inline-block;
   padding: 16px 10px 0px 10px;
   height:32px;

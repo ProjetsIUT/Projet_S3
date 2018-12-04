@@ -13,7 +13,7 @@ $req->execute(array(
 
 $res=$req->fetch();
 
-$correct=$password==$res['mdpEtudiant'];
+$correct = $password==$res['mdpEtudiant'];
 //$correct=password_verify($password,$res['password']); //une fois le mdp haché
 
 $prenom=$res['prenomEtudiant'];

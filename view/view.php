@@ -12,18 +12,24 @@
 				
 				<nav>
 
-						<a class="menu" href=<?php echo (File::build_path(array('index.php'))) . '?controller=cours&action=show_form_new' ?>>Cours</a>
+						<a class="menu" href="index.php?controller=cours&action=show_form_new">Cours</a>
 					
-						<a class="menu" href=<?php echo (File::build_path(array('index.php'))) . '?controller=QCM&action=show_form_new' ?>>Exercices</a>
+						<a class="menu" href="index.php?controller=QCM&action=show_form_new">Exercices</a>
 						
 						<a class="menu">Statistiques</a>
 					
 				</nav>
 
-				
-				
-				<div id="connexion" ><a href=<?php echo (File::build_path(array('index.php'))) . '?controller=Utilisateurs&action=show_login_page' ?> style="text-decoration:none;" id="connexion_inscription">Connexion | Inscription</a></div>
-		</header>
+				<?php
+
+				if(isset($_SESSION['typeCompte'])) {
+					echo '<div id="connexion" ><a href="index.php?controller=Utilisateurs&action=show_login_page" id="connexion_inscription">Connexion</a></div>';
+				}
+				else {
+					echo '<div id="connexion" ><a href="index.php?controller=Utilisateurs&action=deconnected" id="connexion_inscription">Deconnexion</a></div>';
+				}
+				?>
+</header>
 	</head>
 
 	<body >
