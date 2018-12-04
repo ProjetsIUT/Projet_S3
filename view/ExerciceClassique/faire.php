@@ -4,8 +4,8 @@
     $id = $_GET['id'];
     echo "$id";
 ?>
-<form method="post" action="index.php?" id="formulaire_ajouterqcm">
-            
+
+            <form method="post" action="index.php?" id="formulaire_ajouterqcm">
             
             <fieldset>
             <p>
