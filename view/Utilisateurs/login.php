@@ -6,8 +6,8 @@
 				<form id="formulaire_connexion" methode="get" action=<?php echo '"'.(File::build_path(array('index.php'))). '"'; ?>>
 
 					<p>Connexion à Agora</p>
-					<?php if(isset($code_connect_failed) && $code_connect_failed==='error_mdp'){echo '<a style="color:red;">Mot de passe erroné</a>';}?>
-					<?php if(isset($code_connect_failed) && $code_connect_failed==='error_user'){echo '<a style="color:red;">Utilisateur non inscrit</a>';}?>
+					<?php if(isset($code_connect_failed) && $code_connect_failed==='error_mdp'){echo '<a style="color:#6e0000;">Mot de passe erroné</a>';}?>
+					<?php if(isset($code_connect_failed) && $code_connect_failed==='error_user'){echo '<a style="color:#6e0000;">Utilisateur non inscrit</a>';}?>
 					<br>
 					<br>
 					<div id="part_form">
