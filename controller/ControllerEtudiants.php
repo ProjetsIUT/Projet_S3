@@ -16,7 +16,10 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 
      public static function show_perso_page(){
 
-
+		$e = ModelEtudiants::select($_SESSION['loginUtilisateur']);
+		$_SESSION['anneeCourantEtudiant'] = $e->get('anneeCourantEtudiant');
+		$_SESSION['SemestreCourantEtudiant'] = $e->get('SemestreCourantEtudiant');
+		$_SESSION['codeDepartement'] = $e->get('codeDepartement');
         $view='pageperso';
         $page_id="page_perso_etudiants";
         $pagetitle="Agora - La nouvelle façon d'apprendre";

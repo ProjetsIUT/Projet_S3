@@ -49,7 +49,7 @@ class ControllerUtilisateurs{
         if(isset($login) && isset($password)){ //succès: l'utilisateur est connecté
             $mdpsecu = Security::chiffrer($password);
             $verif = ModelUtilisateurs::checkPassword($login, $mdpsecu); 
-            if($verif)
+            if($verif) {
                 $u = ModelUtilisateurs::select($login);
                 $_SESSION['loginUtilisateur'] = $u->get('loginUtilisateur');
                 $_SESSION['mdpUtilisateur'] = $u->get('mdpUtilisateur');
@@ -60,20 +60,26 @@ class ControllerUtilisateurs{
                 $_SESSION['codeEtablissement'] = $u->get('codeUtilisateur');
                 
                 if($_SESSION["typeUtilisateur"]==="etudiant"){ //si c'est un étudiant 
-                $redirection = (File::build_path(array('?controller=etudiants&action=show_perso_page')));
-                header('Location: '.$redirection);
+                    $redirection = 'index.php?controller=etudiants&action=show_perso_page';
+                    header('Location: '.$redirection);
                 }
 
                 if($_SESSION["typeUtilisateur"]==="enseignant"){ //si c'est un enseignant
-                $redirection = (File::build_path(array('?controller=enseignants&action=show_perso_page')));
-                header('Location: '.$redirection);
+                    $redirection = 'index.php?controller=enseignants&action=show_perso_page';
+                    header('Location: '.$redirection);
                 }
 
                 if($_SESSION["typeUtilisateur"]==="admin"){ //si c'est un admin
-                $redirection = (File::build_path(array('?controller=admins&action=show_perso_page')));
-                header('Location: '.$redirection);
+                    $redirection = 'index.php?controller=admins&action=show_perso_page';
+                    header('Location: '.$redirection);
                 }
-
+            
+            }else { //échec: mauvais mdp
+                $view='login';
+                $pagetitle="Connexion - Agora";
+                $code_connect_failed='error_mdp';
+                require (File::build_path(array('view', 'view.php')));
+            }
         }else{ //échec: utilisateur non inscrit
             $view='login';
             $pagetitle="Connexion - Agora";
@@ -89,7 +95,7 @@ class ControllerUtilisateurs{
         //$view = 'deconnected';
         //$pagetitle = 'Déconnecté';
         //require (File::build_path(array('view', 'view.php')));
-        $redirection = 'index.php';
+        $redirection = 'index.php?controller=Utilisateurs&action=show_login_page';
         header('Location: '.$redirection);
     }
 
@@ -124,10 +130,10 @@ class ControllerUtilisateurs{
     }
 
     public static function update() {
-        if (isset($_GET['login'])) {
-            $u = ModelUtilisateurs::select($_GET['login']);
-            $nom = $u->get('nom');
-            $prenom = $u->get('prenom');
+        if (isset($_GET['loginUtilisateur'])) {
+            $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
+            $nom = $u->get('nomUtilisateur');
+            $prenom = $u->get('prenomUtilisateur');
             $view = 'update';
             $pagetitle = 'Utilisateur à modifier';
             require (File::build_path(array('view', 'view.php')));
@@ -140,15 +146,15 @@ class ControllerUtilisateurs{
     }
 
     public static function updated() {
-        if(isset($_GET['login']) && isset($_GET['nom']) && isset($_GET['prenom'])) {
+        if(isset($_GET['loginUtilisateur']) && isset($_GET['nomUtilisateur']) && isset($_GET['prenomUtilisateur'])) {
             //$controller = 'voiture';
             $view = 'updated';
             $pagetitle = 'Utilisateur modifié';
-            $login = $_GET['login'];
+            $login = $_GET['loginUtilisateur'];
             $data = array(
-                "login" => $_GET['login'],
-                "nom" => $_GET['nom'],
-                "prenom" => $_GET['prenom'],
+                "loginUtilisateur" => $_GET['loginUtilisateur'],
+                "nomUtilisateur" => $_GET['nomUtilisateur'],
+                "prenomUtilisateur" => $_GET['prenomUtilisateur'],
             );
             $u = new ModelUtilisateurs($_GET['login'], $_GET['nom'], $_GET['prenom']);
             $u->update($data);
