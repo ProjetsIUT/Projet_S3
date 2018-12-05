@@ -32,33 +32,48 @@ class ControllerUtilisateurs{
 	}	
  
     public static function connect() {
-        $login=$_GET["login"];
-        $password=$_GET["password"];
+        $login=$_GET['login'];
+        $password=$_GET['password'];
         //$array=array("loginEtudiant"=>$login , "mdpEtudiant"=>$password);
+        /*
         $utilisateur_fictif =new ModelUtilisateurs();
         $utilisateur_fictif->set("loginUtilisateur",$login);
         $utilisateur_fictif->set("mdpUtilisateur",$password);
         $connect_state=$utilisateur_fictif->connect();
-        if($connect_state==1){ //succès: l'utilisateur est connecté
-            if($_SESSION["typeCompte"]==="etudiant"){ //si c'est un étudiant 
-             $redirection = (File::build_path(array('?controller=etudiants&action=show_perso_page')));
-             header('Location: '.$redirection);
-            }
-
-            if($_SESSION["typeCompte"]==="enseignant"){ //si c'est un enseignant
-             $redirection = (File::build_path(array('?controller=enseignants&action=show_perso_page')));
-             header('Location: '.$redirection);
-            }
-
-            if($_SESSION["typeCompte"]==="admin"){ //si c'est un admin
-             $redirection = (File::build_path(array('?controller=admins&action=show_perso_page')));
-             header('Location: '.$redirection);
-            }
-        }else if($connect_state==0){ //échec: mauvais mdp
+        }else //échec: mauvais mdp
             $view='login';
             $pagetitle="Connexion - Agora";
             $code_connect_failed='error_mdp';
-            require (File::build_path(array('view', 'view.php')));
+            require (File::build_path(array('view', 'view.php'))); */
+
+        if(isset($login) && isset($password)){ //succès: l'utilisateur est connecté
+            $mdpsecu = Security::chiffrer($password);
+            $verif = ModelUtilisateurs::checkPassword($login, $mdpsecu); 
+            if($verif)
+                $u = ModelUtilisateurs::select($login);
+                $_SESSION['loginUtilisateur'] = $u->get('loginUtilisateur');
+                $_SESSION['mdpUtilisateur'] = $u->get('mdpUtilisateur');
+                $_SESSION['typeUtilisateur'] = $u->get('typeUtilisateur');
+                $_SESSION['nomUtilisateur'] = $u->get('nomUtilisateur');
+                $_SESSION['prenomUtilisateur'] = $u->get('prenomUtilisateur');
+                $_SESSION['emailUtilisateur'] = $u->get('emailUtilisateur');
+                $_SESSION['codeEtablissement'] = $u->get('codeUtilisateur');
+                
+                if($_SESSION["typeUtilisateur"]==="etudiant"){ //si c'est un étudiant 
+                $redirection = (File::build_path(array('?controller=etudiants&action=show_perso_page')));
+                header('Location: '.$redirection);
+                }
+
+                if($_SESSION["typeUtilisateur"]==="enseignant"){ //si c'est un enseignant
+                $redirection = (File::build_path(array('?controller=enseignants&action=show_perso_page')));
+                header('Location: '.$redirection);
+                }
+
+                if($_SESSION["typeUtilisateur"]==="admin"){ //si c'est un admin
+                $redirection = (File::build_path(array('?controller=admins&action=show_perso_page')));
+                header('Location: '.$redirection);
+                }
+
         }else{ //échec: utilisateur non inscrit
             $view='login';
             $pagetitle="Connexion - Agora";
@@ -71,9 +86,11 @@ class ControllerUtilisateurs{
     public static function deconnected() {
         session_unset(); 
         session_destroy();
-        $view = 'deconnected';
-        $pagetitle = 'Déconnecté';
-        require (File::build_path(array('view', 'view.php')));
+        //$view = 'deconnected';
+        //$pagetitle = 'Déconnecté';
+        //require (File::build_path(array('view', 'view.php')));
+        $redirection = 'index.php';
+        header('Location: '.$redirection);
     }
 
 
