@@ -5,12 +5,18 @@
         <group>
             <file>file:/F:/Documents/GitHub/Projet_S3/controller/ControllerQCM.php</file>
             <file>file:/F:/Documents/GitHub/Projet_S3/controller/ControllerExerciceClassique.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/model/ModelUtilisateur.php</file>
             <file>file:/F:/Documents/GitHub/Projet_S3/view/ExerciceClassique/creer.php</file>
-            <file>file:/F:/Documents/GitHub/Projet_S3/model/ModelExerciceClassique.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/index.php</file>
             <file>file:/F:/Documents/GitHub/Projet_S3/controller/routeur.php</file>
             <file>file:/F:/Documents/GitHub/Projet_S3/model/ModelEtudiants.php</file>
             <file>file:/F:/Documents/GitHub/Projet_S3/model/Model.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/view/QCM/ajouterQCM.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/controller/ControllerExercice.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/model/ModelExerciceClassique.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/controller/ControllerUtilisateur.php</file>
             <file>file:/F:/Documents/GitHub/Projet_S3/model/ModelQCM.php</file>
+            <file>file:/F:/Documents/GitHub/Projet_S3/controller/ControllerEtudiants.php</file>
         </group>
     </open-files>
 </project-private>
