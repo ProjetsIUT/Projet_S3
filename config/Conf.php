@@ -6,7 +6,7 @@ class Conf {
   static private $databases = array(
     // Hostname is webinfo at IUT
     // or localhost on your computer
-    'hostname' => 'webinfo',
+    'hostname' => 'webinfo.iutmontp.univ-montp2.fr',
     // At IUT, you have a database named after your login
     // On your computer, please create a database
     'database' => 'bourdesj',
