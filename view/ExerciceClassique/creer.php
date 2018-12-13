@@ -33,7 +33,7 @@
                     <textarea name="enonce" id="enonce_id" required></textarea>
                 </p>
                 <p>
-                    <label for="correction_id">Correction (max 1mo)</label>
+                    <label for="correction_id">Immage </label>
                     <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
                     <input type="file" name="correction" id="correction_id">
                 </p>
