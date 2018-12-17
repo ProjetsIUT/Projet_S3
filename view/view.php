@@ -12,7 +12,7 @@
 				
 				<nav>
 
-						<a class="menu" href=<?php echo (File::build_path(array('index.php'))) . '?controller=cours&action=show_form_new' ?>>Cours</a>
+						<a class="menu" href="index.php?controller=cours&action=list">Cours</a>
 					
 						<a class="menu" href=<?php echo (File::build_path(array('index.php'))) . '?controller=QCM&action=show_form_new' ?>>Exercices</a>
 						

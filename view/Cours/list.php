@@ -1,0 +1,68 @@
+<div class="page_content">
+
+	<h1>Liste des cours <a class="bouton" href="./index.php?controller=cours&action=show_form_new">Publier un cours</a></h1>
+
+
+
+		<?php
+
+			$i = 0;
+
+			foreach ($tab as $cours) {
+
+				if($i==0){
+
+					echo'<div class="ligne">';
+
+				}
+				
+				$nom_cours = $cours["nomCours"];
+				$code_matiere_cours = $cours["codeMatiere"];
+				$date_cours = $cours["datePublication"];
+				$chemin_cours=$cours["fichierCours"];
+				$resume_cours = $cours["resumeCours"];
+				$codeCours = $cours ["codeCours"];
+
+				$matiere_cours = ModelMatieres::select($code_matiere_cours);
+				$nom_matiere_cours = $matiere_cours["nomMatiere"];
+
+
+
+				echo '
+
+
+					<div class="div_list">
+
+					
+						<h3>' . $nom_cours . '<a class="bouton_suppr" href="./index.php?controller=cours&action=suppr&code=' .$codeCours . '">Supprimer</a> <a class="bouton" href="'.$chemin_cours.'">Afficher le cours</a> </h3>
+						<br>
+						<legend>Dans ' . $nom_matiere_cours .' </legend>
+						<legend>Publié le ' . $date_cours . '</legend>
+						<br>
+						<a>Résumé:'. $resume_cours .'</a>
+
+
+
+
+					</div>
+
+				' ;
+
+				$i++;
+
+
+				if($i==4){
+
+						echo'</div>';
+						$i=0;
+
+				}
+
+				
+
+			}
+
+		?>
+
+
+</div>

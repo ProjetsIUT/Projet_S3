@@ -1,5 +1,5 @@
 <div class="page_content">
-	<div class='div_error' style="background-color:red; text-align:center;">
+	<div class='div_error'>
 
 =======
 <div class='div_error'>
