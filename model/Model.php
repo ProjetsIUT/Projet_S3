@@ -31,7 +31,7 @@
 
         public static function selectAll() {
             $table_name = "agora_" . static::$object;
-            $class_name = 'Model' . ucfirst($table_name);
+            $class_name = 'Model' . ucfirst(static::$object);
             $rep = Model::$pdo->query("SELECT * FROM $table_name");
             $rep->setFetchMode(PDO::FETCH_CLASS, $class_name);
             $tab_obj = $rep->fetchAll();
@@ -45,10 +45,11 @@
 
         public static function select($primary_value) {
             $table_name = "agora_" .  static::$object;
-            $class_name = 'Model'.ucfirst($table_name);
+            $class_name = 'Model'.ucfirst(static::$object);
             $primary_key = static::$primary;
             $sql = "SELECT * from $table_name WHERE $primary_key=:val";
-
+            var_dump($class_name);
+            var_dump($table_name);
             // Préparation de la requête
             $req_prep = Model::$pdo->prepare($sql); //permet de protéger la requete SQL
             
@@ -69,7 +70,7 @@
 
         public static function delete($primary) {
             $table_name ="agora_" .  static::$object;
-            $class_name = 'Model'.ucfirst($table_name);
+            $class_name = 'Model'.ucfirst(static::$object);
             $primary_key = static::$primary;
             $sql = "DELETE FROM $table_name WHERE $primary_key=:nom_tag";
             try {

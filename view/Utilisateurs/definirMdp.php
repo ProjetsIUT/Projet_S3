@@ -1,5 +1,5 @@
 
-		<form id="formulaire_mdp_etudiant" method="post" action=<?php echo '"'.(File::build_path(array('index.php'))). '"'; ?>>
+		<form id="formulaire_mdp_etudiant" method="post" action="index.php">
 
 
 			<p>Bienvenue sur Agora</p>
