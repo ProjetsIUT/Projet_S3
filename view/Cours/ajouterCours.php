@@ -41,9 +41,8 @@
 						$tab_nom_matieres=array();
 						$tab_code_matieres=array();
 
-						foreach ($tab_matieres as $data) {
+						foreach ($tab_matieres as $matiere) {
 
-							$matiere=new ModelMatieres($data);
 								
 							array_push($tab_nom_matieres,$matiere->get("nomMatiere"));
 							array_push($tab_code_matieres,$matiere->get("codeMatiere"));
