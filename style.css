@@ -313,7 +313,16 @@ footer{
 .div_error{
 
   background-color:red;
+  text-align:center;
 
+
+}
+
+.div_success{
+
+  
+  background-color:#71e7a4;
+  text-align:center;
 
 }
 
@@ -362,6 +371,31 @@ footer{
 
 }
 
+.div_list{
+
+
+  background-color: rgba(126, 143, 160, 0.9);
+
+  margin:0px 26px;
+  padding:10px;
+  text-align: left;
+  width:400px;
+  height: 300px;
+  transition-duration:0.5s;
+  border-radius:10px;
+
+
+}
+
+.div_list:hover{
+  
+  padding-left:20px;
+  padding-right:20px;
+  padding-bottom:20px;
+
+}
+
+
 h3{
 
   padding:0px;
@@ -369,8 +403,25 @@ h3{
   color: white;
 }
 
+h1{
+
+  margin: 25px 26px;
+  color:white;
+
+}
+
+legend{
+
+
+  font-style: italic;
+
+
+}
+
 .bouton{
 
+
+  text-decoration: none;
   padding:5px;
   background-color: #e6850c;
   border-radius: 3px;
@@ -383,6 +434,30 @@ h3{
 }
 
 .bouton:hover{
+
+  background-color: white;
+  color:gray;
+  transition-duration:0.5s;
+  
+
+}
+
+.bouton_suppr{
+
+  text-decoration: none;
+  padding:5px;
+  background-color: #e60c0c;
+  border-radius: 3px;
+  color:white;
+  cursor:pointer;
+  float: right;
+  font-size: 15px;
+  margin-right: 5px;
+
+
+}
+
+.bouton_suppr:hover{
 
   background-color: white;
   color:gray;

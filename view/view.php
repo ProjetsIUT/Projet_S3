@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+
 <html id=<?php if(isset($page_id)){ echo ($page_id); } ?>>
     <head>
 		<meta charset="utf-8" />
@@ -21,7 +21,9 @@
 				
 				<nav>
 
-						<a class="menu" href="index.php?controller=cours&action=show_form_new">Cours</a>
+
+						<a class="menu" href="index.php?controller=cours&action=list">Cours</a>
+
 					
 						<a class="menu" href="index.php?controller=QCM&action=show_form_new">Exercices</a>
 						

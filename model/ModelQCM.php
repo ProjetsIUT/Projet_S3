@@ -10,6 +10,7 @@ class ModelQCM extends Model {
 
 	private $codeQCM;
 	private $nomQCM;
+  private $themeQCM;  //Theme = codeMatiere 
 	private $question;
 	private $proposition1;
   private $proposition2;
@@ -35,6 +36,7 @@ class ModelQCM extends Model {
  
     $this->codeQCM =$data["codeQCM"];
     $this->nomQCM = $data["nomQCM"];
+    $this->themeQCM = $data["themeQCM"];
     $this->question=$data["question"];
     $this->proposition1=$data["proposition1"];
     $this->proposition2=$data["proposition2"];

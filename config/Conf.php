@@ -1,8 +1,6 @@
 <?php
 class Conf {
 
-  
-   
   static private $databases = array(
     // Hostname is webinfo at IUT
     // or localhost on your computer
@@ -22,9 +20,7 @@ class Conf {
   static private $debug = True;
 
   static public function getDebug(){
-
     return self::$debug;
-
   }
    
   static public function getLogin() {
@@ -33,21 +29,15 @@ class Conf {
   }
 
   static public function getDatabase(){
-
   	return self::$databases['database'];
-
   }
 
   static public function getHostname(){
-
   	return self::$databases['hostname'];
-
   }
 
   static public function getPassword(){
-
  	return self::$databases['password'];
-
   }
 
    
