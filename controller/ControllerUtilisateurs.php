@@ -101,11 +101,17 @@ class ControllerUtilisateurs{
 
 
 	public static function readAll() {
-        $tab_u = ModelUtilisateurs::selectAll();
-        $controller = 'utilisateur';
+        if(Session::is_admin()) {
+            $tab_u = ModelUtilisateurs::selectAll();
+            $controller = 'utilisateur';
+            $view = 'list';
+            $pagetitle = 'Liste des utilisateurs';
+            require (File::build_path(array('view', 'view.php')));
+        }
         $view = 'list';
         $pagetitle = 'Liste des utilisateurs';
-        require (File::build_path(array('view', 'view.php')));
+        $code_connect_failed = 'Vous n\'avez pas acceder à ces informations !';
+        require File::build_path(array('view', 'view.php'));
     }
 
     public static function read() {
