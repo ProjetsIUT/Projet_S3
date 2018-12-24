@@ -5,8 +5,8 @@
 		<meta charset="utf-8" />
 		<title><?php echo $pagetitle?></title>
 			<link rel="stylesheet" type="text/css" href="./style.css">
-	
-<header>
+	</head>
+		<header>
 				<?php
 				if (isset($_SESSION['typeUtilisateur']) && $_SESSION['typeUtilisateur'] === 'enseignant') {
 					echo '<a href="index.php?controller=enseignants&action=show_perso_page" id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </a>';
@@ -20,15 +20,9 @@
 				?>
 				
 				<nav>
-
-
-						<a class="menu" href="index.php?controller=cours&action=list">Cours</a>
-
-					
-						<a class="menu" href="index.php?controller=QCM&action=show_form_new">Exercices</a>
-						
-						<a class="menu">Statistiques</a>
-					
+					<a class="menu" href="index.php?controller=cours&action=list">Cours</a>
+					<a class="menu" href="index.php?controller=QCM&action=show_form_new">Exercices</a>
+					<a class="menu">Statistiques</a>
 				</nav>
 
 				<?php
@@ -40,27 +34,17 @@
 					echo '<div id="connexion" ><a href="index.php?controller=Utilisateurs&action=show_login_page" id="connexion_inscription">Connexion</a></div>';
 				}
 				?>
-</header>
-	</head>
+		</header>
 
-	<body >
-
-<div class="page_content">
-	<div class='div_error'>
-
- 
-<div class='div_error'>
-
-
-	<a> Nous ne pouvons pas traiter votre demande</a>
-	<br>
-	<a> Code d'erreur : <?php echo $error_code?></a>
-	<a> Vous allez être redirigé vers l'accueil</a>
-	<meta http-equiv="refresh" content="3; URL=index.php" />
-
-	</div>
-</div>
-
-
-</body>
+	<body>
+		<div class="page_content">		
+			<div class='div_error'>
+				<a> Nous ne pouvons pas traiter votre demande</a>
+				<br>
+				<a> Code d'erreur : <?php echo $error_code?></a>
+				<a> Vous allez être redirigé vers l'accueil</a>
+				<meta http-equiv="refresh" content="3; URL=index.php" />
+			</div>
+		</div>
+	</body>
 </html>

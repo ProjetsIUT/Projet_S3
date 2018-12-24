@@ -3,7 +3,7 @@
 			<p>Connexion à Agora</p>
 			<?php 
 			if(isset($code_connect_failed) && $code_connect_failed==='error_mdp'){
-				echo '<a style="color:#6e0000;">Mot de passe ou nom d\'utilisateur </a>';
+				echo '<a style="color:#6e0000;">Mauvais mot de passe ou nom d\'utilisateur </a>';
 			}
 			else if(isset($code_connect_failed) && $code_connect_failed==='error_user') {
 				echo '<a style="color:#6e0000;">Bienvenue sur Agora</a>';

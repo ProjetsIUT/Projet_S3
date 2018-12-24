@@ -1,9 +1,6 @@
 <?php
 
-
 require_once (File::build_path(array('model','Model.php')));
-
-
 
 class ModelUtilisateurs extends Model {
 
@@ -18,7 +15,6 @@ class ModelUtilisateurs extends Model {
   	  private $emailUtilisateur;
   	  private $codeEtablissement;
 
-
     public function __construct($data = array()) {
 	  if (!empty($data)) {
 	    // If both $m, $c and $i are not NULL, 
@@ -32,21 +28,20 @@ class ModelUtilisateurs extends Model {
 	    $this->codeEtablissement=$data["codeEtablissement"];    
 
 	  	}
-   }
+   	}
 
-
-	  public function get($nom_attribut) {
+	public function get($nom_attribut) {
 	    if (property_exists($this, $nom_attribut))
 	        return $this->$nom_attribut;
 	    return false;
-	  }
+	}
 
 
-	  public function set($nom_attribut, $valeur) {
+	public function set($nom_attribut, $valeur) {
 	    if (property_exists($this, $nom_attribut))
 	        $this->$nom_attribut = $valeur;
 	    return false;
-	  }
+	}
 
 	public static function checkPassword($loginUtilisateur, $mot_de_passe_chiffre) { 
         $u = static::select($loginUtilisateur);
