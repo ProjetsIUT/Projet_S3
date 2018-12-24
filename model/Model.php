@@ -48,8 +48,6 @@
             $class_name = 'Model'.ucfirst(static::$object);
             $primary_key = static::$primary;
             $sql = "SELECT * from $table_name WHERE $primary_key=:val";
-            var_dump($class_name);
-            var_dump($table_name);
             // Préparation de la requête
             $req_prep = Model::$pdo->prepare($sql); //permet de protéger la requete SQL
             

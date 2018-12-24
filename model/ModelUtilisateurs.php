@@ -48,12 +48,16 @@ class ModelUtilisateurs extends Model {
 	    return false;
 	  }
 
-	  public static function checkPassword($loginUtilisateur, $mot_de_passe_chiffre) {
+	public static function checkPassword($loginUtilisateur, $mot_de_passe_chiffre) { 
         $u = static::select($loginUtilisateur);
-        if ($mot_de_passe_chiffre === $u->get('mdpUtilisateur')) {
-            return true;
+        if($u) {
+            if ($mot_de_passe_chiffre === $u->get('passUtilisateur')) {
+                return true;
+            }
         }
-        
+        else {
+            return false;
+        }
         return false;
     }
 	  /*

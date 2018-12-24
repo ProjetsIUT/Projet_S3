@@ -1,9 +1,10 @@
 <?php 
-
-require_once (File::build_path(array('model', 'ModelUtilisateurs.php'))); 
+ 
+require_once (File::build_path(array('model', 'ModelUtilisateurs.php')));
+require_once (File::build_path(array('controller', 'Controller.php'))); 
 require_once (File::build_path(array('lib', 'Security.php')));
 
-class ControllerUtilisateurs{
+class ControllerUtilisateurs extends Controller{
 
 	protected static $object= 'utilisateurs';
 
@@ -32,21 +33,10 @@ class ControllerUtilisateurs{
 	}	
  
     public static function connect() {
-        $login=$_GET['login'];
-        $password=$_GET['password'];
-        //$array=array("loginEtudiant"=>$login , "mdpEtudiant"=>$password);
-        /*
-        $utilisateur_fictif =new ModelUtilisateurs();
-        $utilisateur_fictif->set("loginUtilisateur",$login);
-        $utilisateur_fictif->set("mdpUtilisateur",$password);
-        $connect_state=$utilisateur_fictif->connect();
-        }else //échec: mauvais mdp
-            $view='login';
-            $pagetitle="Connexion - Agora";
-            $code_connect_failed='error_mdp';
-            require (File::build_path(array('view', 'view.php'))); */
 
-        if(isset($login) && isset($password)){ //succès: l'utilisateur est connecté
+        if(isset($_GET['login']) && isset($_GET['password'])){ //succès: l'utilisateur est connecté
+            $login=$_GET['login'];
+            $password=$_GET['password'];
             $mdpsecu = Security::chiffrer($password);
             $verif = ModelUtilisateurs::checkPassword($login, $mdpsecu); 
             if($verif) {
@@ -82,7 +72,7 @@ class ControllerUtilisateurs{
             }
         }else{ //échec: utilisateur non inscrit
             $view='login';
-            $pagetitle="Connexion - Agora";
+            $pagetitle="Acceuil";
             $code_connect_failed='error_user';
             require (File::build_path(array('view', 'view.php')));
         }
