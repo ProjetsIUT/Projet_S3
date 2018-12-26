@@ -82,13 +82,9 @@ class ControllerUtilisateurs extends Controller{
     public static function deconnected() {
         session_unset(); 
         session_destroy();
-        //$view = 'deconnected';
-        //$pagetitle = 'Déconnecté';
-        //require (File::build_path(array('view', 'view.php')));
         $redirection = 'index.php?controller=Utilisateurs&action=show_login_page';
         header('Location: '.$redirection);
     }
-
 
 	public static function readAll() {
         if(Session::is_admin()) {
@@ -162,6 +158,12 @@ class ControllerUtilisateurs extends Controller{
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'view.php')));
         }
+    }
+
+    public static function mdp_oublie() {
+        $view = 'mdp_oublie';
+        $pagetitle = 'Mot de passe oublié';
+        require (File::build_path(array('view', 'view.php')));
     }
 
 }
