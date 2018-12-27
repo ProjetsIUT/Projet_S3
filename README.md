@@ -1,2 +1,3 @@
 Projet Agora S3
-TEST
+
+Agrora est un projet pédagogique
