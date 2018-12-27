@@ -1,14 +1,32 @@
 <?php
 
 $path=array('model','ModelEtudiants.php');
-	require_once File::build_path($path);
+require_once File::build_path($path);
 
-class ControllerEtudiants{
+$path=array('lib','Security.php');
+require_once File::build_path($path);
+
+$path=array('controller','ControllerUtilisateurs.php');
+require_once File::build_path($path);
+
+class ControllerEtudiants extends ControllerUtilisateurs{
 
 	protected static $object= 'etudiants';
 
 
-	public static function connect() {
+     public static function show_perso_page(){
+
+
+        $view='pageperso';
+        $page_id="page_perso_etudiants";
+        $pagetitle="Agora - La nouvelle façon d'apprendre";
+        require (File::build_path(array('view', 'view.php')));
+
+
+    }
+
+
+/*	public static function connect() {
 
 		$login=$_GET["login"];
 		$password=$_GET["password"];
@@ -23,7 +41,7 @@ class ControllerEtudiants{
 		if($connect_state==1){ //succès: l'étudiant est connecté
 
 			$view='pageperso';
-			$pagetitle="Bienvenue sur votre espace personnel - Agora";
+			$pagetitle="Agora - La nouvelle façon d'apprendre";
 			$page_id="page_perso";
 			require (File::build_path(array('view', 'view.php')));
 
@@ -42,11 +60,9 @@ class ControllerEtudiants{
 			require (File::build_path(array('view', 'view.php')));
 		}
 
-	}
+	}*/
 
-
-
-
+	
 
 
 }

@@ -1,4 +1,4 @@
-        <form method="post" action="index.php?controller=ExerciceClassique&action=created" enctype="multipart/form-data">
+        <form method="post" action="index.php?" enctype="multipart/form-data" id="formulaire_ajouterqcm">
             <fieldset>
             <legend>Creer un exercice :</legend>
 		<p>
@@ -29,15 +29,16 @@
                     <input type="number" name="coeff" id="coeff_id" />
                 </p>
                 <p>
-                    <label for="ennonce_id">Ennoncé de l'exercice :</label>
-                    <textarea name="ennonce" id="ennonce_id" required></textarea>
+                    <label for="enonce_id">Ennoncé de l'exercice :</label>
+                    <textarea name="enonce" id="enonce_id" required></textarea>
                 </p>
                 <p>
-                    <label for="correction_id">Correction (max 1mo)</label>
+                    <label for="correction_id">Immage </label>
                     <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
                     <input type="file" name="correction" id="correction_id">
                 </p>
-
+                <input type="hidden" name="action" value="created" />
+                <input type="hidden" name="controller" value="ExerciceClassique" />
 
 		<p>
                     <input type="submit" value="Valider" />

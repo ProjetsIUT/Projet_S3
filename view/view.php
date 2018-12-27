@@ -1,34 +1,34 @@
+
 <!DOCTYPE html>
-<html>
+<html id=<?php if(isset($page_id)){ echo ($page_id); } ?>>
     <head>
 		<meta charset="utf-8" />
 		<title><?php echo $pagetitle?></title>
-			<link rel="stylesheet" type="text/css" href=<?php echo (File::build_path(array('style.css'))) ?>>
-	</head>
-	<body id=<?php if(isset($page_id)){ echo ("body_" . $page_id); } ?>>
+			<link rel="stylesheet" type="text/css" href="./style.css">
 	
-		<header>
-				<div id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </div>
+<header>
+				<a href="./" id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </a>
 
 				
 				<nav>
 
-						<div class="menu">
-							Cours
-						</div>
-						<div class="menu" href="./index.php/?controller=QCM&action=show_form_new">
-							<a href=<?php echo (File::build_path(array('index.php'))) . '?controller=QCM&action=show_form_new' ?>>Exercices</a>
-						</div>
-						<div class="menu">
-							Statistiques
-						</div>
+						<a class="menu" href=<?php echo (File::build_path(array('index.php'))) . '?controller=cours&action=show_form_new' ?>>Cours</a>
+					
+						<a class="menu" href=<?php echo (File::build_path(array('index.php'))) . '?controller=QCM&action=show_form_new' ?>>Exercices</a>
 						
-						
+						<a class="menu">Statistiques</a>
+					
 				</nav>
 
 				
-				<div id="connexion"><a id="connexion_inscription">Connexion | Inscription</a></div>
+				
+				<div id="connexion" ><a href=<?php echo (File::build_path(array('index.php'))) . '?controller=Utilisateurs&action=show_login_page' ?> style="text-decoration:none;" id="connexion_inscription">Connexion | Inscription</a></div>
 		</header>
+	</head>
+
+	<body >
+	
+
 
 		<?php
 
@@ -41,3 +41,4 @@
 
 	</body>
 </html>
+
