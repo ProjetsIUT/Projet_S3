@@ -48,6 +48,15 @@ class ModelUtilisateurs extends Model {
 	    return false;
 	  }
 
+	  public static function checkPassword($loginUtilisateur, $mot_de_passe_chiffre) {
+        $u = static::select($loginUtilisateur);
+        if ($mot_de_passe_chiffre === $u->get('mdpUtilisateur')) {
+            return true;
+        }
+        
+        return false;
+    }
+	  /*
     public function connect(){ //essayer de lancer une connexion 
 
 
@@ -91,7 +100,7 @@ class ModelUtilisateurs extends Model {
 
 	}
 
-
+	*/
 
 }
 

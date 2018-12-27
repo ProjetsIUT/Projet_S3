@@ -16,15 +16,15 @@
 
 				}
 				
-				$nom_cours = $cours["nomCours"];
-				$code_matiere_cours = $cours["codeMatiere"];
-				$date_cours = $cours["datePublication"];
-				$chemin_cours=$cours["fichierCours"];
-				$resume_cours = $cours["resumeCours"];
-				$codeCours = $cours ["codeCours"];
+				$nom_cours = htmlspecialchars($cours->get("nomCours"));
+				$code_matiere_cours = htmlspecialchars($cours->get("codeMatiere"));
+				$date_cours = htmlspecialchars($cours->get("datePublication"));
+				$chemin_cours=htmlspecialchars($cours->get("fichierCours"));
+				$resume_cours = htmlspecialchars($cours->get("resumeCours"));
+				$codeCours = htmlspecialchars($cours->get("codeCours"));
 
 				$matiere_cours = ModelMatieres::select($code_matiere_cours);
-				$nom_matiere_cours = $matiere_cours["nomMatiere"];
+				$nom_matiere_cours = htmlspecialchars($matiere_cours->get("nomMatiere"));
 
 
 

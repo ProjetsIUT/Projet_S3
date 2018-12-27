@@ -10,7 +10,7 @@ class ModelEnseignants extends ModelUtilisateurs {
 	  protected static $primary = 'loginEnseignant';
   	  protected static $object = 'enseignants';
 
-  	  private $loginEnseignant;
+  	private $loginEnseignant;
 
 
 	  public function get($nom_attribut) {
@@ -31,7 +31,9 @@ class ModelEnseignants extends ModelUtilisateurs {
 		    $this->loginEnseignant=$data["loginEnseignant"];
 
 	  	}
-   }
+	 }
+	 
+	 
 
 
 }

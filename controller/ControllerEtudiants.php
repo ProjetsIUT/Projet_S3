@@ -16,11 +16,24 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 
      public static function show_perso_page(){
 
+     	if(isset($_SESSION['loginUtilisateur'])){
 
-        $view='pageperso';
-        $page_id="page_perso_etudiants";
-        $pagetitle="Agora - La nouvelle façon d'apprendre";
-        require (File::build_path(array('view', 'view.php')));
+			$e = ModelEtudiants::select($_SESSION['loginUtilisateur']);
+			$_SESSION['anneeCourantEtudiant'] = $e->get('anneeCourantEtudiant');
+			$_SESSION['SemestreCourantEtudiant'] = $e->get('SemestreCourantEtudiant');
+			$_SESSION['codeDepartement'] = $e->get('codeDepartement');
+	        $view='pageperso';
+	        $page_id="page_perso_etudiants";
+	        $pagetitle="Agora - La nouvelle façon d'apprendre";
+	        require (File::build_path(array('view', 'view.php')));
+
+    	}else{
+
+    		header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
+
+
+
+    	}
 
 
     }

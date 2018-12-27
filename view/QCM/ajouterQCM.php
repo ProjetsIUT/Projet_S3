@@ -30,9 +30,7 @@
 						$tab_nom_cours=array();
 						$tab_code_cours=array();
 
-						foreach ($tab_cours as $data) {
-
-							$cours=new ModelCours($data);
+						foreach ($tab_cours as $cours) {
 								
 							array_push($tab_nom_cours,$cours->get("nomCours"));
 							array_push($tab_code_cours,$cours->get("codeCours"));
@@ -84,4 +82,7 @@
 			</form>
 
 
+
+
 </article>
+
