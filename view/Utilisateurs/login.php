@@ -1,4 +1,4 @@
-<article id="page_connexion">
+<article id="page_connexion"> 
 		<form id="formulaire_connexion" methode="get" action="index.php">
 			<p>Connexion à Agora</p>
 			<?php 
@@ -7,7 +7,7 @@
 			}
 			else if(isset($code_connect_failed) && $code_connect_failed==='error_user') {
 				echo '<a style="color:#6e0000;">Bienvenue sur Agora</a>';
-			}
+            }
 			?>
 			<br>
 			<br>

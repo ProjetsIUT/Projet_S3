@@ -64,7 +64,7 @@
             if (empty($tab_obj))
                 return false;
             return $tab_obj[0];
-        }
+        } 
 
         public static function delete($primary) {
             $table_name ="agora_" .  static::$object;

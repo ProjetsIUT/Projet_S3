@@ -3,7 +3,7 @@
 require_once (File::build_path(array('model', 'ModelUtilisateurs.php')));
 require_once (File::build_path(array('controller', 'Controller.php'))); 
 require_once (File::build_path(array('lib', 'Security.php')));
-
+ 
 class ControllerUtilisateurs extends Controller{
 
 	protected static $object= 'utilisateurs';
@@ -79,6 +79,60 @@ class ControllerUtilisateurs extends Controller{
 
     }
 
+    public static function recuparemail() {
+        $u = ModelUtilisateurs::getUserByEmail($_GET['email']);
+        if($u) {
+            $destinataire = $_GET['email'];
+            $sujet = 'Récupération de mot de passe';
+            $entete = 'From agoradmin@agora.fr';
+            $mail = 'Bonjour '.htmlspecialchars($u->get('loginUtilisateur')).',
+            
+            Pour changer votre mot de passe, veuillez cliquer sur le lien-ci dessous ou 
+            copier/coller dans votre navigateur internet :
+            
+            http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/Projet_S3/index.php?controller=utilisateurs&action=changemdp&loginUtilisateur='.rawurlencode($u->get('loginUtilisateur')).'
+
+            Ceci est un mail automatique, Merci de ne pas y répondre';
+            mail($destinataire, $sujet, $mail, $entete);
+            $view = 'mdp_oublie_recupere';
+            $pagetitle= "Récupération de mot de passe";
+            require (File::build_path(array('view', 'view.php')));
+        }
+        else {
+            $view = 'mdp_oublie';
+            $pagetitle= "Mail de récupération envoyé";
+            $code_connect_failed= 'error_email';
+            require (File::build_path(array('view', 'view.php')));
+        } 
+    }
+
+    public static function changemdp() {
+        $view = 'changemdp';
+        $pagetitle= "Nouveau mot de passe";
+        require (File::build_path(array('view', 'view.php')));
+    }
+
+    public static function changemdpfait() {
+        
+        if($_GET['mdp'] === $_GET['vmdp']) {
+            $view = 'changemdpfait';
+            $pagetitle = "Mot de passe changé";
+            $mdpsecu = Security::chiffrer($_GET['mdp']);
+            $u = new ModelUtilisateur();
+            $data = array(
+                "loginUtilisateur" => $_GET['loginUtilisateur'],
+                "mdpUtilisateur" => $mdpsecu,
+            );
+            $u->update($data);
+            require (File::build_path(array('view', 'view.php')));
+        }
+        else {
+            $view = 'changemdp';
+            $pagetitle = "Nouveau mot de passe";
+            require (File::build_path(array('view', 'view.php')));
+        }
+    }
+
     public static function deconnected() {
         session_unset(); 
         session_destroy();
@@ -139,7 +193,6 @@ class ControllerUtilisateurs extends Controller{
 
     public static function updated() {
         if(isset($_GET['loginUtilisateur']) && isset($_GET['nomUtilisateur']) && isset($_GET['prenomUtilisateur'])) {
-            //$controller = 'voiture';
             $view = 'updated';
             $pagetitle = 'Utilisateur modifié';
             $login = $_GET['loginUtilisateur'];
@@ -148,7 +201,7 @@ class ControllerUtilisateurs extends Controller{
                 "nomUtilisateur" => $_GET['nomUtilisateur'],
                 "prenomUtilisateur" => $_GET['prenomUtilisateur'],
             );
-            $u = new ModelUtilisateurs($_GET['login'], $_GET['nom'], $_GET['prenom']);
+            $u = new ModelUtilisateurs($data);
             $u->update($data);
             $tab_u = ModelUtilisateurs::selectAll();
             require (File::build_path(array('view', 'view.php')));
