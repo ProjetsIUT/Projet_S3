@@ -12,8 +12,6 @@ Class ControllerExerciceClassique {
 
 	    $pagetitle="Créer un nouvel exercice - Agora";
 
-	$pagetitle="Créer un nouvel exercice - Agora";
-
         $path_array = array("view", "view.php");
 
         $PATH = File::build_path($path_array);
