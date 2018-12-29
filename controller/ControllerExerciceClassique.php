@@ -25,6 +25,7 @@ Class ControllerExerciceClassique {
         $tempsLimite = $_POST['tempsLimite'];
         $coeff = $_POST['coeff'];
         $enonce = $_POST['enonce'];
+        $theme=$_POST['theme'];
         
         //Traitement du fichier de correction
         if ($_FILES['correction']['error'] > 0) $error_code = "Erreur lors du transfert de la correction";
@@ -50,7 +51,7 @@ Class ControllerExerciceClassique {
             $pagetitle="Erreur - Agora";
             require (File::build_path(array('view', 'view.php')));
         }else{
-            $data = array("idExercice" => $idExercice,"nomExercice" => $nomExercice, "difficulte" =>$difficulte, "acces" => $acces,"tempsLimite" => $tempsLimite, "coeff" => $coeff,"enonce" =>$enonce);
+            $data = array("idExercice" => $idExercice,"nomExercice" => $nomExercice, "themeExercice"=>$theme, "difficulte" =>$difficulte, "acces" => $acces,"tempsLimite" => $tempsLimite, "coeff" => $coeff,"enonce" =>$enonce);
             $e = new ModelExerciceClassique($idExercice,$nomExercice, $difficulte, $acces, $tempsLimite, $coeff,$enonce);
             $e->save($data);
             

@@ -25,7 +25,7 @@
 						<a class="menu" href="index.php?controller=cours&action=list">Cours</a>
 
 					
-						<a class="menu" href="index.php?controller=QCM&action=show_form_new">Exercices</a>
+						<a class="menu" href="index.php?controller=QCM&action=list">Exercices</a> 
 						
 						<a class="menu">Statistiques</a>
 					
