@@ -25,7 +25,10 @@
 						<a class="menu" href="index.php?controller=cours&action=list">Cours</a>
 
 					
+
 						<a class="menu" href="index.php?controller=Exercice&action=choixExercice">Exercices</a>
+
+
 						
 						<a class="menu">Statistiques</a>
 					

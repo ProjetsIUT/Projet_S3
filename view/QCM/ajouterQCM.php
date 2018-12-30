@@ -4,7 +4,7 @@
 			<form id="formulaire_ajouterqcm" methode="get" action=<?php echo '"'.(File::build_path(array('index.php'))). '"'; ?>>
 
 				<input type="hidden" name="controller" value="QCM" />
-				<input type="hidden" name="action" value="save_qcm" />
+				<input type="hidden" name="action" value="show_form_new_questions" />
 
 
 				<p>Formulaire de création de QCM</p>
@@ -14,7 +14,7 @@
 			
 					<input type="text" name="nom" required placeholder="Titre"/>
 					<br>
-					<input type="text" name="enonce" required placeholder="Énoncé"/>
+					<input type="text" name="resume" required placeholder="Resumé"/>
 					<br>
 
 					<p>Thème</p>
@@ -37,12 +37,9 @@
 
 						}
 
-		
-
-
 					?>
 
-					<select name="code" required />
+					<select name="theme" required />
 
 						<?php
 
@@ -60,24 +57,11 @@
 					</select>
 					<br>
 					<br>
-					<p>Questions</p>
-					<label>Proposition 1</label>
-					<input type="text" name="proposition_1" required placeholder="Proposition 1"/>
-					<br>
-					<label>Proposition 2</label>
-					<input type="text" name="proposition_2" required placeholder="Proposition 2"/>
-					<br>
-					<label>Proposition 3</label>
-					<input type="text" name="proposition_3" required placeholder="Proposition 3"/>
-					<br>
-					<label>Proposition 4</label>
-					<input type="text" name="proposition_4" required placeholder="Proposition 4"/>
-					<br> 
-					<label>Proposition correcte</label>
-					<input type="number" name="reponse_juste" required placeholder="N° réponse juste"/>
-					<br>
+
+				<label>Nombre de questions</label>
+				<input type=number name="nbQuestions" min=2 max=20 value="5">					
 				</div>	
-				<input type="submit" value="Soumettre le QCM"/>
+				<input type="submit" value="Suivant (questions)"/> 
 				<br>
 			</form>
 

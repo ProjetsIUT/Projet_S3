@@ -5,6 +5,46 @@
                     <label for="nomExercice_id">Nom de l'exercice</label> :
                     <input type="text" name="nomExercice" id="nomExercice_id" required/>
 		</p>
+
+        <p>Thème</p>
+                    <a>Le thème correspond à un cours enregistré dans une des matières que vous enseignez</a>
+                    <br>
+
+                    <?php 
+
+                        $path=array('model','ModelCours.php');
+                        require_once File::build_path($path);
+
+                        $tab_cours = ModelCours::selectAll();
+
+                        $tab_nom_cours=array();
+                        $tab_code_cours=array();
+
+                        foreach ($tab_cours as $cours) {
+                                
+                            array_push($tab_nom_cours,$cours->get("nomCours"));
+                            array_push($tab_code_cours,$cours->get("codeCours"));
+
+                        }
+
+                    ?>
+
+                    <select name="theme" required />
+
+                        <?php
+
+                        foreach($tab_nom_cours as $value) {
+
+
+                          echo '<option value="'.current($tab_code_cours).'"' .'>'.$value.'</option>';
+                    
+                          next($tab_code_cours);
+                        }
+
+                        ?> 
+
+
+                    </select>
                 <p>	
                     <label for="difficulte_id">Difficulté :</label>
                     <SELECT name="difficulte" id="difficulte_id" size="1">

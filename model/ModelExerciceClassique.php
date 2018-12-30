@@ -11,27 +11,30 @@ class ModelExerciceClassique extends Model{
 
     private $idExercice;
     private $nomExercice;
+    private $themeExercice;
     private $difficulte;
     private $tempsLimite;
     private $coeff;
     private $acces;  
-    private $ennonce; 
-    private $reponse;
+    private $enonce; 
+
      
 
-    public function __construct($idExercice = NULL, $nomExercice = NULL, $difficulte = NULL, $tempsLimite = NULL, $coeff = NULL, $acces = NULL,$enonce = NULL)
+    public function __construct($idExercice = NULL, $nomExercice = NULL, $themeExercice = NULL, $difficulte = NULL, $tempsLimite = NULL, $coeff = NULL, $acces = NULL,$enonce = NULL)
     {
         if(isset($idExercice)){
         
-            $this->$idExercice =$idExercice; //uniqid genere un String !
+            $this->idExercice =$idExercice; //uniqid genere un String !
+            $this->themeExercice=$themeExercice;
         
-            $this->$nomExercice = $nomExercice;
-            $this->$difficulte = $difficulte;
-            $this->$acces = $acces;
+            $this->nomExercice = $nomExercice;
+            $this->difficulte = $difficulte;
+            $this->acces = $acces;
 
-            $this->$tempsLimite = $tempsLimite;
-            $this->$coeff = $coeff;
-            $this->$enonce = $enonce;               
+            $this->tempsLimite = $tempsLimite;
+            $this->coeff = $coeff;
+
+            $this->enonce = $enonce;               
         }
     
     }
