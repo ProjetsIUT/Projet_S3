@@ -3,8 +3,15 @@
             <p> Récupération de mot de passe </p>
             <?php
             if(isset($code_connect_failed) && $code_connect_failed==='error_email'){
-				echo '<a style="color:#6e0000;">Cette adresse email n\'est affecté à aucun de nos comptes </a>';
-			}
+                echo '<a style="color:#E70739;">Cette adresse email n\'est affecté à aucun de nos comptes </a>
+                <br>
+                <br>';
+            }
+            else if (isset($code_connect_failed) && $code_connect_failed==='error_not_email') {
+                echo '<a style="color:#E70739;">Veuillez rentrer un email valide </a>
+                <br>
+                <br>';
+            }
 			?>
             <input type="hidden" name="controller" value="utilisateurs" />
 			<input type="hidden" name="action" value="recuparemail" />

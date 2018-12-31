@@ -80,30 +80,90 @@ class ControllerUtilisateurs extends Controller{
     }
 
     public static function recuparemail() {
+        $vemail = filter_var($_GET['email'] , FILTER_VALIDATE_EMAIL);
         $u = ModelUtilisateurs::getUserByEmail($_GET['email']);
-        if($u) {
-            $destinataire = $_GET['email'];
-            $sujet = 'Récupération de mot de passe';
-            $entete = 'From agoradmin@agora.fr';
-            $mail = 'Bonjour '.htmlspecialchars($u->get('loginUtilisateur')).',
-            
-            Pour changer votre mot de passe, veuillez cliquer sur le lien-ci dessous ou 
-            copier/coller dans votre navigateur internet :
-            
-            http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/Projet_S3/index.php?controller=utilisateurs&action=changemdp&loginUtilisateur='.rawurlencode($u->get('loginUtilisateur')).'
+        if($vemail) {
+            var_dump($u);
+            if($u) {
+                $destinataire = $_GET['email'];
+                $sujet = 'Récupération de mot de passe';
+                $entete = 'From agoradmin@agora.fr';
+                $mail = 'Bonjour '.htmlspecialchars($u->get('loginUtilisateur')).',
+                
+                Pour changer votre mot de passe, veuillez cliquer sur le lien-ci dessous ou 
+                copier/coller dans votre navigateur internet :
+                
+                http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/Projet_S3/index.php?controller=utilisateurs&action=changemdp&loginUtilisateur='.rawurlencode($u->get('loginUtilisateur')).'
 
-            Ceci est un mail automatique, Merci de ne pas y répondre';
-            mail($destinataire, $sujet, $mail, $entete);
-            $view = 'mdp_oublie_recupere';
-            $pagetitle= "Récupération de mot de passe";
-            require (File::build_path(array('view', 'view.php')));
+                Ceci est un mail automatique, Merci de ne pas y répondre';
+                mail($destinataire, $sujet, $mail, $entete);
+                $view = 'mdp_oublie_recupere';
+                $pagetitle= "Mail de récupération envoyé";
+                require (File::build_path(array('view', 'view.php')));
+            }
+            else {
+                $view = 'mdp_oublie';
+                $pagetitle= "Mot de passe oublié";
+                $code_connect_failed= 'error_email';
+                require (File::build_path(array('view', 'view.php')));
+            }
         }
         else {
             $view = 'mdp_oublie';
-            $pagetitle= "Mail de récupération envoyé";
-            $code_connect_failed= 'error_email';
+            $pagetitle= "Mot de passe oublié";
+            $code_connect_failed= 'error_not_email';
             require (File::build_path(array('view', 'view.php')));
         } 
+    }
+
+    public static function create() {
+        if(Session::is_admin() || !isset($_SESSION['loginUtilisateur'])) {
+            $type = 'Ajout';
+            $view = 'update';
+            $pagetitle = 'Ajout d\'un utilisateur';
+            require (File::build_path(array('view', 'view.php')));
+        }
+        else {
+            $error_code = 'create : vous ne pouvez pas créer un autre compte en étant connecté';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+    }
+
+    public static function validate() {
+        $u = ModelUtilisateur::select($_GET['loginUtilisateur']);
+        $nr = $_GET['nonce'];
+        if ($u) {
+            if ($nr === $u->get('nonce')) {
+                $data = array(
+                    "loginUtilisateur" => $_GET['loginUtilisateur'],
+                    "nonce" => NULL,
+                );
+                ModelUtilisateur::update($data);
+                $pagetitle = 'Validé';
+                $view = 'validate';
+                require (File::build_path(array('view', 'view.php')));
+            }
+            else if($u->get('nonce') == NULL){
+                $error_code = 'validate : Votre compte a déja été validé';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
+            else {
+                $error_code = 'validate : Nous ne pouvons accéder à votre requête';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
+        }
+        else {
+            $error_code = 'validate : loginUtilisateur inexistant';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
     }
 
     public static function changemdp() {
@@ -130,6 +190,76 @@ class ControllerUtilisateurs extends Controller{
             $view = 'changemdp';
             $pagetitle = "Nouveau mot de passe";
             require (File::build_path(array('view', 'view.php')));
+        }
+    }
+
+    public static function created() {
+        if(isset($_GET['loginUtilisateur']) && isset($_GET['nomUtilisateur']) && isset($_GET['prenomUtilisateur']) && isset($_GET['adresseFacturationUtilisateur']) && isset($_GET['adresseLivraisonUtilisateur']) && isset($_GET['passUtilisateur']) && isset($_GET['emailUser'])) {
+
+            if($_GET['passUtilisateur'] === $_GET['vpassUtilisateur']) {
+                $view = 'created';
+                $pagetitle = 'Utilisateur ajouté';
+                $mdpsecu = Security::chiffrer($_GET['passUtilisateur']);
+
+                $vemail = filter_var($_GET['emailUser'] , FILTER_VALIDATE_EMAIL);
+                
+                if(Session::is_admin() && isset($_GET['typeUser'])) {
+                    $valuet = $_GET['typeUser'];
+                }
+                else {
+                    $valuet = NULL;
+                } 
+
+                if ($vemail) {
+                    $nonc = Security::generateRandomHex();
+                    $data = array(
+                        "loginUtilisateur" => $_GET['loginUtilisateur'],
+                        "nomUtilisateur" => $_GET['nomUtilisateur'],
+                        "prenomUtilisateur" => $_GET['prenomUtilisateur'],
+                        "adresseFacturationUtilisateur" => $_GET['adresseFacturationUtilisateur'],
+                        "adresseLivraisonUtilisateur" => $_GET['adresseLivraisonUtilisateur'],
+                        "passUtilisateur" => $mdpsecu,
+                        "emailUser" => $_GET['emailUser'],
+                        "typeUser" => $valuet,
+                        "nonce" => $nonc,
+                    );
+                    $u = new ModelUtilisateur($data);
+                    $u->save($data);
+                        $destinataire = $_GET['emailUser'];
+                        $sujet = 'Activer votre compte';
+                        $entete = 'From serviceclient@pineapple.com';
+                        $mail = 'Bienvenue sur PineApple,
+                        
+                        Pour activer votre compte, veuillez cliquer sur le lien-ci dessous ou 
+                        copier/coller dans votre navigateur internet
+
+                        http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/eCommerce/index.php?controller=utilisateur&action=validate&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'&nonce='.rawurlencode($nonc).'
+
+
+                        Ceci est un mail automatique, Merci de ne pas y répondre';
+                        mail($destinataire, $sujet, $mail, $entete);
+                        require (File::build_path(array('view', 'view.php')));
+                } else {
+                    $type = 'Ajout';
+                    $verif = 'Votre email n\'est pas valide !';
+                    $view = 'update';
+                    $pagetitle = 'Ajout d\'un utilisateur';
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                
+            } else {
+                $type = 'Ajout';
+                $verif = 'Vos deux mots de passe ne sont pas identiques !';
+                $view = 'update';
+                $pagetitle = 'Ajout d\'un utilisateur';
+                require (File::build_path(array('view', 'view.php')));
+            }
+        }
+        else {
+            $error_code = 'created : l\'un des champs est vide';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
         }
     }
 
