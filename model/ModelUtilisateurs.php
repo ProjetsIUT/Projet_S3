@@ -13,7 +13,8 @@ class ModelUtilisateurs extends Model {
   	  private $nomUtilisateur;
   	  private $prenomUtilisateur;
   	  private $emailUtilisateur;
-  	  private $codeEtablissement;
+	  private $codeEtablissement;
+	  private $nonce;
 
     public function __construct($data = array()) {
 	  if (!empty($data)) {
@@ -26,7 +27,7 @@ class ModelUtilisateurs extends Model {
 	    $this->nomUtilisateur=$data["nomUtilisateur"];
 	    $this->emailUtilisateur=$data["emailUtilisateur"];
 	    $this->codeEtablissement=$data["codeEtablissement"];    
-
+		$this->nonce=$data["nonce"];
 	  	}
    	}
 

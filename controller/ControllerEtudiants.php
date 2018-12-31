@@ -13,8 +13,7 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 
 	protected static $object= 'etudiants';
 
-
-     public static function show_perso_page(){
+    public static function show_perso_page(){
 
 		$e = ModelEtudiants::select($_SESSION['loginUtilisateur']);
 		$_SESSION['anneeCourantEtudiant'] = $e->get('anneeCourantEtudiant');
@@ -24,7 +23,6 @@ class ControllerEtudiants extends ControllerUtilisateurs{
         $page_id="page_perso_etudiants";
         $pagetitle="Agora - La nouvelle façon d'apprendre";
         require (File::build_path(array('view', 'view.php')));
-
 
     }
 

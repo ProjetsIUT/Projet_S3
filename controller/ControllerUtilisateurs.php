@@ -14,6 +14,8 @@ class ControllerUtilisateurs extends Controller{
         require (File::build_path(array('view', 'view.php')));
     }
 
+
+
     public static function update_password(){
         $mdp_en_clair=$_POST["new_password"];
         $mdp_crypte=Security::chiffrer($mdp_en_clair);
@@ -124,8 +126,7 @@ class ControllerUtilisateurs extends Controller{
             require (File::build_path(array('view', 'view.php')));
         }
         else {
-            $error_code = 'create : vous ne pouvez pas créer un autre compte en étant connecté';
-            $view = 'error';
+            $error_code = 'Impossible de créer un compte. Contactez l\'administrateur de votre université pour tout renseignement';
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
         }
@@ -273,15 +274,13 @@ class ControllerUtilisateurs extends Controller{
 	public static function readAll() {
         if(Session::is_admin()) {
             $tab_u = ModelUtilisateurs::selectAll();
-            $controller = 'utilisateur';
             $view = 'list';
             $pagetitle = 'Liste des utilisateurs';
             require (File::build_path(array('view', 'view.php')));
         }
-        $view = 'list';
-        $pagetitle = 'Liste des utilisateurs';
-        $code_connect_failed = 'Vous n\'avez pas acceder à ces informations !';
-        require File::build_path(array('view', 'view.php'));
+        $pagetitle = 'Erreur';
+        $error_code = 'Vous n\'avez pas acceder à ces informations !';
+        require File::build_path(array('view', 'error.php'));
     }
 
     public static function read() {

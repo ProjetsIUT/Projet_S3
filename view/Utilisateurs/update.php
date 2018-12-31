@@ -14,20 +14,9 @@
         <input type="text" placeholder="Login" name="loginUtilisateur" id="loginUtilisateur_id" required/>
         <input type="text" placeholder="Nom" name="nomUtilisateur" id="nomUtilisateur_id" required/>
         <input type="text" placeholder="Prenom" name="prenomUtilisateur" id="prenomUtilisateur_id" required/>
-        <br>
-        <label>Adresse de facturation:</label>
-        <br>
-        <textarea name="adresseFacturationUtilisateur" id="adresseFacturationUtilisateur_id" > Adresse de facturation </textarea>
-        <br>
-        <label>Adresse de livraison:</label>
-        <br>
-        <textarea name="adresseLivraisonUtilisateur" id="adresseLivraisonUtilisateur_id" > Adresse de livraison </textarea>
-        <br>
-        <input type="password" placeholder="Mot de passe" name="passUtilisateur" id="passUtilisateur_id" required/>
-        <input type="password" placeholder="Confirmer le mot de passe" name="vpassUtilisateur" id="vpassUtilisateur_id" required/>
         <input type="email" placeholder="example@gmail.com" name="emailUser" id="emailUser_id" />');
         if(Session::is_admin()) {
-          echo '<label for="typeUser_id">Administrateur</label>
+          echo '<label for="typeUser_id">Type de compte</label>
           <select name="typeUser" id="typeUsers_id" size="1" required>
               <option value="1"> Oui
               <option value="0"> Non 

@@ -8,11 +8,14 @@
 	
 <header>
 				<?php
-				if (isset($_SESSION['typeUtilisateur']) && $_SESSION['typeUtilisateur'] === 'enseignant') {
+				if (Session::is_teacher()) {
 					echo '<a href="index.php?controller=enseignants&action=show_perso_page" id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </a>';
 				}
-				else if (isset($_SESSION['typeUtilisateur']) && $_SESSION['typeUtilisateur'] === 'etudiant') {
+				else if (Session::is_student()) {
 					echo '<a href="index.php?controller=etudiants&action=show_perso_page" id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </a>';
+				}
+				else if (Session::is_admin()) {
+					echo '<a href="index.php?controller=administrateur&action=show_perso_page" id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </a>';
 				} 
 				else if (!isset($_SESSION['typeUtilisateur'])){
 					echo '<a href="index.php?controller=Utilisateurs&action=show_login_page" id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </a>';
@@ -23,11 +26,16 @@
 
 
 						<a class="menu" href="index.php?controller=cours&action=list">Cours</a>
-
 					
 						<a class="menu" href="index.php?controller=QCM&action=show_form_new">Exercices</a>
 						
 						<a class="menu">Statistiques</a>
+
+						<?php
+							if (Session::is_admin()) {
+								echo '<a class="menu" href="index.php?controller=utilisateurs&action=readAll" id="logo">Liste des utilisateurs</a>';
+							}
+						?>
 					
 				</nav>
 
