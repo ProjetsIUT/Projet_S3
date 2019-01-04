@@ -8,9 +8,10 @@ class ControllerFaireExercice{
     protected static $object = 'faireExercice';
 
     static function reponse(){
-        $data = array('loginEtudiant' => 'chaptala', 'idExercice' => $_POST['idExercice'], "reponse" => $_POST['reponse']);
+        
+        $data = array('loginEtudiant' => $_SESSION['loginUtilisateur'], 'idExercice' => $_POST['idExercice'], "reponse" => $_POST['reponse']);
 
-        $obj = new ModelFaireExercice('chaptala', $_POST['idExercice'], $_POST['reponse']);
+        $obj = new ModelFaireExercice($_SESSION['loginUtilisateur'], $_POST['idExercice'], $_POST['reponse']);
 
         $obj->save($data);
 
@@ -19,6 +20,7 @@ class ControllerFaireExercice{
         require (File::build_path(array('view', 'view.php')));
 
     }
+
 
 }
 

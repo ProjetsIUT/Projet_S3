@@ -74,8 +74,6 @@
                 </p>
                 <p>
 
-                    <label for="correction_id">Immage </label>
-
                     <label for="correction_id">Correction (max 1mo)</label>
 
                     <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />

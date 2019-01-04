@@ -1,6 +1,7 @@
 <?php
 
 require_once (File::build_path(array('model','ModelExerciceClassique.php')));
+require_once (File::build_path(array('model','ModelCours.php')));
 
 Class ControllerExerciceClassique {
     
@@ -27,7 +28,7 @@ Class ControllerExerciceClassique {
         $tempsLimite = $_POST['tempsLimite'];
         $coeff = $_POST['coeff'];
         $enonce = $_POST['enonce'];
-        $theme=$_POST['theme'];
+        $themeExercice=$_POST['theme'];
         
         //Traitement du fichier de correction
         if ($_FILES['correction']['error'] > 0) $error_code = "Erreur lors du transfert de la correction";
@@ -42,7 +43,6 @@ Class ControllerExerciceClassique {
         if ( in_array($extension_upload,$extensions_valides) ){
             //$name = File::build_path(array('lib',"corrections/{$idExercice}.{$extension_upload}")); //on donne l'id de l'exercice comme nom de fichier
             $name = "./lib/corrections/".$idExercice.".".$extension_upload;
-            echo "chemin d'écriture : ".$name;
             $resultat = move_uploaded_file($_FILES['correction']['tmp_name'],$name);
         }else{
             $error_code = "extension incorecte";
@@ -53,7 +53,7 @@ Class ControllerExerciceClassique {
             $pagetitle="Erreur - Agora";
             require (File::build_path(array('view', 'view.php')));
         }else{
-            $data = array("idExercice" => $idExercice,"nomExercice" => $nomExercice, "themeExercice"=>$theme, "difficulte" =>$difficulte, "acces" => $acces,"tempsLimite" => $tempsLimite, "coeff" => $coeff,"enonce" =>$enonce);
+            $data = array("idExercice" => $idExercice,"nomExercice" => $nomExercice, "themeExercice"=>$themeExercice, "difficulte" =>$difficulte, "acces" => $acces,"tempsLimite" => $tempsLimite, "coeff" => $coeff,"enonce" =>$enonce);
             $e = new ModelExerciceClassique($idExercice,$nomExercice, $difficulte, $acces, $tempsLimite, $coeff,$enonce);
             $e->save($data);
             
@@ -69,8 +69,8 @@ Class ControllerExerciceClassique {
         
         $e = ModelExerciceClassique::select($id);
               
-        $nomE = $e['nomExercice'];
-        $enonce = $e['enonce'];
+        $nomE = $e->get('nomExercice');
+        $enonce = $e->get('enonce');
         
         $view="faire";
 	    $pagetitle="Faire exercice - Agora";
@@ -79,5 +79,22 @@ Class ControllerExerciceClassique {
         $PATH = File::build_path($path_array);
         require "$PATH";
     }
+
+    public static function list(){
+
+        $tab=ModelExerciceClassique::selectAll();
+        $view="list";
+        $pagetitle="Mes Exerces - Agora";
+        require (File::build_path(array('view', 'view.php')));
+    }
+
+        public static function suppr(){
+
+        $id = $_GET["id"];
+        ModelExerciceClassique::delete($id);
+        self::list();
+
+    }
     
 }
+
