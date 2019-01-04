@@ -35,8 +35,63 @@
 
 			<div class="tab" id="tab_stats">
 
-				<h3>Ma progression <a class="bouton"> Voir tous les stats</a></h3>
+				<h3>Statistiques <a class="bouton"> Voir tous les stats</a></h3>
+				<a>Ma moyenne générale:
+				<?php echo($moyenneGenerale);
+				?>/20</a>
+				<br>
+				<a>Mon classement:
+				<?php echo($monClassement);
+				?></a>
 
+			</div>
+
+			<div class="tab" id="tab_notes">
+
+				<h3>Dernières notes <a class="bouton" href="./index.php?controller=notes&action=listByEtud">Bulletin</a></h3>
+				<br>
+
+				<?php
+
+					$note = current($tab_notes);
+
+					for($i=0;$i<5;$i++){
+
+						if($note!=false){
+
+							$noteObtenue=htmlspecialchars($note->get('note'));
+							$typeExercice=htmlspecialchars($note->get('typeExercice'));
+
+
+							if($typeExercice==="QCM"){
+
+								$exercice=ModelQCM::select($note->get('codeExercice'));
+								$nomExercice=$exercice->get('nomQCM');
+		
+
+							}else{
+
+								$exercice=ModelExerciceClassique::select($note->get('codeExercice'));
+								$nomExercice = $exercice->get('nomExercice');
+				
+
+							}
+
+							echo '
+
+								<a>'.$nomExercice.'<a>		
+								<a class="note">'.$note->get('note').'/20</a>
+								<br> 
+
+							';
+
+							$note=next($tab_notes);
+						}
+
+					}
+
+
+				?>
 			</div>
 
 		</div>

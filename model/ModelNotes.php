@@ -12,8 +12,7 @@ class ModelNotes extends Model{
     private $codeExercice;
     private $typeExercice;
     private $note;
-
-
+    private $dateNote;
 
   public function get($nom_attribut) {
     if (property_exists($this, $nom_attribut))
@@ -37,6 +36,7 @@ class ModelNotes extends Model{
       $this->codeExercice = $data["codeExercice"];
       $this->typeExercice=$data["typeExercice"];
       $this->note=$data["note"];
+      $this->datenote=$data["dateNote"];
 
 
     }
@@ -47,7 +47,7 @@ class ModelNotes extends Model{
 
      public static function selectByEtud() {
 
-     		$login = '"'.$_SESSION['loginUtilisateur'].'"';
+     	    	$login = '"'.$_SESSION['loginUtilisateur'].'"';
 
             $sql = "SELECT * from agora_notes WHERE codeEtudiant=$login";
             $rep = Model::$pdo->query($sql);
@@ -56,6 +56,68 @@ class ModelNotes extends Model{
             $tab_obj = $rep->fetchAll();
 
             return $tab_obj;
+     }
+
+
+     public static function moyenneGenerale($login=NULL,$date = NULL){
+
+          if (!isset($login)){
+
+           $login = '"'.$_SESSION['loginUtilisateur'].'"';
+
+         }
+
+           if(!isset($date)){
+
+            $date='"'.date("Y-m-d").'"';
+
+           }
+
+           $sql = "SELECT moyGeneraleEtudiant($login,$date)";
+
+
+          $rep=Model::$pdo->query($sql);
+          $rep->setFetchMode(PDO::FETCH_NUM);
+
+          if($rep==false){
+
+            return -1;
+          }
+          $var=$rep->fetch();
+
+          return round($var[0],2);
+
+
+     }
+
+
+     public static function classementPromo($dpt = NULL, $annee=NULL){
+
+      if(!isset($dpt)){
+
+        $dpt='"'.$_SESSION['codeDepartement'].'"';
+        $annee='"'.$_SESSION['anneeCourantEtudiant'].'"';
+
+      }
+
+         $sql = "SELECT codeEtudiant FROM agora_notes N
+          JOIN agora_etudiants E ON E.loginEtudiant=N.codeEtudiant 
+          WHERE codeDepartement=$dpt AND anneeCourantEtudiant=$annee
+          GROUP BY codeEtudiant ORDER BY AVG(note) DESC";
+
+          var_dump($sql);
+
+          $rep=Model::$pdo->query($sql);
+          $rep->setFetchMode(PDO::FETCH_COLUMN);
+
+          if($rep==false){
+
+            return -1;
+          }
+          $tab_login=$rep->fetch();
+
+          return $tab_login;
+
      }
 
 }
