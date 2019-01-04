@@ -11,13 +11,15 @@ class ModelFaireExercice extends Model{
     private $loginEtudiant;
     private $idExercice;
     private $reponse;
+    private $date;
      
 
-    public function __construct($loginEtudiant = NULL,$idExercice = NULL,$reponse = NULL)
+    public function __construct($loginEtudiant = NULL,$idExercice = NULL,$reponse = NULL, $Date = NULL)
     {
         if(isset($idExercice)) $this->$idExercice =$idExercice;
         if(isset($loginEtudiant)) $this->$loginEtudiant =$loginEtudiant;
-        if(isset($reponse)) $this->$reponse =$reponse; 
+        if(isset($reponse)) $this->$reponse =$reponse;
+        if(isset($date)) $this->$date = $date; 
                        
     
     }
