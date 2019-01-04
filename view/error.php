@@ -15,9 +15,9 @@
 					echo '<a href="index.php?controller=etudiants&action=show_perso_page" id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </a>';
 				}
 				else if (isset($_SESSION['typeUtilisateur']) && $_SESSION['typeUtilisateur'] === 'administrateur') {
-					echo
+					echo '<a href="index.php?controller=administrateur&action=show_perso_page" id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </a>';
 				} 
-				else if (!isset($_SESSION['typeUtilisateur'])){
+				else if (!isset($_SESSION['typeUtilisateur'])) {
 					echo '<a href="index.php?controller=Utilisateurs&action=show_login_page" id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </a>';
 				}
 				?>
@@ -45,6 +45,7 @@
 				<a> Nous ne pouvons pas traiter votre demande</a>
 				<br>
 				<a> Code d'erreur : <?php echo $error_code?></a>
+				<br>
 				<a> Vous allez être redirigé vers l'accueil</a>
 				<meta http-equiv="refresh" content="3; URL=index.php" />
 			</div>

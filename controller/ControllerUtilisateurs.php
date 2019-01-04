@@ -14,8 +14,6 @@ class ControllerUtilisateurs extends Controller{
         require (File::build_path(array('view', 'view.php')));
     }
 
-
-
     public static function update_password(){
         $mdp_en_clair=$_POST["new_password"];
         $mdp_crypte=Security::chiffrer($mdp_en_clair);
@@ -35,57 +33,70 @@ class ControllerUtilisateurs extends Controller{
 	}	
  
     public static function connect() {
-
-        if(isset($_GET['login']) && isset($_GET['password'])){ //succès: l'utilisateur est connecté
-            $login=$_GET['login'];
-            $password=$_GET['password'];
+        if(isset($_GET['loginUtilisateur']) && isset($_GET['mdpUtilisateur'])){ //succès: l'utilisateur est connecté
+            $login=$_GET['loginUtilisateur'];
+            $password=$_GET['mdpUtilisateur'];
             $mdpsecu = Security::chiffrer($password);
-            $verif = ModelUtilisateurs::checkPassword($login, $mdpsecu); 
-            if($verif) {
-                $u = ModelUtilisateurs::select($login);
-                $_SESSION['loginUtilisateur'] = $u->get('loginUtilisateur');
-                $_SESSION['mdpUtilisateur'] = $u->get('mdpUtilisateur');
-                $_SESSION['typeUtilisateur'] = $u->get('typeUtilisateur');
-                $_SESSION['nomUtilisateur'] = $u->get('nomUtilisateur');
-                $_SESSION['prenomUtilisateur'] = $u->get('prenomUtilisateur');
-                $_SESSION['emailUtilisateur'] = $u->get('emailUtilisateur');
-                $_SESSION['codeEtablissement'] = $u->get('codeUtilisateur');
-                
-                if($_SESSION["typeUtilisateur"]==="etudiant"){ //si c'est un étudiant 
-                    $redirection = 'index.php?controller=etudiants&action=show_perso_page';
-                    header('Location: '.$redirection);
+            $verif = ModelUtilisateurs::checkPassword($login, $mdpsecu);
+            $u = ModelUtilisateurs::select($login);
+            if($u) {
+                if($verif) {
+                    if($u->get('nonce') == NULL) {
+                        $_SESSION['loginUtilisateur'] = $u->get('loginUtilisateur');
+                        $_SESSION['mdpUtilisateur'] = $u->get('mdpUtilisateur');
+                        $_SESSION['typeUtilisateur'] = $u->get('typeUtilisateur');
+                        $_SESSION['nomUtilisateur'] = $u->get('nomUtilisateur');
+                        $_SESSION['prenomUtilisateur'] = $u->get('prenomUtilisateur');
+                        $_SESSION['emailUtilisateur'] = $u->get('emailUtilisateur');
+                        $_SESSION['codeEtablissement'] = $u->get('codeUtilisateur');
+                        
+                        if($_SESSION["typeUtilisateur"] === "etudiant"){ //si c'est un étudiant 
+                            $redirection = 'index.php?controller=etudiants&action=show_perso_page';
+                            header('Location: '.$redirection);
+                        }
+        
+                        if($_SESSION["typeUtilisateur"] === "enseignant"){ //si c'est un enseignant
+                            $redirection = 'index.php?controller=enseignants&action=show_perso_page';
+                            header('Location: '.$redirection);
+                        }
+        
+                        if($_SESSION["typeUtilisateur"] === "administrateur"){ //si c'est un admin
+                            $redirection = 'index.php?controller=administrateur&action=show_perso_page';
+                            header('Location: '.$redirection);
+                        }
+                    }
+                    else {
+                        $view='login';
+                        $pagetitle = 'Connexion - Agora';
+                        $code_connect_failed = 'error_compte_invalide';
+                        require (File::build_path(array('view', 'view.php')));
+                    }
                 }
-
-                if($_SESSION["typeUtilisateur"]==="enseignant"){ //si c'est un enseignant
-                    $redirection = 'index.php?controller=enseignants&action=show_perso_page';
-                    header('Location: '.$redirection);
+                else { //échec: mauvais mdp
+                    $view='login';
+                    $pagetitle="Connexion - Agora";
+                    $code_connect_failed='error_mdp';
+                    require (File::build_path(array('view', 'view.php')));
                 }
-
-                if($_SESSION["typeUtilisateur"]==="admin"){ //si c'est un admin
-                    $redirection = 'index.php?controller=admins&action=show_perso_page';
-                    header('Location: '.$redirection);
-                }
-            
-            }else { //échec: mauvais mdp
+            }
+            else{ //échec: utilisateur non inscrit
                 $view='login';
                 $pagetitle="Connexion - Agora";
-                $code_connect_failed='error_mdp';
+                $code_connect_failed='error_user';
                 require (File::build_path(array('view', 'view.php')));
             }
-        }else{ //échec: utilisateur non inscrit
-            $view='login';
-            $pagetitle="Acceuil";
-            $code_connect_failed='error_user';
-            require (File::build_path(array('view', 'view.php')));
+        } 
+        else { //échec: loginUtilisateur ou Mot de passe vide
+            $error_code = 'connect : login ou mot de passe vide';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
         }
-
     }
 
     public static function recuparemail() {
         $vemail = filter_var($_GET['email'] , FILTER_VALIDATE_EMAIL);
         $u = ModelUtilisateurs::getUserByEmail($_GET['email']);
         if($vemail) {
-            var_dump($u);
             if($u) {
                 $destinataire = $_GET['email'];
                 $sujet = 'Récupération de mot de passe';
