@@ -40,15 +40,17 @@
 		</header>
 
 	<body>
-		<div class="page_content">		
-			<div class='div_error'>
-				<a> Nous ne pouvons pas traiter votre demande</a>
-				<br>
-				<a> Code d'erreur : <?php echo $error_code?></a>
-				<br>
-				<a> Vous allez être redirigé vers l'accueil</a>
-				<meta http-equiv="refresh" content="3; URL=index.php" />
+		<article id="page_connexion">
+			<div class="page_content">		
+				<div class='div_error'>
+					<a> Nous ne pouvons pas traiter votre demande</a>
+					<br>
+					<a> Code d'erreur : <?php echo $error_code?></a>
+					<br>
+					<a> Vous allez être redirigé vers l'accueil</a>
+					<!-- <meta http-equiv="refresh" content="3; URL=index.php" /> -->
+				</div>
 			</div>
-		</div>
+		</article>	
 	</body>
 </html>

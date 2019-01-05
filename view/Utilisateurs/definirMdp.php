@@ -1,4 +1,4 @@
-<form id="formulaire_mdp_etudiant" method="post" action="index.php">
+<form id="formulaire_mdp_etudiant" method="get" action="index.php">
 	<p>Bienvenue sur Agora</p>
 	<div id="part_from">
 		<?php
