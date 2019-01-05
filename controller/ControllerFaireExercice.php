@@ -2,7 +2,7 @@
 <?php
 
 require_once (File::build_path(array('model','ModelFaireExercice.php')));
-require_once (File::build_path(array('model','ModelEtudiant.php')));
+require_once (File::build_path(array('model','ModelExerciceClassique.php')));
 
 class ControllerFaireExercice{
     
@@ -26,15 +26,15 @@ class ControllerFaireExercice{
 
     	$id = $_GET['id'];
     	$loginEtudiant = $_GET['loginEtudiant'];
+
         
-        $ex = ModelExerciceClassique::select($id);
-        $etu = ModelEtudiant
-        $rep = ModelFaireExercice($id, $loginEtudiant);
+        $e = ModelExerciceClassique::select($id);
+        $f = ModelFaireExercice::selectFaireExercice($id, $loginEtudiant);
 
         $nomE = $e->get('nomExercice');
         $enonce = $e->get('enonce');
+        $reponse = $f->get('reponse');
 
-        $reponse
 
     	$view = "correction";
     	$pagetitle = "Agora - Correction";
