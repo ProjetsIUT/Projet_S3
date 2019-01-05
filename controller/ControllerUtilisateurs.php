@@ -15,15 +15,31 @@ class ControllerUtilisateurs extends Controller{
     }
 
     public static function update_password(){
-        $mdp_en_clair=$_POST["new_password"];
-        $mdp_crypte=Security::chiffrer($mdp_en_clair);
-        $e = new ModelUtilisateurs();
-        $e->set('loginUtilisateur',$_POST["login"]);
-        $data=array("loginUtilisateur"=>$_POST["login"],"mdpUtilisateur"=>$mdp_crypte);
-        $e->update($data);
-        $redirection = (File::build_path(array('?controller=utilisateurs&action=show_login_page')));
-        header('Location: '.$redirection);
-        exit();
+        if(isset($_POST['mdpUtilisateur']) && isset($_POST['vmdpUtilisateur'])) {
+            if($_POST['mdpUtilisateur'] && isset($_POST['vmdpUtilisateur'])) {
+                $mdp_crypte = Security::chiffrer($_POST['mdpUtilisateur']);
+                $e = new ModelUtilisateurs();
+                $data = array(
+                    "loginUtilisateur"=>$_POST["login"],
+                    "mdpUtilisateur"=> $mdp_crypte,
+                );
+                $e->update($data);
+                $view = 'changemdpfait';
+                $pagetitle = 'Mot de passe changé - Agora';
+                require (File::build_path(array('view', 'view.php')));
+            }
+            else {
+                $verif = 'Vos deux mots de passe ne sont pas identiques';
+                $view = 'definirMdp';
+                $pagetitle="Première connexion - Agora";
+                require (File::build_path(array('view', 'view.php')));
+            }
+        }
+        else {
+            $error_code = 'update_password : l\'un des champs est vide';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
     }
 
 	public static function show_login_page(){
