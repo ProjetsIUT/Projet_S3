@@ -58,19 +58,19 @@ class ModelUtilisateurs extends Model {
 	}
 	
 	public static function getUserByEmail($email) {
-		$sql = "SELECT * FROM agora_utilisateurs WHERE emailUtilisateur=:email;";
+		$sql = 'SELECT * FROM agora_utilisateurs WHERE emailUtilisateur=:emailll;';
 		$req_prep = Model::$pdo->prepare($sql);
 		$values = array(
-			"email" => $email,
+			"emailll" => $email,
 		);
 		$req_prep->execute($values);
 		$req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUtilisateurs');
 		$tab_user = $req_prep->fetchAll();
 		// Attention, si il n'y a pas de résultats, on renvoie false
-		if (empty($tab_obj)) {
+		if (empty($tab_user)) {
 			return false;
 		}
-		return $tab_obj[0];
+		return $tab_user[0];
 	}
 	 
 }

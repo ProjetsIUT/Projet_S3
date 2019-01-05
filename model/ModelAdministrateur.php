@@ -7,7 +7,7 @@ require_once (File::build_path(array('lib','Security.php')));
 class ModelAdministrateur extends ModelUtilisateurs {
 
 	  protected static $primary = 'loginAdministrateur';
-  	  protected static $object = 'administrateur';
+  	protected static $object = 'administrateur';
 
   	private $loginAdministrateur;
 

@@ -129,22 +129,8 @@ class ControllerUtilisateurs extends Controller{
         } 
     }
 
-    public static function create() {
-        if(Session::is_admin() || !isset($_SESSION['loginUtilisateur'])) {
-            $type = 'Ajout';
-            $view = 'update';
-            $pagetitle = 'Ajout d\'un utilisateur';
-            require (File::build_path(array('view', 'view.php')));
-        }
-        else {
-            $error_code = 'Impossible de créer un compte. Contactez l\'administrateur de votre université pour tout renseignement';
-            $pagetitle = 'Erreur';
-            require (File::build_path(array('view', 'error.php')));
-        }
-    }
-
     public static function validate() {
-        $u = ModelUtilisateur::select($_GET['loginUtilisateur']);
+        $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
         $nr = $_GET['nonce'];
         if ($u) {
             if ($nr === $u->get('nonce')) {
@@ -152,10 +138,11 @@ class ControllerUtilisateurs extends Controller{
                     "loginUtilisateur" => $_GET['loginUtilisateur'],
                     "nonce" => NULL,
                 );
-                ModelUtilisateur::update($data);
+                ModelUtilisateurs::update($data);
                 $pagetitle = 'Validé';
                 $view = 'validate';
-                require (File::build_path(array('view', 'view.php')));
+                $redirection = 'index.php?controller=utilisateurs&action=show_password_page';
+                header('Location: '.$redirection);
             }
             else if($u->get('nonce') == NULL){
                 $error_code = 'validate : Votre compte a déja été validé';
@@ -205,67 +192,74 @@ class ControllerUtilisateurs extends Controller{
         }
     }
 
-    public static function created() {
-        if(isset($_GET['loginUtilisateur']) && isset($_GET['nomUtilisateur']) && isset($_GET['prenomUtilisateur']) && isset($_GET['adresseFacturationUtilisateur']) && isset($_GET['adresseLivraisonUtilisateur']) && isset($_GET['passUtilisateur']) && isset($_GET['emailUser'])) {
+    public static function create() {
+        //if(Session::is_admin() || !isset($_SESSION['loginUtilisateur'])) {
+            $type = 'Ajout';
+            $view = 'update';
+            $pagetitle = 'Ajout d\'un utilisateur';
+            require (File::build_path(array('view', 'view.php')));
+        //}
+        /*else {
+            $error_code = 'Impossible de créer un compte. Contactez l\'administrateur de votre université pour tout renseignement';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }*/
+    }
 
-            if($_GET['passUtilisateur'] === $_GET['vpassUtilisateur']) {
+    public static function created() {
+        if(isset($_GET['loginUtilisateur']) && isset($_GET['nomUtilisateur']) && isset($_GET['prenomUtilisateur']) && isset($_GET['emailUtilisateur']) && isset($_GET['typeUtilisateur']) && isset($_GET['codeEtablissement'])) {
+            $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
+            if($u == false) {
                 $view = 'created';
                 $pagetitle = 'Utilisateur ajouté';
-                $mdpsecu = Security::chiffrer($_GET['passUtilisateur']);
 
-                $vemail = filter_var($_GET['emailUser'] , FILTER_VALIDATE_EMAIL);
-                
-                if(Session::is_admin() && isset($_GET['typeUser'])) {
-                    $valuet = $_GET['typeUser'];
-                }
-                else {
-                    $valuet = NULL;
-                } 
-
+                $vemail = filter_var($_GET['emailUtilisateur'] , FILTER_VALIDATE_EMAIL);
+            
                 if ($vemail) {
                     $nonc = Security::generateRandomHex();
+                    $mdpsecu = Security::chiffrer($nonc);
                     $data = array(
-                        "loginUtilisateur" => $_GET['loginUtilisateur'],
-                        "nomUtilisateur" => $_GET['nomUtilisateur'],
-                        "prenomUtilisateur" => $_GET['prenomUtilisateur'],
-                        "adresseFacturationUtilisateur" => $_GET['adresseFacturationUtilisateur'],
-                        "adresseLivraisonUtilisateur" => $_GET['adresseLivraisonUtilisateur'],
-                        "passUtilisateur" => $mdpsecu,
-                        "emailUser" => $_GET['emailUser'],
-                        "typeUser" => $valuet,
-                        "nonce" => $nonc,
+                    "loginUtilisateur" => $_GET['loginUtilisateur'],
+                    "nomUtilisateur" => $_GET['nomUtilisateur'],
+                    "prenomUtilisateur" => $_GET['prenomUtilisateur'],
+                    "mdpUtilisateur" => $mdpsecu,
+                    "emailUtilisateur" => $_GET['emailUtilisateur'],
+                    "typeUtilisateur" => $_GET['typeUtilisateur'],
+                    "codeEtablissement" => $_GET['codeEtablissement'],
+                    "nonce" => $nonc,
                     );
-                    $u = new ModelUtilisateur($data);
+                    $u = new ModelUtilisateurs();
                     $u->save($data);
-                        $destinataire = $_GET['emailUser'];
-                        $sujet = 'Activer votre compte';
-                        $entete = 'From serviceclient@pineapple.com';
-                        $mail = 'Bienvenue sur PineApple,
-                        
-                        Pour activer votre compte, veuillez cliquer sur le lien-ci dessous ou 
-                        copier/coller dans votre navigateur internet
+                    $destinataire = $_GET['emailUtilisateur'];
+                    $sujet = 'Activer votre compte';
+                    $entete = 'From serviceclient@agora.com';
+                    $mail = 'Bienvenue sur Agora,
+                    
+                    Pour activer votre compte, veuillez cliquer sur le lien-ci dessous ou 
+                    copier/coller dans votre navigateur internet
 
-                        http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/eCommerce/index.php?controller=utilisateur&action=validate&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'&nonce='.rawurlencode($nonc).'
+                    http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/Projet_S3/index.php?controller=utilisateurs&action=validate&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'&nonce='.rawurlencode($nonc).'
 
 
-                        Ceci est un mail automatique, Merci de ne pas y répondre';
-                        mail($destinataire, $sujet, $mail, $entete);
-                        require (File::build_path(array('view', 'view.php')));
-                } else {
+                    Ceci est un mail automatique, Merci de ne pas y répondre';
+                    mail($destinataire, $sujet, $mail, $entete);
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                else {
                     $type = 'Ajout';
                     $verif = 'Votre email n\'est pas valide !';
                     $view = 'update';
                     $pagetitle = 'Ajout d\'un utilisateur';
                     require (File::build_path(array('view', 'view.php')));
                 }
-                
-            } else {
+            }
+            else {
                 $type = 'Ajout';
-                $verif = 'Vos deux mots de passe ne sont pas identiques !';
+                $verif = 'Ce nom d\'utilisateur existe déja';
                 $view = 'update';
                 $pagetitle = 'Ajout d\'un utilisateur';
-                require (File::build_path(array('view', 'view.php')));
-            }
+                require (File::build_path(array('view', 'view.php')));                    
+            } 
         }
         else {
             $error_code = 'created : l\'un des champs est vide';

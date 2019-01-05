@@ -24,7 +24,7 @@
 				}else if(isset($_POST['action'])){
 					$action=$_POST["action"];
 				}else{
-					$action = "connect";
+					$action = "show_login_page";
 				}
 
 				if(in_array($action, $methods)) {
