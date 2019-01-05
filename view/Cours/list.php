@@ -1,6 +1,6 @@
 <div class="page_content">
 
-	<h1>Liste des cours <a class="bouton" href="./index.php?controller=cours&action=show_form_new">Publier un cours</a></h1>
+	<h1>Mes cours <a class="bouton" href="./index.php?controller=cours&action=show_form_new">Publier un cours</a></h1>
 
 
 
@@ -60,7 +60,7 @@
 
 				
 
-			}
+			} 
 
 		?>
 

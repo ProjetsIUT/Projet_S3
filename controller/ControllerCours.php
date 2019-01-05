@@ -17,7 +17,7 @@ class ControllerCours {
 
 	public static function list(){
 
-		$tab = ModelCours::selectAll();
+		$tab = ModelCours::getAllByEtud();
 		$path=array('model','ModelMatieres.php');
 		require_once File::build_path($path);
 		$view="list";

@@ -1,5 +1,5 @@
 <div class="page_content">
-
+ 
 	<h1>Mon bulletin de notes</h1>
 
 
@@ -26,16 +26,40 @@
 					if($typeExercice==="QCM"){
 
 						$exercice=ModelQCM::select($note->get('codeExercice'));
-						$nomExercice=$exercice->get('nomQCM');
-						$cours=ModelCours::select($exercice->get('themeQCM'));
-						$nomCours=htmlspecialchars($cours->get('nomCours'));
+
+						if(!$exercice){
+
+							$nomExercice = "Exercice supprimé";
+							$nomCours="Cours inconnu";
+							$codeCours = "./";
+							
+						}else{
+
+							$nomExercice=$exercice->get('nomQCM');
+							$cours=ModelCours::select($exercice->get('themeQCM'));
+							$codeCours=$cours->get('codeCours');
+							$nomCours=htmlspecialchars($cours->get('nomCours'));
+
+						}
 
 					}else{
 
 						$exercice=ModelExerciceClassique::select($note->get('codeExercice'));
-						$nomExercice = $exercice->get('nomExercice');
-						$cours=ModelCours::select($exercice->get('themeExercice'));
-						$nomCours=htmlspecialchars($cours->get('nomCours'));
+
+						if(!$exercice){
+
+							$nomExercice = "Exercice supprimé";
+							$nomCours="Cours inconnu";
+							$codeCours ="./";
+
+						}else{
+
+							$nomExercice = $exercice->get('nomExercice');
+							$cours=ModelCours::select($exercice->get('themeExercice'));
+							$codeCours=$cours->get('codeCours');
+							$nomCours=htmlspecialchars($cours->get('nomCours'));
+
+						}
 
 					}
 
@@ -43,7 +67,7 @@
 
 						<tr>
 						 <td>'.$nomExercice. '</td>
-						 <td><a href="./data/'.$cours->get('codeCours').'.pdf">'.$nomCours.'</a></td>
+						 <td><a href="./data/'.$codeCours.'.pdf">'.$nomCours.'</a></td>
 						 <td>'.$noteObtenue .'</td>
 						 <td>'.$typeExercice .'</td>
 						</tr>
