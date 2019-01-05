@@ -10,7 +10,7 @@ $path=array('controller','ControllerUtilisateurs.php');
 require_once File::build_path($path);
 
 
-class ControllerEnseignants extends ControllerUtilisateurs{
+class ControllerAdministrateur extends ControllerUtilisateurs{
 
 	protected static $object= 'administrateur';
 
