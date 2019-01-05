@@ -27,8 +27,9 @@ class ControllerUtilisateurs extends Controller{
                             "mdpUtilisateur"=> $mdp_crypte,
                             "nonce" => NULL,
                         );
-                        ModelUtilisateurs::update($data);
-                        $view = 'changemdpfait';
+                        $u = new ModelUtilisateurs();
+                        $u->update($data);
+                        $view = 'validate';
                         $pagetitle = 'Mot de passe changé et Compte validé - Agora';
                         require (File::build_path(array('view', 'view.php')));
                     }
