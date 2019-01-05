@@ -16,11 +16,11 @@ class ControllerUtilisateurs extends Controller{
 
     public static function update_password(){
         if(isset($_POST['mdpUtilisateur']) && isset($_POST['vmdpUtilisateur'])) {
-            if($_POST['mdpUtilisateur'] && isset($_POST['vmdpUtilisateur'])) {
+            if($_POST['mdpUtilisateur'] === $_POST['vmdpUtilisateur']) {
                 $mdp_crypte = Security::chiffrer($_POST['mdpUtilisateur']);
                 $e = new ModelUtilisateurs();
                 $data = array(
-                    "loginUtilisateur"=>$_POST["login"],
+                    "loginUtilisateur"=>$_POST["loginUtilisateur"],
                     "mdpUtilisateur"=> $mdp_crypte,
                 );
                 $e->update($data);
@@ -30,9 +30,9 @@ class ControllerUtilisateurs extends Controller{
             }
             else {
                 $verif = 'Vos deux mots de passe ne sont pas identiques';
-                $view = 'definirMdp';
                 $pagetitle="Première connexion - Agora";
-                require (File::build_path(array('view', 'view.php')));
+                $redirection = 'index.php?controller=utilisateurs&action=show_password_page&loginUtilisateur='.$_GET['loginUtilisateur'].'';
+                header('Location: '.$redirection);
             }
         }
         else {
@@ -156,8 +156,7 @@ class ControllerUtilisateurs extends Controller{
                 );
                 ModelUtilisateurs::update($data);
                 $pagetitle = 'Validé';
-                $view = 'validate';
-                $redirection = 'index.php?controller=utilisateurs&action=show_password_page';
+                $redirection = 'index.php?controller=utilisateurs&action=show_password_page&loginUtilisateur='.$_GET['loginUtilisateur'].'';
                 header('Location: '.$redirection);
             }
             else if($u->get('nonce') == NULL){

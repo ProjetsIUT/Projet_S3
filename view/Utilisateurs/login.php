@@ -30,7 +30,5 @@
 			<br>
 			<br>
 			<a href="index.php?action=mdp_oublie&controller=utilisateurs">Mot de passe oublié ?</a>
-			<br>
-			<a href="index.php?action=show_password_page&controller=utilisateurs">Première connexion</a>
 		</form>
 </article>
