@@ -14,29 +14,53 @@ class ControllerUtilisateurs extends Controller{
         require (File::build_path(array('view', 'view.php')));
     }
 
-    public static function update_password(){
-        if(isset($_POST['mdpUtilisateur']) && isset($_POST['vmdpUtilisateur'])) {
-            if($_POST['mdpUtilisateur'] === $_POST['vmdpUtilisateur']) {
-                $mdp_crypte = Security::chiffrer($_POST['mdpUtilisateur']);
-                $e = new ModelUtilisateurs();
-                $data = array(
-                    "loginUtilisateur"=>$_POST["loginUtilisateur"],
-                    "mdpUtilisateur"=> $mdp_crypte,
-                );
-                $e->update($data);
-                $view = 'changemdpfait';
-                $pagetitle = 'Mot de passe changé - Agora';
-                require (File::build_path(array('view', 'view.php')));
+    public static function validate_new_password() {
+        $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
+        $nr = $_GET['nonce'];
+        if ($u) {
+            if ($nr === $u->get('nonce')) {
+                if(isset($_GET['mdpUtilisateur']) && isset($_GET['vmdpUtilisateur'])) {
+                    if($_GET['mdpUtilisateur'] === $_GET['vmdpUtilisateur']) {
+                        $mdp_crypte = Security::chiffrer($_GET['mdpUtilisateur']);
+                        $data = array(
+                            "loginUtilisateur"=>$_GET["loginUtilisateur"],
+                            "mdpUtilisateur"=> $mdp_crypte,
+                            "nonce" => NULL,
+                        );
+                        ModelUtilisateurs::update($data);
+                        $view = 'changemdpfait';
+                        $pagetitle = 'Mot de passe changé et Compte validé - Agora';
+                        require (File::build_path(array('view', 'view.php')));
+                    }
+                    else {
+                        $verif = 'Vos deux mots de passe ne sont pas identiques';
+                        $pagetitle="Première connexion - Agora";
+                        $view = 'definirMdp';
+                        require (File::build_path(array('view', 'view.php')));
+                    }
+                }
+                else {
+                    $error_code = 'validate_new_password : l\'un des champs est vide';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                }
+            }
+            else if($u->get('nonce') == NULL){
+                $error_code = 'validate_new_password : Votre compte a déja été validé';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
             }
             else {
-                $verif = 'Vos deux mots de passe ne sont pas identiques';
-                $pagetitle="Première connexion - Agora";
-                $redirection = 'index.php?controller=utilisateurs&action=show_password_page&loginUtilisateur='.$_GET['loginUtilisateur'].'';
-                header('Location: '.$redirection);
+                $error_code = 'validate_new_password : Nous ne pouvons accéder à votre requête';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
             }
         }
         else {
-            $error_code = 'update_password : l\'un des champs est vide';
+            $error_code = 'validate_new_password : loginUtilisateur inexistant';
+            $view = 'error';
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
         }
@@ -145,40 +169,6 @@ class ControllerUtilisateurs extends Controller{
         } 
     }
 
-    public static function validate() {
-        $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
-        $nr = $_GET['nonce'];
-        if ($u) {
-            if ($nr === $u->get('nonce')) {
-                $data = array(
-                    "loginUtilisateur" => $_GET['loginUtilisateur'],
-                    "nonce" => NULL,
-                );
-                ModelUtilisateurs::update($data);
-                $pagetitle = 'Validé';
-                $redirection = 'index.php?controller=utilisateurs&action=show_password_page&loginUtilisateur='.$_GET['loginUtilisateur'].'';
-                header('Location: '.$redirection);
-            }
-            else if($u->get('nonce') == NULL){
-                $error_code = 'validate : Votre compte a déja été validé';
-                $view = 'error';
-                $pagetitle = 'Erreur';
-                require (File::build_path(array('view', 'error.php')));
-            }
-            else {
-                $error_code = 'validate : Nous ne pouvons accéder à votre requête';
-                $view = 'error';
-                $pagetitle = 'Erreur';
-                require (File::build_path(array('view', 'error.php')));
-            }
-        }
-        else {
-            $error_code = 'validate : loginUtilisateur inexistant';
-            $view = 'error';
-            $pagetitle = 'Erreur';
-            require (File::build_path(array('view', 'error.php')));
-        }
-    }
 
     public static function changemdp() {
         $view = 'changemdp';
@@ -253,7 +243,7 @@ class ControllerUtilisateurs extends Controller{
                     Pour activer votre compte, veuillez cliquer sur le lien-ci dessous ou 
                     copier/coller dans votre navigateur internet
 
-                    http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/Projet_S3/index.php?controller=utilisateurs&action=validate&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'&nonce='.rawurlencode($nonc).'
+                    http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/Projet_S3/index.php?controller=utilisateurs&action=show_password_page&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'&nonce='.rawurlencode($nonc).'
 
 
                     Ceci est un mail automatique, Merci de ne pas y répondre';

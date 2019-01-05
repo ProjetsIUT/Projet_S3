@@ -10,8 +10,9 @@
 		<p>Vous utilisez Agora pour la première fois. Pour commencer, veuillez choisir un mot de passe sécurisé.</p>
 		<br>
 		<input type="hidden" name="controller" value="utilisateurs">
-		<input type="hidden" name="action" value="update_password">
+		<input type="hidden" name="action" value="validate_new_password">
 		<input type="hidden" name="loginUtilisateur" value=<?php echo $_GET["loginUtilisateur"]?>>
+		<input type="hidden" name="nonce" value=<?php echo $_GET["nonce"]?>>
 		<label>Mot de passe :</label>
 		<input type="password" name="mdpUtilisateur" required>
 		<br>
