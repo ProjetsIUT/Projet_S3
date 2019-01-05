@@ -35,11 +35,7 @@
             $rep = Model::$pdo->query("SELECT * FROM $table_name");
             $rep->setFetchMode(PDO::FETCH_CLASS, $class_name);
             $tab_obj = $rep->fetchAll();
-            /*echo "<ul>";
-            foreach ($tab_obj as $keys => $value) { 
-                echo "<li> Car $value->immatriculation of make $value->marque color $value->couleur </li>";
-            }
-            echo "</ul>";*/
+   
             return $tab_obj;
         }
 
@@ -178,9 +174,10 @@
               catch(PDOException $e) {
                 if (Conf::getDebug()) {
                     
+                    $object="";
                     $error_code="Erreur au niveau de la base de données";
                     $view = 'error';
-                    $pagetitle = 'Erreur';
+                    $pagetitle = 'Erreur dans la BD';
                     require (File::build_path(array('view', 'view.php')));
                   
               } else {

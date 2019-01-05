@@ -11,12 +11,8 @@ class ModelQCM extends Model {
 	private $codeQCM;
 	private $nomQCM;
   private $themeQCM;  //Theme = codeMatiere 
-	private $question;
-	private $proposition1;
-  private $proposition2;
-  private $proposition3;
-  private $proposition4;
-  private $propositionCorrecte;
+	private $resume;
+  private $dateQCM;
 
   public function get($nom_attribut) {
     if (property_exists($this, $nom_attribut))
@@ -37,23 +33,11 @@ class ModelQCM extends Model {
     $this->codeQCM =$data["codeQCM"];
     $this->nomQCM = $data["nomQCM"];
     $this->themeQCM = $data["themeQCM"];
-    $this->question=$data["question"];
-    $this->proposition1=$data["proposition1"];
-    $this->proposition2=$data["proposition2"];
-    $this->proposition3=$data["proposition3"];    
-    $this->proposition4=$data["proposition4"];
-    $this->propositionCorrecte=$data["propositionCorrecte"];
-
+    $this->resume=$data["resume"];
+    $this->dateQCM=$data["dateQCM"];
 
   }
 }
-
-
-
-
-
-
-
 
 
 }

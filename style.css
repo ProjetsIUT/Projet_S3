@@ -395,6 +395,25 @@ footer{
 
 }
 
+.box_center{
+
+  margin: 20px 26px 0px 26px;
+  background-color: rgba(130, 161, 192, 0.9);
+  padding:20px;
+}
+
+.box_center>label,.box_center>input{
+
+  font-size:18px;
+  margin:10px;
+
+}
+
+.question{
+
+  margin-bottom:20px;
+}
+
 
 h3{
 
@@ -405,18 +424,42 @@ h3{
 
 h1{
 
-  margin: 25px 26px;
+  margin: 25px 26px 0px 26px;
   color:white;
 
 }
 
-legend{
+h2{
 
+  margin: 5px 26px;
+  color:white;
+  font-size:18px;
+}
+
+legend{
 
   font-style: italic;
 
+}
+
+td{
+
+  padding: 5px 80px 0px 80px;
+  text-align: center;
 
 }
+
+tr,th{
+
+  border:1px solid black;
+}
+
+table{
+
+  width: 100%;
+  
+}
+
 
 .bouton{
 
@@ -429,6 +472,7 @@ legend{
   cursor:pointer;
   float: right;
   font-size: 15px;
+  margin-right: 5px;
 
 
 }
@@ -466,6 +510,30 @@ legend{
 
 }
 
+.bloc_boutons>.bouton,.bloc_boutons>.bouton_suppr{
+
+  float:none;
+
+}
+
+.bloc_boutons{
+
+  text-align: center;
+  height: 30px;
+}
+
+
+.bloc_boutons>h3{
+
+  text-align: center;
+  height: 30px;
+  
+}
+
+.note{
+
+  float:right;
+}
 
 
 
