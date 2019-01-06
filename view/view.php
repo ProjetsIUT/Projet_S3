@@ -27,7 +27,7 @@
 					
 						<a class="menu" href="index.php?controller=QCM&action=list">Exercices</a> 
 						
-						<a class="menu">Statistiques</a>
+						<a class="menu" <?php if(isset($_SESSION['typeUtilisateur']) && $_SESSION['typeUtilisateur']==='etudiant'){echo('href="./index.php?controller=notes&action=statsEtud"');} ?>>Statistiques</a>
 					
 				</nav>
 
