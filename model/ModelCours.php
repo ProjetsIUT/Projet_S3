@@ -78,6 +78,36 @@ class ModelCours extends Model{
         return $name;
   }
 
+  public static function getAllByEtud(){
+
+    //Retourne les cours que l'étudiant à le droit de consulter
+
+          $login = '"'.$_SESSION['loginUtilisateur'].'"';
+
+          $sql = "SELECT codeCours from agora_cours C JOIN agora_matieres M
+          ON C.codeMatiere=M.codeMatiere JOIN agora_suitMatiere S ON S.codeMatiere=M.codeMatiere
+          WHERE loginEtudiant=$login OR C.accesCours=1";
+
+          $rep = Model::$pdo->query($sql);
+
+          $rep->setFetchMode(PDO::FETCH_NUM);
+          $tab_codesCours = $rep->fetchAll();
+
+          $tabCours = array();
+
+          foreach ($tab_codesCours as $key) { 
+
+            $cours=self::select($key[0]);
+            array_push($tabCours,$cours);
+
+          }
+
+          return $tabCours;
+
+
+
+  }
+
 }  
 
 

@@ -40,6 +40,40 @@ class ModelMatieres extends Model {
   }
 
 
+  public static function getAllByEtud($login=NULL){
+
+    //Retourne toutes les matières (par leur code) dans lesquelles est inscrit un étudiant ($login)
+
+
+          if(!isset($login)){
+
+             $login = '"'.$_SESSION['loginUtilisateur'].'"';
+
+          } 
+
+
+          $sql = "SELECT codeMatiere from agora_suitMatiere WHERE loginEtudiant=$login";
+          $rep = Model::$pdo->query($sql);
+
+          $rep->setFetchMode(PDO::FETCH_NUM);
+          $tab_codesMatiere = $rep->fetchAll();
+
+          $tab =array();
+
+          foreach ($tab_codesMatiere as $key) { 
+
+            array_push($tab,$key[0]);
+
+          }
+
+
+
+          return $tab;
+
+
+  }
+
+
 
 }
 
