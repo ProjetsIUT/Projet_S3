@@ -19,7 +19,7 @@
 
             <p>
                 <label for="reponse_id">Commentaires:</label>
-                <textarea name="reponse" id="reponse_id" required></textarea>
+                <textarea name="correction"  equired></textarea>
                 
                 <input type="hidden" name="action" value="noteExerciceClassique" />
                 <input type="hidden" name="controller" value="Notes" />

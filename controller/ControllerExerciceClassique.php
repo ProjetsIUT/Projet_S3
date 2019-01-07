@@ -2,6 +2,7 @@
 
 require_once (File::build_path(array('model','ModelExerciceClassique.php')));
 require_once (File::build_path(array('model','ModelCours.php')));
+require_once (File::build_path(array('model','ModelFaireExercice.php')));
 
 Class ControllerExerciceClassique {
     
@@ -83,9 +84,11 @@ Class ControllerExerciceClassique {
     public static function list(){
 
         $tab=ModelExerciceClassique::selectAll();
+
         $view="list";
-        $pagetitle="Mes Exerces - Agora";
+        $pagetitle="Mes Exercices - Agora";
         require (File::build_path(array('view', 'view.php')));
+
     }
 
         public static function suppr(){
@@ -95,6 +98,59 @@ Class ControllerExerciceClassique {
         self::list();
 
     }
-    
+
+    public static function list_en_attente(){
+        
+        $loginEtudiant = $_SESSION['loginUtilisateur'];
+
+        $tabe = ModelExerciceClassique::selectAll();
+        $tab = array();
+
+        foreach ($tabe as $e) {
+            $id = $e->get("idExercice");
+            
+            $test = ModelFaireExercice::selectFaireExercice($id, $loginEtudiant);
+        
+
+            if($test){
+                
+                $correction = $test->getCorrection();
+                
+                if (NULL==$correction)
+                $tab[] = $e;
+            }
+
+        }
+
+        $view="list";
+        $pagetitle="Mes Exercices - Agora";
+        require (File::build_path(array('view', 'view.php')));
+    }
+
+    public static function list_a_faire(){
+        
+        $loginEtudiant = $_SESSION['loginUtilisateur'];
+
+        $tabe = ModelExerciceClassique::selectAll();
+        $tab = array();
+
+        foreach ($tabe as $e) {
+            $id = $e->get("idExercice");
+            
+            $test = ModelFaireExercice::selectFaireExercice($id, $loginEtudiant);
+        
+
+            if(!$test){
+                
+                $tab[] = $e;
+            }
+
+        }
+
+        $view="list";
+        $pagetitle="Mes Exercices - Agora";
+        require (File::build_path(array('view', 'view.php')));
+    }
+ 
 }
 

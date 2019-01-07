@@ -7,6 +7,7 @@ require_once (File::build_path(array('model','ModelNotes.php')));
 require_once (File::build_path(array('model','ModelExerciceClassique.php')));
 require_once (File::build_path(array('model','ModelEnseignants.php')));
 require_once (File::build_path(array('controller','ControllerEtudiants.php')));
+require_once (File::build_path(array('model','ModelFaireExercice.php')));
 
 
 class ControllerNotes{ 
@@ -14,10 +15,16 @@ class ControllerNotes{
  	protected static $object="Notes";
 
  	public static function noteExerciceClassique(){
+ 		$id = $_POST['id'];
+ 		$loginEtudiant = $_POST['loginEtudiant'];
+ 		$correction = $_POST['correction'];
 
- 		$data = array('codeNote' => uniqid() , 'codeEtudiant' => $_POST['loginUtilisateur'], 'codeExercice' => $_POS['id'], 'typeExercice' => 'Exercice Classique', 'note' => $_POST["note"], "dateNote" => date("Y-m-d H:i:s") );
+
+ 		$data = array('codeNote' => uniqid() , 'codeEtudiant' => $loginEtudiant, 'codeExercice' => $id, 'typeExercice' => 'Exercice Classique', 'note' => $_POST["note"], "dateNote" => date("Y-m-d H:i:s") );
  		$note = new ModelNotes($data);
- 		$note->save();
+ 		$faireEx = ModelFaireExercice::selectFaireExercice($id, $loginEtudiant);
+ 		$faireEx->addCorrection($id, $loginEtudiant, $correction);
+ 		$note->save($data);
 
  		self::list();
  	}
@@ -243,5 +250,5 @@ class ControllerNotes{
 
 
 
->>>>>>> master
+
 ?>
