@@ -7,9 +7,12 @@
 				<input type=hidden name=controller value=notes>
 				<input type=hidden name=action value=listByEtud>
 				<label> Filtrer par : </label>
-
+				
 				<select name="codeMatiere" required  onchange="document.getElementById('filtres').submit();">
-						<option value="" disabled selected>Matiere</option>
+						<option value="" disabled selected><?php if(isset($_GET['codeMatiere'])) {
+							echo $nomM;						
+						}
+						?></option>
 						<option value="all">Voir tout</option>
 						<?php
 							foreach($tab_nomMatieres_etud as $value) {
@@ -18,7 +21,8 @@
 							}
 						?> 
 				</select>
-
+				<br>
+				<br>
 
 			</form>
 
