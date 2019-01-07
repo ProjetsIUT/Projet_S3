@@ -13,6 +13,14 @@ class ControllerNotes{
 
  	protected static $object="Notes";
 
+ 	public static function noteExerciceClassique(){
+
+ 		$data = array('codeNote' => uniqid() , 'codeEtudiant' => $loginEtudiant, 'codeExercice' => $id, 'typeExercice' => 'Exercice Classique', 'note' => $_POST["note"], "dateNote" => date("Y-m-d H:i:s") );
+ 		$note = new ModelNotes($data);
+ 		$note->save();
+
+ 		self::list();
+ 	}
 
  	public static function listByEtud(){
 
