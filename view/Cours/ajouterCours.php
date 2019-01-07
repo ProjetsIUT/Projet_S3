@@ -20,7 +20,7 @@
 	    <br>
 	    <br>
 	    <input type="radio" name="accesCours" id="prive" value="0">
-	    <label for="prive">Autoriser l'accès seulment aux personnes inscrites à ce cours</label>
+	    <label for="prive">Autoriser l'accès seulment aux personnes inscrites à la matière</label>
 	    <br>
 	    <br>
 	    <label>Cours au format PDF:</label>
