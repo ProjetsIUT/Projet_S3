@@ -168,6 +168,13 @@ body{
 
 }
 
+.form_filtres{
+
+  float: right;
+  color:white;
+  font-size:16px;
+}
+
 
 form>p{
 
@@ -191,6 +198,11 @@ input[type=submit]{
   width:216px;
 }
 
+#input_intervalle{
+
+  width: 60px;
+
+}
 
 
 #connexion {
@@ -220,6 +232,12 @@ header{
   padding: 15px;
 
 }
+#icon_refresh{
+
+  width: 18px;
+  height: 18px;
+
+}
 
 .menu{
 
@@ -234,6 +252,12 @@ header{
 .img_form{
 
   margin: 5px 5px 0px 0px;
+}
+
+.graph{
+
+  border-radius:10px;
+  margin-bottom:10px;
 }
 
 #connexion_inscription{
@@ -365,11 +389,17 @@ footer{
 
 .tab:hover{
   
-  padding-left:20px;
-  padding-right:20px;
-  padding-bottom:20px;
+  width: 420px;
+  height: 320px;
 
 }
+
+.tab:hover ~ a{
+  
+  color:red;
+
+}
+
 
 .div_list{
 
@@ -402,11 +432,17 @@ footer{
   padding:20px;
 }
 
+
 .box_center>label,.box_center>input{
 
   font-size:18px;
   margin:10px;
 
+}
+
+.center_content{
+
+  text-align: center;
 }
 
 .question{
@@ -431,7 +467,7 @@ h1{
 
 h2{
 
-  margin: 5px 26px;
+  margin: 6px 26px;
   color:white;
   font-size:18px;
 }

@@ -65,11 +65,19 @@ class ModelNotes extends Model{
 
            $login = '"'.$_SESSION['loginUtilisateur'].'"';
 
+         }else{
+
+           $login='"'.$login.'"';
+
          }
 
            if(!isset($date)){
 
             $date='"'.date("Y-m-d").'"';
+
+           }else{
+
+            $date='"'.$date.'"';
 
            }
 
@@ -90,6 +98,128 @@ class ModelNotes extends Model{
 
      }
 
+     public static function moyenneGeneralePromo($date=NULL){
+
+       if(!isset($date)){
+
+            $date='"'.date("Y-m-d").'"';
+
+           }else{
+
+            $date='"'.$date.'"';
+
+        }
+
+          $sql = "SELECT moyGeneraleGlobale($date)";
+
+          $rep=Model::$pdo->query($sql);
+          $rep->setFetchMode(PDO::FETCH_NUM);
+
+          if($rep==false){
+
+            return -1;
+          }
+          $var=$rep->fetch();
+
+          return round($var[0],2);
+
+
+     }
+
+     public static function moyenneMatiere($login,$codeMatiere,$date){
+
+      $login='"'.$login.'"';
+      $date='"'.$date.'"';
+
+         $sql = "SELECT moyMatiereEtudiant($login,$codeMatiere,$date)";
+
+          $rep=Model::$pdo->query($sql);
+          $rep->setFetchMode(PDO::FETCH_NUM);
+
+          if($rep==false){
+
+            return -1;
+          }
+          $var=$rep->fetch();
+
+          return round($var[0],2);
+
+
+
+     }
+
+      public static function moyenneMatierePromo($codeMatiere,$date){
+
+      $date="'".$date.'"';
+
+         $sql = "SELECT moyMatiereGlobale($codeMatiere,$date)";
+
+          $rep=Model::$pdo->query($sql);
+          $rep->setFetchMode(PDO::FETCH_NUM);
+
+          if($rep==false){
+
+            return -1;
+          }
+          $var=$rep->fetch();
+
+          return round($var[0],2);
+
+
+
+     }
+
+      public static function moyenneCours($login,$codeCours,$date){
+
+      $login='"'.$login.'"';
+      $codeCours='"'.$codeCours.'"';
+      $date="'".$date.'"';
+
+         $sql = "SELECT moyCoursEtudiant($login,$codeCours,$date)";
+
+          $rep=Model::$pdo->query($sql);
+          $rep->setFetchMode(PDO::FETCH_NUM);
+
+          if($rep==false){
+
+            return -1;
+          }
+          $var=$rep->fetch();
+
+          return round($var[0],2);
+
+
+
+     }
+
+
+      public static function moyenneCoursPromo($codeCours,$date){
+
+      $codeCours='"'.$codeCours.'"';
+      $date="'".$date.'"';
+
+         $sql = "SELECT moyCoursGlobale($codeCours,$date)";
+
+          $rep=Model::$pdo->query($sql);
+          $rep->setFetchMode(PDO::FETCH_NUM);
+
+          if($rep==false){
+
+            return -1;
+          }
+          $var=$rep->fetch();
+
+          return round($var[0],2);
+
+
+
+     }
+
+
+
+
+
+
 
      public static function classementPromo($dpt = NULL, $annee=NULL){
 
@@ -105,17 +235,18 @@ class ModelNotes extends Model{
           WHERE codeDepartement=$dpt AND anneeCourantEtudiant=$annee
           GROUP BY codeEtudiant ORDER BY AVG(note) DESC";
 
-          var_dump($sql);
 
           $rep=Model::$pdo->query($sql);
-          $rep->setFetchMode(PDO::FETCH_COLUMN);
+          $rep->setFetchMode(PDO::FETCH_NUM);
 
           if($rep==false){
 
             return -1;
           }
-          $tab_login=$rep->fetch();
+          $tab_login=$rep->fetchAll();
 
+
+          var_dump(count($tab_login));
           return $tab_login;
 
      }
