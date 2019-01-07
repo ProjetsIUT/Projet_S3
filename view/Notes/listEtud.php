@@ -12,6 +12,9 @@
 						<option value="" disabled selected><?php if(isset($_GET['codeMatiere'])) {
 							echo $nomM;						
 						}
+						else {
+							echo "Matieres";
+						}
 						?></option>
 						<option value="all">Voir tout</option>
 						<?php
