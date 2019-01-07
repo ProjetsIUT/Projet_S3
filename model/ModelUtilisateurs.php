@@ -56,51 +56,7 @@ class ModelUtilisateurs extends Model {
         
         return false;
     }
-	  /*
-    public function connect(){ //essayer de lancer une connexion 
-
-
-		$req=Model::$pdo->prepare("SELECT loginUtilisateur, mdpUtilisateur, typeUtilisateur FROM agora_utilisateurs WHERE loginUtilisateur=:userName ");
-		$req->execute(array('userName'=>$this->loginUtilisateur));
-
-		$res=$req->fetch();
-
-		$hash=Security::chiffrer($this->mdpUtilisateur);
-
-		$correct=$res['mdpUtilisateur']===$hash;
-
-		//$prenom=$res['prenomEtudiant'];
-
-		if (!$res){
- 
-			return -1; //utilisateur non inscrit 	
-
-		}else{
-
-			if($correct){
-
-			   session_start();	
-
-			   $_SESSION["isLogedIn"]=true;
-			   $_SESSION["login"]=$res['loginUtilisateur'];
-			   $_SESSION["typeCompte"]=$res['typeUtilisateur'];
-
-
-		       return 1;
-
-
-			}else{
-
-				return 0; //mauvais mot de passe
-
-			}
-
-		}
-
-
-	}
-
-	*/
+	
 
 }
 

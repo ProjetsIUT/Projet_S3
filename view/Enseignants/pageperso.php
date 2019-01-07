@@ -5,7 +5,7 @@
 
 			<div class="tab" id="tab_profil">
 
-					<h3>Bienvenue sur Agora</h3>
+				<h3>Bienvenue sur Agora</h3>
 				<br>
 
 				<a>Bonjour, <?php echo $_SESSION["prenomUtilisateur"]?></a>
@@ -15,16 +15,43 @@
 
 
 			<div class="tab" id="tab_cours">
+ 
+				<h3>Mes cours <a href="./index.php?controller=cours&action=list" class="bouton"> Tous mes cours</a></h3>
+				<br>
 
-				<h3>Mes Cours <a class="bouton"> Tous les cours</a></h3>
- 
- 
+				<?php
+
+				$cours = current($tab_cours);
+
+				for($i=0;$i<5;$i++){
+						
+						if($cours!=false){
+
+							echo('
+
+								<a>'.$cours->get('nomCours').'</a>
+								<a class=note href='.$cours->get('fichierCours').'>Consulter</a>
+										<a class=note href="./index.php?controller=cours&action=suppr&code='.$cours->get('codeCours').'">Supprimer</a>
+								<br>
+
+								');
+
+
+						}
+
+						$cours=next($tab_cours);
+
+
+				}
+
+				?>
 
 			</div>
 		
+		
 			<div class="tab" id="tab_rappels">
 
-				<h3>Évènements à venir <a class="bouton"> Gérer les évènements</a></h3>
+				<h3>Derniers exercices reçus<a class="bouton"> Voir tout</a></h3>
 
 			</div>
 
@@ -34,12 +61,13 @@
 
 			<div class="tab" id="tab_stats">
 
-				<h3>Statistiques<a class="bouton"> Plus de statistiques</a></h3>
-
+				<h3>Statistiques<a class="bouton" href="./index.php?controller=notes&action=statsEnseignant"> Plus de statistiques</a></h3>
 
 			</div>
 
 		</div>
+
+
 
 
 	</div>
