@@ -29,13 +29,7 @@
 					
 						<a class="menu" href="index.php?controller=QCM&action=list">Exercices</a> 
 						
-						<a class="menu">Statistiques</a>
-
-						<?php
-							if (Session::is_admin()) {
-								echo '<a class="menu" href="index.php?controller=utilisateurs&action=readAll" id="logo">Liste des utilisateurs</a>';
-							}
-						?>
+						<a class="menu" <?php if(isset($_SESSION['typeUtilisateur']) && $_SESSION['typeUtilisateur']==='etudiant'){echo('href="./index.php?controller=notes&action=statsEtud"');} ?>>Statistiques</a>
 					
 				</nav>
 

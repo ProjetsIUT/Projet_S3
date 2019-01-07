@@ -25,7 +25,37 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 
 	protected static $object = 'etudiants';
 
-    public static function show_perso_page(){
+
+	public static function nbEtudiants(){  //retourne le nombre d'étudiants ayant une moyenne
+
+		$tab_logins=ModelNotes::classementPromo();
+		return count($tab_logins);
+
+	}
+
+	public static function getRang(){
+
+		$tab_logins=ModelNotes::classementPromo();
+		$rang=1;
+
+		for($i=0;$i<count($tab_logins);$i++){
+
+			if($tab_logins[$i][0]===$_SESSION['loginUtilisateur']){
+
+				return $rang;
+			}
+
+			$rang++;
+
+		}
+
+		return -1;
+
+
+	}
+	
+
+     public static function show_perso_page(){
 
      	if(isset($_SESSION['loginUtilisateur'])){
 
@@ -36,8 +66,12 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 
 
  			$tab_notes=ModelNotes::selectByEtud();
+ 			$tab_cours=ModelCours::getAllByEtud();
+
  			$moyenneGenerale=ModelNotes::moyenneGenerale();
- 			//$monClassement = self::getRang();
+ 			ControllerNotes::setGraphsEtudiant();
+ 			$monClassement = self::getRang();
+ 			$taillePromo=self::nbEtudiants();
 
 
 	        $view='pageperso';
