@@ -259,8 +259,6 @@ class ModelNotes extends Model{
           }
           $tab_login=$rep->fetchAll();
 
-
-          var_dump(count($tab_login));
           return $tab_login;
 
      }
