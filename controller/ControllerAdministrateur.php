@@ -5,7 +5,7 @@ require_once File::build_path($path);
 
 $path=array('lib','Security.php');
 require_once File::build_path($path);
-
+require_once (File::build_path(array('controller', 'Controller.php'))); 
 $path=array('controller','ControllerUtilisateurs.php');
 require_once File::build_path($path);
 

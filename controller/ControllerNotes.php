@@ -9,9 +9,9 @@ require_once (File::build_path(array('model','ModelExerciceClassique.php')));
 require_once (File::build_path(array('model','ModelEnseignants.php')));
 require_once (File::build_path(array('controller','ControllerEtudiants.php')));
 require_once (File::build_path(array('lib','Session.php')));
+require_once (File::build_path(array('controller', 'Controller.php'))); 
 
-
-class ControllerNotes extends Controller{ 
+class ControllerNotes extends Controller { 
 
  	protected static $object="Notes";
 

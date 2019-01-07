@@ -3,9 +3,9 @@
 require_once (File::build_path(array('model','ModelQCM.php')));
 require_once (File::build_path(array('model','ModelCours.php')));
 require_once (File::build_path(array('model','ModelQuestions.php')));
+require_once (File::build_path(array('controller', 'Controller.php'))); 
 
-
-class ControllerQCM{
+class ControllerQCM extends Controller{
 
  	protected static $object="QCM";
 

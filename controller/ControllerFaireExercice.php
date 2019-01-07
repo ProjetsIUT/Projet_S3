@@ -2,8 +2,8 @@
 <?php
 
 require_once (File::build_path(array('model','ModelFaireExercice.php')));
-
-class ControllerFaireExercice{
+require_once (File::build_path(array('controller', 'Controller.php'))); 
+class ControllerFaireExercice extends Controller{
     
     
 
