@@ -1,6 +1,6 @@
 <?php
 
-class Controller{
+class Controller {
 
 	protected static $object = "";
 

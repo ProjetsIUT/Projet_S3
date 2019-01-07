@@ -23,7 +23,7 @@ require_once File::build_path($path);
 
 class ControllerEtudiants extends ControllerUtilisateurs{
 
-	protected static $object= 'etudiants';
+	protected static $object = 'etudiants';
 
     public static function show_perso_page(){
 
@@ -46,15 +46,15 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 	        require (File::build_path(array('view', 'view.php')));
 
     	}else{
-
     		header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
-
-
-
     	}
-
-
-    }
+	}
+	
+	public static function create_info_etud() {
+		$view = 'create_info_etud';
+		$pagetitle = 'Ajout d\'un utilisateur - 2/2 - Agora';
+		require (File::build_path(array('view', 'view.php')));
+	}
 
 
 

@@ -249,13 +249,22 @@ class ControllerUtilisateurs extends Controller{
 
                     Ceci est un mail automatique, Merci de ne pas y répondre';
                     mail($destinataire, $sujet, $mail, $entete);
-                    require (File::build_path(array('view', 'view.php')));
+                    
+                    if($_SESSION["typeUtilisateur"] === "etudiant"){ //si c'est un étudiant 
+                        $redirection = 'index.php?controller=etudiants&action=create_info_etud&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
+                        header('Location: '.$redirection);
+                    }
+    
+                    if($_SESSION["typeUtilisateur"] === "enseignant"){ //si c'est un enseignant
+                        $redirection = 'index.php?controller=enseignants&action=create_info_enseig&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
+                        header('Location: '.$redirection);
+                    }
                 }
                 else {
                     $type = 'Ajout';
                     $verif = 'Votre email n\'est pas valide !';
                     $view = 'update';
-                    $pagetitle = 'Ajout d\'un utilisateur';
+                    $pagetitle = 'Ajout d\'un utilisateur - 1/2 - Agora';
                     require (File::build_path(array('view', 'view.php')));
                 }
             }
@@ -263,7 +272,7 @@ class ControllerUtilisateurs extends Controller{
                 $type = 'Ajout';
                 $verif = 'Ce nom d\'utilisateur existe déja';
                 $view = 'update';
-                $pagetitle = 'Ajout d\'un utilisateur';
+                $pagetitle = 'Ajout d\'un utilisateur - 1/2 - Agora';
                 require (File::build_path(array('view', 'view.php')));                    
             } 
         }
