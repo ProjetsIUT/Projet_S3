@@ -571,4 +571,7 @@ table{
   float:right;
 }
 
-
+.retard{
+  color:red;
+  font-weight: bold;
+}

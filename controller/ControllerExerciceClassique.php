@@ -81,7 +81,7 @@ Class ControllerExerciceClassique {
         require "$PATH";
     }
 
-    public static function list(){
+   /* public static function list(){
 
         $tab=ModelExerciceClassique::selectAll();
 
@@ -89,7 +89,7 @@ Class ControllerExerciceClassique {
         $pagetitle="Mes Exercices - Agora";
         require (File::build_path(array('view', 'view.php')));
 
-    }
+    } */
 
         public static function suppr(){
 
@@ -105,12 +105,13 @@ Class ControllerExerciceClassique {
 
         $tabe = ModelExerciceClassique::selectAll();
         $tab = array();
+        $dates = array();
 
         foreach ($tabe as $e) {
             $id = $e->get("idExercice");
             
             $test = ModelFaireExercice::selectFaireExercice($id, $loginEtudiant);
-        
+            
 
             if($test){
                 
@@ -118,11 +119,13 @@ Class ControllerExerciceClassique {
                 
                 if (NULL==$correction)
                 $tab[] = $e;
+                $dates[] = $test->get("date");
+
             }
 
         }
 
-        $view="list";
+        $view="listAttente";
         $pagetitle="Mes Exercices - Agora";
         require (File::build_path(array('view', 'view.php')));
     }
