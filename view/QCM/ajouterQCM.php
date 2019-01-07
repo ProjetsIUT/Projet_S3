@@ -25,7 +25,7 @@
 						$path=array('model','ModelCours.php');
 						require_once File::build_path($path);
 
-						$tab_cours = ModelCours::selectAll();
+						$tab_cours = ModelCours::getAllByEnseignant();
 
 						$tab_nom_cours=array();
 						$tab_code_cours=array();
