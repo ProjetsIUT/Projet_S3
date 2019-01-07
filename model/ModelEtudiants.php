@@ -39,29 +39,29 @@ class ModelEtudiants extends ModelUtilisateurs {
    }
 
 
+
    public static function getAllByEnseignant(){
 
-
-          $loginEnseignant=$_SESSION['loginUtilisateur'];
 
           //Retourne tous les enseignants inscrits dans les matières dans lesquelles enseigne un enseignant ($login)
 
           $login='"'.$_SESSION['loginUtilisateur'].'"';
 
-          $sql = "SELECT codeEtudiant from agora_suitMatiere WHERE codeEnseignant=$login";
+          $sql = "SELECT loginEtudiant from agora_suitMatiere S
+          JOIN agora_enseigner E ON E.codeMatiere=S.codeMatiere
+          WHERE codeEnseignant=$login";
           $rep = Model::$pdo->query($sql);
 
           $rep->setFetchMode(PDO::FETCH_NUM);
-          $tab_codesMatiere = $rep->fetchAll();
+          $tab_loginsEtudiant = $rep->fetchAll();
 
           $tab =array();
 
-          foreach ($tab_codesMatiere as $key) { 
+          foreach ($tab_loginsEtudiant as $key) { 
 
             array_push($tab,$key[0]);
 
           }
-
 
           return $tab;
 
