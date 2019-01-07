@@ -2,6 +2,8 @@
 
 require_once (File::build_path(array('model','ModelCours.php')));
 
+require_once (File::build_path(array('lib','Session.php')));
+
 class ControllerCours {
 
 
@@ -17,7 +19,18 @@ class ControllerCours {
 
 	public static function list(){
 
-		$tab = ModelCours::getAllByEtud();
+		if(Session::is_student($_SESSION['loginUtilisateur'])){
+
+			$tab = ModelCours::getAllByEtud();
+	
+
+		}else{
+
+			$tab=ModelCours::getAllByEnseignant();
+					$tab = ModelCours::getAllByEtud();
+
+		}
+
 		$path=array('model','ModelMatieres.php');
 		require_once File::build_path($path);
 		$view="list";
@@ -33,7 +46,7 @@ class ControllerCours {
 
 		$codeCours = uniqid();
 		$chemin_fichier_cours=ModelCours::upload($codeCours);
-		$date=date('l jS F Y ');
+		$date=date("Y-m-d");
 		$data=array("codeCours"=>$codeCours,"nomCours"=>$_POST['nomCours'],"datePublication"=>$date ,"codeMatiere"=>$_POST['code'],"accesCours"=>$_POST['accesCours'],"fichierCours"=>$chemin_fichier_cours, "resumeCours"=>$_POST['resume']);
 		$cours=new ModelCours($data);
 		$cours->save($data);

@@ -8,6 +8,7 @@ require_once (File::build_path(array('model','ModelNotes.php')));
 require_once (File::build_path(array('model','ModelExerciceClassique.php')));
 require_once (File::build_path(array('model','ModelEnseignants.php')));
 require_once (File::build_path(array('controller','ControllerEtudiants.php')));
+require_once (File::build_path(array('lib','Session.php')));
 
 
 class ControllerNotes extends Controller{ 
@@ -87,72 +88,92 @@ class ControllerNotes extends Controller{
 
  	public static function setGraphsEtudiant(){
 
+ 		
+		 		if(!isset($_GET['intervalle'])){
 
- 		if(!isset($_GET['intervalle'])){
+		 			$intervalle="7";
 
- 			$intervalle="7";
- 		}else{
+		 		}else{
 
- 			$intervalle=($_GET['intervalle']);
- 		}
+		 			$intervalle=($_GET['intervalle']);
+		 		}
 
- 		$login=$_SESSION['loginUtilisateur'];
+		 		if(isset($_GET['codeEtudiant'])){
 
-		$date=date("Y-m-d");
-		$date_1 = date("Y-m-d",strtotime($date."- ".$intervalle." days"));
-		$date_2 = date("Y-m-d", strtotime($date_1."- ".$intervalle." days"));
-		$date_3 = date("Y-m-d",strtotime($date_2."- ".$intervalle." days"));
-		$date_4 = date("Y-m-d",strtotime($date_3."- ".$intervalle." days"));
+		 			$login=$_GET['codeEtudiant'];
 
-		$moyenne=ModelNotes::moyenneGenerale($login,$date);
-		$moyenne_1=ModelNotes::moyenneGenerale($login,$date_1);
-		$moyenne_2=ModelNotes::moyenneGenerale($login,$date_2);
-		$moyenne_3=ModelNotes::moyenneGenerale($login,$date_3);
-		$moyenne_4=ModelNotes::moyenneGenerale($login,$date_4);
+		 		}else{
 
+		 			$login=$_SESSION['loginUtilisateur'];
 
-		$moyenneg=ModelNotes::moyenneGeneralePromo($date);
-		$moyenne_g1=ModelNotes::moyenneGeneralePromo($date_1);
-		$moyenne_g2=ModelNotes::moyenneGeneralePromo($date_2);
-		$moyenne_g3=ModelNotes::moyenneGeneralePromo($date_3);
-		$moyenne_g4=ModelNotes::moyenneGeneralePromo($date_4);
+		 		}
 
+		 				$etudiant=ModelEtudiants::select($login);
 
-		$dates=array($date_4,$date_3,$date_2,$date_1,$date);
-		$datay1=array($moyenne_4,$moyenne_3,$moyenne_2,$moyenne_1,$moyenne);
-		$datay2=array($moyenne_g4,$moyenne_g3,$moyenne_g2,$moyenne_g1,$moyenneg);
+		 			if($etudiant){
+						
+				 		$annee=$etudiant->get('anneeCourantEtudiant');
+				 		$codeDpt=$etudiant->get('codeDepartement');
 
-		setcookie("dates",serialize($dates),time()+3600);
-		setcookie("data",serialize($datay1),time()+3600);
-		setcookie("data2",serialize($datay2),time()+3600);
+						$date=date("Y-m-d");
+						$date_1 = date("Y-m-d",strtotime($date."- ".$intervalle." days"));
+						$date_2 = date("Y-m-d", strtotime($date_1."- ".$intervalle." days"));
+						$date_3 = date("Y-m-d",strtotime($date_2."- ".$intervalle." days"));
+						$date_4 = date("Y-m-d",strtotime($date_3."- ".$intervalle." days"));
 
-
-
-		$tab_codesMatieres=ModelMatieres::getAllByEtud();
-
-		$tab_noms_matieres=array();
-		$tab_moyennes= array();
+						$moyenne=ModelNotes::moyenneGenerale($login,$date);
+						$moyenne_1=ModelNotes::moyenneGenerale($login,$date_1);
+						$moyenne_2=ModelNotes::moyenneGenerale($login,$date_2);
+						$moyenne_3=ModelNotes::moyenneGenerale($login,$date_3);
+						$moyenne_4=ModelNotes::moyenneGenerale($login,$date_4);
 
 
-		foreach ($tab_codesMatieres as $codeMatiere) {
-			
-			$matiere=ModelMatieres::select($codeMatiere);
-			$nom_matiere=$matiere->get('nomMatiere');
-			$moyenne_4=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_4);
-			array_push($tab_moyennes,$moyenne_4);
-			$moyenne_3=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_3);
-			array_push($tab_moyennes,$moyenne_3);
-			$moyenne_2=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_2);
-			array_push($tab_moyennes,$moyenne_2);
-		    $moyenne_1=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_1);
-		    array_push($tab_moyennes,$moyenne_1);
-		    $moyenne=ModelNotes::moyenneMatiere($login,$codeMatiere,$date);
-		    array_push($tab_moyennes,$moyenne);
-			array_push($tab_noms_matieres, $nom_matiere);
-		}
+						$moyenneg=ModelNotes::moyenneGeneralePromo($date,$annee,$codeDpt);
+						$moyenne_g1=ModelNotes::moyenneGeneralePromo($date_1,$annee,$codeDpt);
+						$moyenne_g2=ModelNotes::moyenneGeneralePromo($date_2,$annee,$codeDpt);
+						$moyenne_g3=ModelNotes::moyenneGeneralePromo($date_3,$annee,$codeDpt);
+						$moyenne_g4=ModelNotes::moyenneGeneralePromo($date_4,$annee,$codeDpt);
 
-		setcookie("data3",serialize($tab_noms_matieres),time()+3600);
-		setcookie("data4",serialize($tab_moyennes),time()+3600);
+
+						$dates=array($date_4,$date_3,$date_2,$date_1,$date);
+						$datay1=array($moyenne_4,$moyenne_3,$moyenne_2,$moyenne_1,$moyenne);
+						$datay2=array($moyenne_g4,$moyenne_g3,$moyenne_g2,$moyenne_g1,$moyenneg);
+
+						setcookie("dates",serialize($dates),time()+3600);
+						setcookie("data",serialize($datay1),time()+3600);
+						setcookie("data2",serialize($datay2),time()+3600);
+
+
+						$tab_codesMatieres=ModelMatieres::getAllByEtud();
+
+						$tab_noms_matieres=array();
+						$tab_moyennes= array();
+
+
+						foreach ($tab_codesMatieres as $codeMatiere) {
+							
+							$matiere=ModelMatieres::select($codeMatiere);
+							$nom_matiere=$matiere->get('nomMatiere');
+							$moyenne_4=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_4);
+							array_push($tab_moyennes,$moyenne_4);
+							$moyenne_3=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_3);
+							array_push($tab_moyennes,$moyenne_3);
+							$moyenne_2=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_2);
+							array_push($tab_moyennes,$moyenne_2);
+						    $moyenne_1=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_1);
+						    array_push($tab_moyennes,$moyenne_1);
+						    $moyenne=ModelNotes::moyenneMatiere($login,$codeMatiere,$date);
+						    array_push($tab_moyennes,$moyenne);
+							array_push($tab_noms_matieres, $nom_matiere);
+						}
+
+						setcookie("data3",serialize($tab_noms_matieres),time()+3600);
+						setcookie("data4",serialize($tab_moyennes),time()+3600);
+					
+					}
+
+	 			
+ 	
  	}
 
  	public static function statsEtud(){
@@ -175,7 +196,6 @@ class ControllerNotes extends Controller{
 
  	}
 
-
  	public static function setGraphsEnseignant(){
 
  		if(!isset($_GET['intervalle'])){
@@ -197,48 +217,82 @@ class ControllerNotes extends Controller{
 
 		$dates=array($date_4,$date_3,$date_2,$date_1,$date);
 		setcookie("dates",serialize($dates),time()+3600);
+
+
+		$tab_codesMatieres=ModelMatieres::getAllByEnseignant();
 	
-		if(isset($_GET['codeMatiere']) && $_GET['codeMatiere']!='all'){
+		if(isset($_GET['codeMatiere']) && $_GET['codeMatiere']!='all' && !isset($codeEtudiant)){
 
 			$tab_codesMatieres=array();
 			array_push($tab_codesMatieres,$_GET['codeMatiere']);
 
+		}
+
+
+		if(isset($_GET['codeMatiere']) && isset($_GET['codeEtudiant']) && $_GET['codeEtudiant']!='all' && $_GET['codeMatiere']!='all'){
+
+			$login=$_GET['codeEtudiant'];
+			
+			$tab_codesMatieres=array();
+			array_push($tab_codesMatieres,$_GET['codeMatiere']);
+			$tab_noms_matieres=array();
+			$tab_moyennes= array();
+
+
+			foreach ($tab_codesMatieres as $codeMatiere) {
+				
+				$matiere=ModelMatieres::select($codeMatiere);
+				$nom_matiere=$matiere->get('nomMatiere');
+				$moyenne_4=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_4);
+				array_push($tab_moyennes,$moyenne_4);
+				$moyenne_3=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_3);
+				array_push($tab_moyennes,$moyenne_3);
+				$moyenne_2=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_2);
+				array_push($tab_moyennes,$moyenne_2);
+			    $moyenne_1=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_1);
+			    array_push($tab_moyennes,$moyenne_1);
+			    $moyenne=ModelNotes::moyenneMatiere($login,$codeMatiere,$date);
+			    array_push($tab_moyennes,$moyenne);
+				array_push($tab_noms_matieres, $nom_matiere);
+			}
+
+
 		}else{
 
-			$tab_codesMatieres=ModelMatieres::getAllByEnseignant();
+
+			$tab_noms_matieres=array();
+			$tab_moyennes= array();
+
+
+			foreach ($tab_codesMatieres as $codeMatiere) {
+				
+				$matiere=ModelMatieres::select($codeMatiere);
+				$nom_matiere=$matiere->get('nomMatiere');
+				$moyenne_4=ModelNotes::moyenneMatierePromo($codeMatiere,$date_4);
+				array_push($tab_moyennes,$moyenne_4);
+				$moyenne_3=ModelNotes::moyenneMatierePromo($codeMatiere,$date_3);
+				array_push($tab_moyennes,$moyenne_3);
+				$moyenne_2=ModelNotes::moyenneMatierePromo($codeMatiere,$date_2);
+				array_push($tab_moyennes,$moyenne_2);
+			    $moyenne_1=ModelNotes::moyenneMatierePromo($codeMatiere,$date_1);
+			    array_push($tab_moyennes,$moyenne_1);
+			    $moyenne=ModelNotes::moyenneMatierePromo($codeMatiere,$date);
+			    array_push($tab_moyennes,$moyenne);
+				array_push($tab_noms_matieres, $nom_matiere);
+			}
+
+
 
 		}
-	
-
-		$tab_noms_matieres=array();
-		$tab_moyennes= array();
-
-
-		foreach ($tab_codesMatieres as $codeMatiere) {
-			
-			$matiere=ModelMatieres::select($codeMatiere);
-			$nom_matiere=$matiere->get('nomMatiere');
-			$moyenne_4=ModelNotes::moyenneMatierePromo($codeMatiere,$date_4);
-			array_push($tab_moyennes,$moyenne_4);
-			$moyenne_3=ModelNotes::moyenneMatierePromo($codeMatiere,$date_3);
-			array_push($tab_moyennes,$moyenne_3);
-			$moyenne_2=ModelNotes::moyenneMatierePromo($codeMatiere,$date_2);
-			array_push($tab_moyennes,$moyenne_2);
-		    $moyenne_1=ModelNotes::moyenneMatierePromo($codeMatiere,$date_1);
-		    array_push($tab_moyennes,$moyenne_1);
-		    $moyenne=ModelNotes::moyenneMatierePromo($codeMatiere,$date);
-		    array_push($tab_moyennes,$moyenne);
-			array_push($tab_noms_matieres, $nom_matiere);
-		}
+		
 
 		setcookie("data3",serialize($tab_noms_matieres),time()+3600);
 		setcookie("data4",serialize($tab_moyennes),time()+3600);
 
 
-		if(isset($_GET['codeCours'])){
+		if(isset($_GET['codeCours']) && !isset($codeEtudiant) && $_GET['codeCours']!="all"){
 
 			$codeCours=$_GET['codeCours'];
-
 
 			$moyenne=ModelNotes::moyenneCoursPromo($codeCours,$date);
 			$moyenne_1=ModelNotes::moyenneCoursPromo($codeCours,$date);
@@ -256,10 +310,34 @@ class ControllerNotes extends Controller{
 
 
 
+		if(isset($_GET['codeCours']) && isset($_GET['codeEtudiant']) && $_GET['codeEtudiant']!='all'){
+
+			$codeCours=$_GET['codeCours'];
+			$login=$_GET['codeEtudiant'];
+
+			$moyenne=ModelNotes::moyenneCours($login,$codeCours,$date);
+			$moyenne_1=ModelNotes::moyenneCours($login,$codeCours,$date);
+			$moyenne_2=ModelNotes::moyenneCours($login,$codeCours,$date);
+			$moyenne_3=ModelNotes::moyenneCours($login,$codeCours,$date);
+			$moyenne_4=ModelNotes::moyenneCours($login,$codeCours,$date);
+
+			$datay1=array($moyenne_4,$moyenne_3,$moyenne_2,$moyenne_1,$moyenne);
+
+			setcookie("data",serialize($datay1),time()+3600);
+
+
+		}
+
+
+
+
+
+
  	}
 
  	 public static function statsEnseignant(){
 
+ 	 	self::setGraphsEtudiant();
  		self::setGraphsEnseignant();
 
 		$view='statsEnseignant';
@@ -270,10 +348,9 @@ class ControllerNotes extends Controller{
  	}
 
 
- 	
-
-
 }
+
+ 	
 
 
 

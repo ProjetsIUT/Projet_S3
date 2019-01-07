@@ -47,7 +47,7 @@ class ModelEtudiants extends ModelUtilisateurs {
 
           $login='"'.$_SESSION['loginUtilisateur'].'"';
 
-          $sql = "SELECT loginEtudiant from agora_suitMatiere S
+          $sql = "SELECT DISTINCT loginEtudiant from agora_suitMatiere S
           JOIN agora_enseigner E ON E.codeMatiere=S.codeMatiere
           WHERE codeEnseignant=$login";
           $rep = Model::$pdo->query($sql);
@@ -70,7 +70,7 @@ class ModelEtudiants extends ModelUtilisateurs {
 
 
 }
-
+ 
 
 
 ?>

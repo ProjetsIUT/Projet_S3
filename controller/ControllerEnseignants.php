@@ -3,6 +3,10 @@
 $path=array('model','ModelEnseignants.php');
 require_once File::build_path($path);
 
+$path=array('model','ModelCours.php');
+require_once File::build_path($path);
+
+
 $path=array('lib','Security.php');
 require_once File::build_path($path);
 
@@ -17,7 +21,8 @@ class ControllerEnseignants extends ControllerUtilisateurs{
     
      public static function show_perso_page(){
 
-        //ModelEnseignants::
+     	$tab_cours=ModelCours::getAllByEnseignant();
+
         $view='pageperso';
         $page_id="page_perso_enseignants";
         $pagetitle="Agora - La nouvelle façon d'apprendre";
