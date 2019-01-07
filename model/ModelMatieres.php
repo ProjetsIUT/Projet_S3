@@ -96,7 +96,7 @@ class ModelMatieres extends Model {
 
 
 
-      return $tab;
+          return $tab;
 
 
 

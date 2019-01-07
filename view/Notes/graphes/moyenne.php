@@ -44,7 +44,7 @@
 			$p1 = new LinePlot($datay1);
 			$graph->Add($p1);
 			$p1->SetColor("#6495ED");
-			$p1->SetLegend('Ma moyenne');
+			$p1->SetLegend('Moyenne de l\'étudiant');
 
 			// Create the second line
 			$p2 = new LinePlot($datay2);
