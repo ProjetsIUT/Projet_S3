@@ -10,38 +10,71 @@ require_once (File::build_path(array('model','ModelEnseignants.php')));
 require_once (File::build_path(array('controller','ControllerEtudiants.php')));
 
 
-class ControllerNotes{ 
+class ControllerNotes extends Controller{ 
 
  	protected static $object="Notes";
 
 
  	public static function listByEtud(){
 
- 		if(isset($_SESSION['loginUtilisateur']) && $_SESSION['typeUtilisateur']==="etudiant"){
+		if(Session::is_student()) {
+			$tab_codesMatieres_etud = ModelMatieres::getAllbyEtud();
+			$tab_nomMatieres_etud = array();
 
- 			$tab_notes=ModelNotes::selectByEtud();
+			foreach ($tab_codesMatieres_etud as $codeMatiere_etud) {
+				$matiere=ModelMatieres::select($codeMatiere_etud);
+				array_push($tab_nomMatieres_etud,$matiere->get("nomMatiere"));
+			}
+
+			if(!isset($_GET['codeMatiere']) || $_GET['codeMatiere'] === 'all'){
+				$tab_notes=ModelNotes::selectByEtud();
+			}
+			else if(isset($_GET['codeMatiere'])) {
+				$tab_codes_notes=ModelNotes::getNotesByMatieresAndEtud($_GET['codeMatiere']);
+				var_dump($tab_codes_notes);
+				if($tab_codes_notes) {
+					$tab_notes=array();
+					foreach($tab_codes_notes as $code){
+						$note=ModelNotes::select($code);
+						array_push($tab_notes,$note);
+					}
+				}
+				else {
+					$verif = 'Il n\'y a aucune notes pour cette matière';
+				}
+			}
+			
  			$view='listEtud';
-      	 	$pagetitle="Relevé de notes - Agora";
+        	$pagetitle="Mon relevé de notes - Agora";
         	require (File::build_path(array('view', 'view.php')));
-
-
- 		}else{
-
- 			header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
-
- 		}
-
- 	
-
+		}
+		else {
+			$pagetitle = "Erreur";
+			$error_code = "listEtud : vous ne pouvez pas accéder à une page réservé aux étudiants";
+			require (File::build_path(array('view', 'error.php')));
+		}
  	}
 
  	public static function list(){
- 	
- 		$tab_notes=ModelNotes::selectAll();
- 		$view='list';
-        $pagetitle="Relevé de notes - Agora";
-        require (File::build_path(array('view', 'view.php')));
+		
+		if(Session::is_teacher()) {
+			$tab_codesMatieres_enseig = ModelMatieres::getAllbyEnseignant();
+			$tab_nomMatieres_enseig = array();
 
+			foreach ($tab_codesMatieres_enseig as $codeMatiere_enseig) {
+				$matiere=ModelMatieres::select($codeMatiere_enseig);
+				array_push($tab_nomMatieres_enseig,$matiere->get("nomMatiere"));
+			}
+			$tab_notes=ModelNotes::selectAll();
+ 			$view='list';
+        	$pagetitle="Relevé de notes des etudiants- Agora";
+        	require (File::build_path(array('view', 'view.php')));
+		}
+		else {
+			$pagetitle = "Erreur";
+			$error_code = "list : vous ne pouvez pas accéder à une page réservé aux enseignants";
+			require (File::build_path(array('view', 'error.php')));
+		}
  	}
 
  	public static function setGraphsEtudiant(){

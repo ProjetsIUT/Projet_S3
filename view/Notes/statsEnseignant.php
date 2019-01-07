@@ -24,27 +24,8 @@
 						}
 
 				?>
-
-				<select name="codeMatiere" required  onchange="document.getElementById('filtres').submit();" />
-
-						<option value="" disabled selected>Matiere</option>
-						<option value="all">Voir tout</option>
-
-						<?php
-
-							foreach($tab_nom_matieres as $value) {
-
-							  echo '<option value="'.current($tab_codesMatieres).'"' .'>'.$value.'</option>';
-						
-							  next($tab_codesMatieres);
-							}
-
-						?> 
-
-
-				</select>
-
-				<select name="codeEtudiant" required  onchange="document.getElementById('filtres').submit();" />
+ 
+				<select name="codeMatiere" required  onchange="document.getElementById('filtres').submit();">
 
 						<option value="" disabled selected>Matiere</option>
 						<option value="all">Voir tout</option>
