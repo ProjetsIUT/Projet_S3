@@ -66,8 +66,8 @@ header, footer {
 
   
 }
-header a img{
-  width : 75px;
+header a img {
+  width: 80px;
 }
 
 nav{
@@ -223,15 +223,14 @@ header{
 
 }
 
-#logo{
-
-  margin:auto;
+#logo {
+  margin: auto;
   text-align: center;
   width: 220px;
-  height: 19px;
-  padding: 15px;
-
+  height: 47px;
+  /* padding: 15px; */
 }
+
 #icon_refresh{
 
   width: 18px;
@@ -286,8 +285,6 @@ header{
   background-color: lightblue;
   cursor:pointer;
   transition-duration:0.5s;
-  
-
 }
 
 }
