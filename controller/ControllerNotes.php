@@ -6,10 +6,11 @@ require_once (File::build_path(array('model','ModelCours.php')));
 require_once (File::build_path(array('model','ModelMatieres.php')));
 require_once (File::build_path(array('model','ModelNotes.php')));
 require_once (File::build_path(array('model','ModelExerciceClassique.php')));
+require_once (File::build_path(array('model','ModelEnseignants.php')));
 require_once (File::build_path(array('controller','ControllerEtudiants.php')));
 
 
-class ControllerNotes{
+class ControllerNotes{ 
 
  	protected static $object="Notes";
 
@@ -46,7 +47,7 @@ class ControllerNotes{
  	public static function setGraphsEtudiant(){
 
 
- 			if(!isset($_GET['intervalle'])){
+ 		if(!isset($_GET['intervalle'])){
 
  			$intervalle="7";
  		}else{
@@ -134,6 +135,98 @@ class ControllerNotes{
  	}
 
 
+ 	public static function setGraphsEnseignant(){
+
+ 		if(!isset($_GET['intervalle'])){
+
+ 			$intervalle="7";
+
+ 		}else{
+
+ 			$intervalle=($_GET['intervalle']);
+ 		}
+
+
+		$date=date("Y-m-d");
+		$date_1 = date("Y-m-d",strtotime($date."- ".$intervalle." days"));
+		$date_2 = date("Y-m-d", strtotime($date_1."- ".$intervalle." days"));
+		$date_3 = date("Y-m-d",strtotime($date_2."- ".$intervalle." days"));
+		$date_4 = date("Y-m-d",strtotime($date_3."- ".$intervalle." days"));
+
+
+		$dates=array($date_4,$date_3,$date_2,$date_1,$date);
+		setcookie("dates",serialize($dates),time()+3600);
+	
+		if(isset($_GET['codeMatiere']) && $_GET['codeMatiere']!='all'){
+
+			$tab_codesMatieres=array();
+			array_push($tab_codesMatieres,$_GET['codeMatiere']);
+
+		}else{
+
+			$tab_codesMatieres=ModelMatieres::getAllByEnseignant();
+
+		}
+	
+
+		$tab_noms_matieres=array();
+		$tab_moyennes= array();
+
+
+		foreach ($tab_codesMatieres as $codeMatiere) {
+			
+			$matiere=ModelMatieres::select($codeMatiere);
+			$nom_matiere=$matiere->get('nomMatiere');
+			$moyenne_4=ModelNotes::moyenneMatierePromo($codeMatiere,$date_4);
+			array_push($tab_moyennes,$moyenne_4);
+			$moyenne_3=ModelNotes::moyenneMatierePromo($codeMatiere,$date_3);
+			array_push($tab_moyennes,$moyenne_3);
+			$moyenne_2=ModelNotes::moyenneMatierePromo($codeMatiere,$date_2);
+			array_push($tab_moyennes,$moyenne_2);
+		    $moyenne_1=ModelNotes::moyenneMatierePromo($codeMatiere,$date_1);
+		    array_push($tab_moyennes,$moyenne_1);
+		    $moyenne=ModelNotes::moyenneMatierePromo($codeMatiere,$date);
+		    array_push($tab_moyennes,$moyenne);
+			array_push($tab_noms_matieres, $nom_matiere);
+		}
+
+		setcookie("data3",serialize($tab_noms_matieres),time()+3600);
+		setcookie("data4",serialize($tab_moyennes),time()+3600);
+
+
+		if(isset($_GET['codeCours'])){
+
+			$codeCours=$_GET['codeCours'];
+
+
+			$moyenne=ModelNotes::moyenneCoursPromo($codeCours,$date);
+			$moyenne_1=ModelNotes::moyenneCoursPromo($codeCours,$date);
+			$moyenne_2=ModelNotes::moyenneCoursPromo($codeCours,$date);
+			$moyenne_3=ModelNotes::moyenneCoursPromo($codeCours,$date);
+			$moyenne_4=ModelNotes::moyenneCoursPromo($codeCours,$date);
+
+			$datay1=array($moyenne_4,$moyenne_3,$moyenne_2,$moyenne_1,$moyenne);
+
+			setcookie("data",serialize($datay1),time()+3600);
+
+
+		}
+
+
+
+
+ 	}
+
+ 	 public static function statsEnseignant(){
+
+ 		self::setGraphsEnseignant();
+
+		$view='statsEnseignant';
+      	$pagetitle="Statistiques des étudiants - Agora";
+        require (File::build_path(array('view', 'view.php')));
+
+
+ 	}
 
 
  	
