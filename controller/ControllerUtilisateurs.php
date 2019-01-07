@@ -142,12 +142,12 @@ class ControllerUtilisateurs extends Controller{
                 $destinataire = $_GET['email'];
                 $sujet = 'Récupération de mot de passe';
                 $entete = 'From agoradmin@agora.fr';
-                $mail = 'Bonjour '.htmlspecialchars($u->get('loginUtilisateur')).',
+                $mail = 'Bonjour '.htmlspecialchars($u->get('prenomUtilisateur')).',
                 
                 Pour changer votre mot de passe, veuillez cliquer sur le lien-ci dessous ou 
                 copier/coller dans votre navigateur internet :
                 
-                http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/Projet_S3/index.php?controller=utilisateurs&action=changemdp&loginUtilisateur='.rawurlencode($u->get('loginUtilisateur')).'
+                http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/Projet_S3/index.php?controller=utilisateurs&action=changemdp&loginUtilisateur='.$u->get('loginUtilisateur').'
 
                 Ceci est un mail automatique, Merci de ne pas y répondre';
                 mail($destinataire, $sujet, $mail, $entete);
@@ -178,86 +178,99 @@ class ControllerUtilisateurs extends Controller{
     }
 
     public static function changemdpfait() {
-        
-        if($_GET['mdp'] === $_GET['vmdp']) {
-            $view = 'changemdpfait';
-            $pagetitle = "Mot de passe changé";
-            $mdpsecu = Security::chiffrer($_GET['mdp']);
-            $u = new ModelUtilisateur();
-            $data = array(
-                "loginUtilisateur" => $_GET['loginUtilisateur'],
-                "mdpUtilisateur" => $mdpsecu,
-            );
-            $u->update($data);
-            require (File::build_path(array('view', 'view.php')));
+        if(isset($_GET['mdp']) && isset($_GET['vmdp'])) {
+            if($_GET['mdp'] === $_GET['vmdp']) {
+                $view = 'changemdpfait';
+                $pagetitle = "Mot de passe changé";
+                $mdpsecu = Security::chiffrer($_GET['mdp']);
+                $u = new ModelUtilisateurs();
+                $data = array(
+                    "loginUtilisateur" => $_GET['loginUtilisateur'],
+                    "mdpUtilisateur" => $mdpsecu,
+                );
+                $u->update($data);
+                require (File::build_path(array('view', 'view.php')));
+            }
+            else {
+                $verif = "Vos mots de passe ne sont pas identiques";
+                $view = 'changemdp';
+                $pagetitle = "Nouveau mot de passe";
+                require (File::build_path(array('view', 'view.php')));
+            }
         }
         else {
-            $view = 'changemdp';
-            $pagetitle = "Nouveau mot de passe";
-            require (File::build_path(array('view', 'view.php')));
+            $error_code = 'changemdpfait : l\'un des champs est vide';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
         }
     }
 
     public static function create() {
-        //if(Session::is_admin() || !isset($_SESSION['loginUtilisateur'])) {
+        if(Session::is_admin()) {
             $type = 'Ajout';
             $view = 'update';
             $pagetitle = 'Ajout d\'un utilisateur';
             require (File::build_path(array('view', 'view.php')));
-        //}
-        /*else {
+        }
+        else {
             $error_code = 'Impossible de créer un compte. Contactez l\'administrateur de votre université pour tout renseignement';
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
-        }*/
+        }
     }
 
     public static function created() {
         if(isset($_GET['loginUtilisateur']) && isset($_GET['nomUtilisateur']) && isset($_GET['prenomUtilisateur']) && isset($_GET['emailUtilisateur']) && isset($_GET['typeUtilisateur']) && isset($_GET['codeEtablissement'])) {
             $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
             if($u == false) {
-                $view = 'created';
-                $pagetitle = 'Utilisateur ajouté';
-
                 $vemail = filter_var($_GET['emailUtilisateur'] , FILTER_VALIDATE_EMAIL);
-            
                 if ($vemail) {
-                    $nonc = Security::generateRandomHex();
-                    $mdpsecu = Security::chiffrer($nonc);
-                    $data = array(
-                    "loginUtilisateur" => $_GET['loginUtilisateur'],
-                    "nomUtilisateur" => $_GET['nomUtilisateur'],
-                    "prenomUtilisateur" => $_GET['prenomUtilisateur'],
-                    "mdpUtilisateur" => $mdpsecu,
-                    "emailUtilisateur" => $_GET['emailUtilisateur'],
-                    "typeUtilisateur" => $_GET['typeUtilisateur'],
-                    "codeEtablissement" => $_GET['codeEtablissement'],
-                    "nonce" => $nonc,
-                    );
-                    $u = new ModelUtilisateurs();
-                    $u->save($data);
-                    $destinataire = $_GET['emailUtilisateur'];
-                    $sujet = 'Activer votre compte';
-                    $entete = 'From serviceclient@agora.com';
-                    $mail = 'Bienvenue sur Agora,
-                    
-                    Pour activer votre compte, veuillez cliquer sur le lien-ci dessous ou 
-                    copier/coller dans votre navigateur internet
+                    $um = ModelUtilisateurs::getUserByEmail($_GET['emailUtilisateur']);
+                    if($um == false) {
+                        $nonc = Security::generateRandomHex();
+                        $mdpsecu = Security::chiffrer($nonc);
+                        $data = array(
+                        "loginUtilisateur" => $_GET['loginUtilisateur'],
+                        "nomUtilisateur" => $_GET['nomUtilisateur'],
+                        "prenomUtilisateur" => $_GET['prenomUtilisateur'],
+                        "mdpUtilisateur" => $mdpsecu,
+                        "emailUtilisateur" => $_GET['emailUtilisateur'],
+                        "typeUtilisateur" => $_GET['typeUtilisateur'],
+                        "codeEtablissement" => $_GET['codeEtablissement'],
+                        "nonce" => $nonc,
+                        );
+                        $u = new ModelUtilisateurs();
+                        $u->save($data);
+                        $destinataire = $_GET['emailUtilisateur'];
+                        $sujet = 'Activer votre compte';
+                        $entete = 'From serviceclient@agora.com';
+                        $mail = 'Bienvenue sur Agora,
+                        
+                        Pour activer votre compte, veuillez cliquer sur le lien-ci dessous ou 
+                        copier/coller dans votre navigateur internet
 
-                    http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/Projet_S3/index.php?controller=utilisateurs&action=show_password_page&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'&nonce='.rawurlencode($nonc).'
+                        http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/Projet_S3/index.php?controller=utilisateurs&action=show_password_page&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'&nonce='.rawurlencode($nonc).'
 
 
-                    Ceci est un mail automatique, Merci de ne pas y répondre';
-                    mail($destinataire, $sujet, $mail, $entete);
-                    
-                    if($_SESSION["typeUtilisateur"] === "etudiant"){ //si c'est un étudiant 
-                        $redirection = 'index.php?controller=etudiants&action=create_info_etud&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
-                        header('Location: '.$redirection);
+                        Ceci est un mail automatique, Merci de ne pas y répondre';
+                        mail($destinataire, $sujet, $mail, $entete);
+                        
+                        if($_SESSION["typeUtilisateur"] === "etudiant"){ //si c'est un étudiant 
+                            $redirection = 'index.php?controller=etudiants&action=create_info_etud&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
+                            header('Location: '.$redirection);
+                        }
+        
+                        if($_SESSION["typeUtilisateur"] === "enseignant"){ //si c'est un enseignant
+                            $redirection = 'index.php?controller=enseignants&action=create_info_enseig&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
+                            header('Location: '.$redirection);
+                        }
                     }
-    
-                    if($_SESSION["typeUtilisateur"] === "enseignant"){ //si c'est un enseignant
-                        $redirection = 'index.php?controller=enseignants&action=create_info_enseig&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
-                        header('Location: '.$redirection);
+                    else {
+                        $type = 'Ajout';
+                        $verif = 'Cette email est déja utilisé';
+                        $view = 'update';
+                        $pagetitle = 'Ajout d\'un utilisateur - 1/2 - Agora';
+                        require (File::build_path(array('view', 'view.php'))); 
                     }
                 }
                 else {
