@@ -1,4 +1,5 @@
 
+
 	<form enctype="multipart/form-data" id="formulaire_ajouterCours" method="post" action=<?php echo '"'.(File::build_path(array('index.php'))). '"'; ?>>
 
 		<input type="hidden" name="controller" value="cours" />
@@ -20,7 +21,7 @@
 	    <br>
 	    <br>
 	    <input type="radio" name="accesCours" id="prive" value="0">
-	    <label for="prive">Autoriser l'accès seulment aux personnes inscrites à ce cours</label>
+	    <label for="prive">Autoriser l'accès seulment aux personnes inscrites à la matière</label>
 	    <br>
 	    <br>
 	    <label>Cours au format PDF:</label>
@@ -88,3 +89,4 @@
 
 
 	</form>
+

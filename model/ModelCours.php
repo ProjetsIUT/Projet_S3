@@ -1,3 +1,4 @@
+
 <?php
 
 
@@ -108,7 +109,39 @@ class ModelCours extends Model{
 
   }
 
+
+    public static function getAllByEnseignant(){
+
+    //Retourne les cours que l'enseignant possède (dans les matières où il enseigne)
+
+          $login = '"'.$_SESSION['loginUtilisateur'].'"';
+
+          $sql = "SELECT codeCours from agora_cours C JOIN agora_matieres M
+          ON C.codeMatiere=M.codeMatiere JOIN agora_enseigner E ON E.codeMatiere=M.codeMatiere
+          WHERE codeEnseignant=$login";
+
+          $rep = Model::$pdo->query($sql);
+
+          $rep->setFetchMode(PDO::FETCH_NUM);
+          $tab_codesCours = $rep->fetchAll();
+
+          $tabCours = array();
+
+          foreach ($tab_codesCours as $key) { 
+
+            $cours=self::select($key[0]);
+            array_push($tabCours,$cours);
+
+          }
+
+          return $tabCours;
+
+
+
+  }
+
 }  
+
 
 
 ?>
