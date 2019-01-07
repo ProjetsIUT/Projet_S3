@@ -1,3 +1,4 @@
+
 <?php
 
 $path=array('model','Model.php');
@@ -74,8 +75,40 @@ class ModelMatieres extends Model {
   }
 
 
+  public static function getAllByEnseignant(){
+
+          //Retourne toutes les matières (par leur code) dans lesquelles enseigne un enseignant ($login)
+
+          $login='"'.$_SESSION['loginUtilisateur'].'"';
+
+          $sql = "SELECT codeMatiere from agora_enseigner WHERE codeEnseignant=$login";
+          $rep = Model::$pdo->query($sql);
+
+          $rep->setFetchMode(PDO::FETCH_NUM);
+          $tab_codesMatiere = $rep->fetchAll();
+
+          $tab =array();
+
+          foreach ($tab_codesMatiere as $key) { 
+
+            array_push($tab,$key[0]);
+
+          }
+
+
+
+      return $tab;
+
+
+
+
+
+  }
+
+
 
 }
+
 
 
 ?>

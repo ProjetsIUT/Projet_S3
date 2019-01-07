@@ -1,6 +1,7 @@
 <?php
 
 require_once (File::build_path(array('model','Model.php')));
+require_once (File::build_path(array('model','ModelEtudiants.php')));
 
 class ModelNotes extends Model{
 
@@ -98,19 +99,37 @@ class ModelNotes extends Model{
 
      }
 
-     public static function moyenneGeneralePromo($date=NULL){
+     public static function moyenneGeneralePromo($date=NULL, $annee=NULL, $codeDepartement=NULL){
 
-       if(!isset($date)){
+         $etudiant=ModelEtudiants::select($_SESSION['loginUtilisateur']);
 
-            $date='"'.date("Y-m-d").'"';
 
-           }else{
+         if(!isset($date)){
 
-            $date='"'.$date.'"';
+              $date='"'.date("Y-m-d").'"';
+            
+             }else{
 
-        }
+              $date='"'.$date.'"';
 
-          $sql = "SELECT moyGeneraleGlobale($date)";
+          }
+
+          if(!isset($annee)){
+
+              $annee='"'.$etudiant->get('anneeCourantEtudiant').'"';
+          }else{
+
+                       $annee='"'.$annee.'"';
+          }
+
+          if(!isset($codeDepartement)){
+            
+              $codeDepartement=$etudiant->get('codeDepartement');
+          }
+
+
+
+          $sql = "SELECT moyGeneralePromo($date,$annee,$codeDepartement)";
 
           $rep=Model::$pdo->query($sql);
           $rep->setFetchMode(PDO::FETCH_NUM);
@@ -150,7 +169,7 @@ class ModelNotes extends Model{
 
       public static function moyenneMatierePromo($codeMatiere,$date){
 
-      $date="'".$date.'"';
+        $date='"'.$date.'"';
 
          $sql = "SELECT moyMatiereGlobale($codeMatiere,$date)";
 
@@ -173,7 +192,7 @@ class ModelNotes extends Model{
 
       $login='"'.$login.'"';
       $codeCours='"'.$codeCours.'"';
-      $date="'".$date.'"';
+      $date='"'.$date.'"';
 
          $sql = "SELECT moyCoursEtudiant($login,$codeCours,$date)";
 
@@ -196,7 +215,7 @@ class ModelNotes extends Model{
       public static function moyenneCoursPromo($codeCours,$date){
 
       $codeCours='"'.$codeCours.'"';
-      $date="'".$date.'"';
+      $date='"'.$date.'"';
 
          $sql = "SELECT moyCoursGlobale($codeCours,$date)";
 
@@ -214,11 +233,6 @@ class ModelNotes extends Model{
 
 
      }
-
-
-
-
-
 
 
      public static function classementPromo($dpt = NULL, $annee=NULL){
@@ -252,5 +266,6 @@ class ModelNotes extends Model{
      }
 
 }
+
 
 ?>

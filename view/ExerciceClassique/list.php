@@ -7,7 +7,7 @@
 		<?php
 
 			$i = 0;
-
+		if($tab){
 			foreach ($tab as $e) {
 
 				if($i==0){
@@ -22,7 +22,7 @@
 				$theme_e_cours=ModelCours::select($theme_e_code);
 				$theme_e=htmlspecialchars($theme_e_cours->get('nomCours'));  
 				$enonce_e=htmlspecialchars($e->get("enonce"));
-				$date_e=htmlspecialchars($e->get("dateLimite"));
+				$date_e=htmlspecialchars($e->get("tempsLimite"));
 
 			
 
@@ -37,7 +37,7 @@
 						   </h3>
 						<br>
 						<legend>Dans ' . $theme_e.' </legend>
-						<legend>Publié le ' . $date_e . '</legend>
+						<legend>A rendre avant le ' . $date_e . '</legend>
 						<br>
 						<a>'. $enonce_e .'</a>
 
@@ -68,6 +68,9 @@
 				
 
 			}
+		}else{
+			echo "aucun ex";
+		}
 
 		?>
 
