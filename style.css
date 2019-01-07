@@ -92,7 +92,7 @@ body{
   background-image:url("img/fond-1.jpg");
   background-size: 100%;
 
-}
+} 
 .page_content{
 
   padding-top:49px;
@@ -391,12 +391,15 @@ footer{
   
   width: 420px;
   height: 320px;
+<<<<<<< HEAD
 
 }
 
 .tab:hover ~ a{
   
   color:red;
+=======
+>>>>>>> dd14ff15afa2592570a067d5c17719cd4669b1c4
 
 }
 

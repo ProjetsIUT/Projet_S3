@@ -21,7 +21,11 @@
 				<br>
 
 				<?php
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> dd14ff15afa2592570a067d5c17719cd4669b1c4
 				$cours = current($tab_cours);
 
 

@@ -87,7 +87,11 @@ class ControllerNotes{
 
 
 		$tab_codesMatieres=ModelMatieres::getAllByEtud();
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> dd14ff15afa2592570a067d5c17719cd4669b1c4
 		$tab_noms_matieres=array();
 		$tab_moyennes= array();
 

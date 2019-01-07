@@ -3,7 +3,11 @@
 			require_once ('jpgraph/src/jpgraph.php');
 			require_once ('jpgraph/src/jpgraph_line.php');
 
+<<<<<<< HEAD
 			$datay1 = array(1,2,3,4,5);
+=======
+			
+>>>>>>> dd14ff15afa2592570a067d5c17719cd4669b1c4
 
 			$dates=unserialize($_COOKIE['dates']);
 			$date_4=$dates[0];

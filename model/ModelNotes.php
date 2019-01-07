@@ -2,7 +2,7 @@
 
 require_once (File::build_path(array('model','Model.php')));
 
-class ModelNotes extends Model{
+class ModelNotes extends Model{ 
 
     protected static $object = 'notes';
     protected static $primary = 'codeNote';

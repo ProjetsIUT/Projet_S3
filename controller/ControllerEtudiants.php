@@ -76,7 +76,7 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 
 	        $view='pageperso';
 	        $page_id="page_perso_etudiants";
-	        $pagetitle="Agora - La nouvelle façon d'apprendre";
+	        $pagetitle="Agora - La nouvelle façon d'apprendre"; 
 	        require (File::build_path(array('view', 'view.php')));
 
     	}else{
