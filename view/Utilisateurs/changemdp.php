@@ -1,6 +1,6 @@
 <article id="page_connexion">
     <form id="formulaire_connexion" methode="get" action="index.php">
-        <p>Récupération du mot de passe</p>
+        <p>Changement de mot de passe</p>
         <div id="part_from">
             <?php
                 if(isset($verif)) {

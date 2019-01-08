@@ -68,9 +68,17 @@ class ControllerUtilisateurs extends Controller{
     }
 
 	public static function show_login_page(){
-		$view='login';
-		$pagetitle="Connexion - Agora";
-		require (File::build_path(array('view', 'view.php')));
+        if(!isset($_SESSION['loginUtilisateur'])) {
+            $view='login';
+            $pagetitle="Connexion - Agora";
+            require (File::build_path(array('view', 'view.php')));
+        }
+        else {
+            $error_code = 'connect : vous êtes déja connecté';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
 	}	
  
     public static function connect() {
@@ -399,6 +407,14 @@ class ControllerUtilisateurs extends Controller{
         }
     }
 
+    public static function mdp_oublie() {
+        $view = 'mdp_oublie';
+        $pagetitle = 'Mot de passe oublié';
+        require (File::build_path(array('view', 'view.php')));
+    }
+
+    // A modifier
+
     public static function update() {
         if (isset($_GET['loginUtilisateur'])) {
             $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
@@ -437,11 +453,6 @@ class ControllerUtilisateurs extends Controller{
         }
     }
 
-    public static function mdp_oublie() {
-        $view = 'mdp_oublie';
-        $pagetitle = 'Mot de passe oublié';
-        require (File::build_path(array('view', 'view.php')));
-    }
 
 }
 
