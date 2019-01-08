@@ -298,10 +298,54 @@ class ControllerUtilisateurs extends Controller{
     }
 
     public static function deconnected() {
-        session_unset(); 
-        session_destroy();
-        $redirection = 'index.php?controller=Utilisateurs&action=show_login_page';
-        header('Location: '.$redirection);
+        if(isset($_SESSION['loginUtilisateur'])) {
+            session_unset(); 
+            session_destroy();
+            $redirection = 'index.php?controller=Utilisateurs&action=show_login_page';
+            header('Location: '.$redirection);
+        }
+        else {
+            $error_code = 'deconnect : vous êtes déja deconnecté';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+    }
+
+    public static function delete() {
+
+        if(isset($_GET['loginUtilisateur'])) {
+            if (Session::is_user($_GET['loginUtilisateur']) || Session::is_admin()) {
+                if(ModelUtilisateurs::select($_GET['loginUtilisateur'])) {
+                    $u = ModelUtilisateurs::delete($_GET['loginUtilisateur']);
+                    $view = 'deleted';
+                    $pagetitle = 'Suppression d\'un utilisateur';
+                    $tab_u = ModelUtilisateurs::selectAll();
+                    if(Session::is_user($_GET['loginUtilisateur'])) {
+                        self::deconnect();
+                    }
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                else {
+                    $error_code = 'delete : loginUtilisateur inexistant';
+                    $view = 'error';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                }
+            } 
+            else {
+                $error_code = 'delete : Vous ne pouvez pas effectuer cette action';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            } 
+        }
+        else {
+            $error_code = 'delete : loginUtilisateur vide';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
     }
 
 	public static function readAll() {
@@ -319,23 +363,39 @@ class ControllerUtilisateurs extends Controller{
     }
 
     public static function read() {
-        if(isset($_GET['login'])) {
-            $u = ModelUtilisateurs::select($_GET['login']);
+        if(isset($_GET['loginUtilisateur'])) {
+            $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
             if($u) {
-                $view = 'detail';
-                $pagetitle = 'Details des utilisateurs';
-                require (File::build_path(array('view', 'view.php')));
+                if (Session::is_user($_GET['loginUtilisateur']) || Session::is_admin()) {
+                    $ulogin = $u->get('loginUtilisateur');
+                    $uprenom = $u->get('prenomUtilisateur');
+                    $unom = $u->get('nomUtilisateur');
+                    $uemail = $u->get('emailUtilisateur');
+                    $ucode = $u->get('codeEtablissement');
+                    $utype = $u->get('typeUtilisateur');
+                    $view = 'detail';
+                    $pagetitle = 'Details des utilisateurs';
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                else {
+                    $error_code = 'read : Vous ne pouvez pas avoir accès à des informations confidentiels sur d\'autre client';
+                    $view = 'error';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                }
             }
             else {
+                $error_code = 'read : loginUtilisateur inexistant';
                 $view = 'error';
                 $pagetitle = 'Erreur';
-                require (File::build_path(array('view', 'view.php')));
+                require (File::build_path(array('view', 'error.php')));
             }
         }
         else {
+            $error_code = 'read : loginUtilisateur vide';
             $view = 'error';
             $pagetitle = 'Erreur';
-            require (File::build_path(array('view', 'view.php')));
+            require (File::build_path(array('view', 'error.php')));
         }
     }
 

@@ -1,6 +1,6 @@
 <article id="page_connexion">
 <div id="formulaire_connexion">
-    <h1>Gestion des utilisateurs (Mode Admin)</h1>
+    <h1>Gestion des utilisateurs </h1>
     <p>Voici la liste des utilisateurs, cliquez sur un utilisateur pour le modifier</p>
 
     <?php
