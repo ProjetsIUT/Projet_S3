@@ -1,9 +1,9 @@
-<article id="page_connexion">
-<div id="formulaire_connexion">
+<div class="page_content">
 
-<?php
-    echo '<h1>Détails de l\''.htmlspecialchars($utype).' '.htmlspecialchars($uprenom).' '.htmlspecialchars($unom).' de login '.htmlspecialchars($ulogin).'</h1>';
-    
+<h1>Détails de l'<?php echo htmlspecialchars($utype).' '.htmlspecialchars($uprenom).' '.htmlspecialchars($unom).' de login '.htmlspecialchars($ulogin)?><a class=bouton href="index.php?controller=utilisateurs&action=readAll">Retour à la liste des utilisateurs</a></h1>
+<div class="box_center">
+
+<?php   
     echo '<p>  Login : '. htmlspecialchars($ulogin) .' <br> 
     Prenom : '. htmlspecialchars($uprenom) .' <br>
     Nom : '. htmlspecialchars($unom) .' <br>
@@ -15,18 +15,18 @@
     if ($utype === 'etudiant') {
         echo ('<br><a class= "bouton" href="index.php?controller=etudiants&action=read&loginEtudiant=' . rawurlencode($ulogin) . '" > Consulter les informations universitaires ! </a>');
         echo ('<br> <br> <br> <a class= "bouton" href="index.php?controller=utilisateurs&action=update&loginUtilisateur=' . rawurlencode($ulogin) . '" > Modifier les informations personnelles ! </a>');
-        echo ('<br> <br> <a class="bouton" href="index.php?controller=utilisateurs&action=delete&loginUtilisateur=' . rawurlencode($ulogin) . '" >  Supprimer cet étudiant !  </a> <br>');
+        echo ('<br> <br> <a class="bouton_suppr" href="index.php?controller=utilisateurs&action=delete&loginUtilisateur=' . rawurlencode($ulogin) . '" >  Supprimer cet étudiant !  </a> <br>');
     }
     else if ($utype === 'enseignant') {
         echo ('<br><a class= "bouton" href="index.php?controller=enseignants&action=read&loginEnseignant=' . rawurlencode($ulogin) . '" > Consulter les informations universitaires ! </a>');
         echo ('<br> <br> <br> <a class= "bouton" href="index.php?controller=utilisateurs&action=update&loginUtilisateur=' . rawurlencode($ulogin) . '" > Modifier les informations personnelles ! </a>');
-        echo ('<br> <br> <a class="bouton" href="index.php?controller=utilisateurs&action=delete&loginUtilisateur=' . rawurlencode($ulogin) . '" >  Supprimer cet enseignant !  </a> <br>');
+        echo ('<br> <br> <a class="bouton_suppr" href="index.php?controller=utilisateurs&action=delete&loginUtilisateur=' . rawurlencode($ulogin) . '" >  Supprimer cet enseignant !  </a> <br>');
     }
     else if ($utype === 'administrateur') {
         echo ('<br> <br> <br> <a class= "bouton" href="index.php?controller=utilisateurs&action=update&loginUtilisateur=' . rawurlencode($ulogin) . '" > Modifier les informations personnelles ! </a>');
-        echo ('<br> <br> <a class="bouton" href="index.php?controller=utilisateurs&action=delete&loginUtilisateur=' . rawurlencode($ulogin) . '" >  Supprimer cet administrateur !  </a> <br>');
+        echo ('<br> <br> <a class="bouton_suppr" href="index.php?controller=utilisateurs&action=delete&loginUtilisateur=' . rawurlencode($ulogin) . '" >  Supprimer cet administrateur !  </a> <br>');
     }
 ?>
 
 </div>
-</article>
+</div>

@@ -493,6 +493,30 @@ table{
   
 }
 
+.bouton_gauche{
+
+
+  text-decoration: none;
+  padding:5px;
+  background-color: #e6850c;
+  border-radius: 3px;
+  color:white;
+  cursor:pointer;
+  float: left;
+  font-size: 15px;
+  margin-right: 5px;
+
+
+}
+
+.bouton_gauche:hover{
+
+  background-color: white;
+  color:gray;
+  transition-duration:0.5s;
+  
+
+}
 
 .bouton{
 
