@@ -4,12 +4,12 @@
 require_once (File::build_path(array('model','ModelUtilisateurs.php')));
 require_once (File::build_path(array('lib','Security.php')));
 
-class ModelEnseignants extends ModelUtilisateurs {
+class ModelAdministrateur extends ModelUtilisateurs {
 
-	  protected static $primary = 'loginEnseignant';
-  	  protected static $object = 'enseignants';
+	  protected static $primary = 'loginAdministrateur';
+  	protected static $object = 'administrateur';
 
-  	private $loginEnseignant;
+  	private $loginAdministrateur;
 
 
 	  public function get($nom_attribut) {
@@ -27,7 +27,7 @@ class ModelEnseignants extends ModelUtilisateurs {
 	  public function __construct($data = array()) {
 		  if (!empty($data)) {
 
-		    $this->loginEnseignant=$data["loginEnseignant"];
+		    $this->loginAdministrateur=$data["loginAdministrateur"];
 
 	  	}
 	 }

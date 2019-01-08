@@ -44,7 +44,6 @@
             $class_name = 'Model'.ucfirst(static::$object);
             $primary_key = static::$primary;
             $sql = "SELECT * from $table_name WHERE $primary_key=:val";
-
             // Préparation de la requête
             $req_prep = Model::$pdo->prepare($sql); //permet de protéger la requete SQL
             
@@ -61,7 +60,7 @@
             if (empty($tab_obj))
                 return false;
             return $tab_obj[0];
-        }
+        } 
 
         public static function delete($primary) {
             $table_name ="agora_" .  static::$object;

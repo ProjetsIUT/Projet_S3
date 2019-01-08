@@ -65,9 +65,10 @@ class ModelMatieres extends Model {
             array_push($tab,$key[0]);
 
           }
-
-
-
+          if (empty($tab)) {
+            return false;
+          }
+ 
           return $tab;
 
 
@@ -94,7 +95,9 @@ class ModelMatieres extends Model {
 
           }
 
-
+      if (empty($tab_user)) {
+        return false;
+      }
 
           return $tab;
 

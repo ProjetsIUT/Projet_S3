@@ -1,39 +1,30 @@
 <?php
 
-$path=array('model','ModelEnseignants.php');
+$path=array('model','ModelAdministrateur.php');
 require_once File::build_path($path);
-
-$path=array('model','ModelCours.php');
-require_once File::build_path($path);
-
 
 $path=array('lib','Security.php');
 require_once File::build_path($path);
-
+require_once (File::build_path(array('controller', 'Controller.php'))); 
 $path=array('controller','ControllerUtilisateurs.php');
 require_once File::build_path($path);
 
 
-class ControllerEnseignants extends ControllerUtilisateurs{
+class ControllerAdministrateur extends ControllerUtilisateurs{
 
-	protected static $object= 'enseignants';
+	protected static $object= 'administrateur';
 
     
      public static function show_perso_page(){
-
-     	$tab_cours=ModelCours::getAllByEnseignant();
-
         $view='pageperso';
-        $page_id="page_perso_enseignants";
+        $page_id="page_perso_administrateur";
         $pagetitle="Agora - La nouvelle façon d'apprendre";
         require (File::build_path(array('view', 'view.php')));
-
-
     }
 
 
 
 }
- 
+
 
 ?>
