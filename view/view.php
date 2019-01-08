@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <!DOCTYPE html>
 
 <html id=<?php if(isset($page_id)){ echo ($page_id); } ?>>
