@@ -79,7 +79,8 @@ class ControllerUtilisateurs extends Controller{
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
         }
-	}	
+    }
+    
  
     public static function connect() {
         if(isset($_GET['loginUtilisateur']) && isset($_GET['mdpUtilisateur'])){ //succès: l'utilisateur est connecté

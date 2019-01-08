@@ -12,7 +12,13 @@
             <a style="color:#6e0000;">Choisissez un mot de passe sécurisé et différent de ceux que vous utilisez pour les autre sites</a>
             <input type="hidden" name="controller" value="utilisateurs" > 
             <input type="hidden" name="action" value="changemdpfait" >
-            <input type="hidden" name="loginUtilisateur" value=<?php echo $_GET['loginUtilisateur']?> >
+            <input type="hidden" name="loginUtilisateur" value=<?php 
+            if(isset($_GET['loginUtilisateur'])) {
+            echo $_GET['loginUtilisateur'];
+            }
+            else if (isset($_SESSION['loginUtilisateur'])) {
+                echo $_SESSION['loginUtilisateur'];    
+            }?> >
             <br>
             <br>
             <label id="mdp_id">Mot de passe :</label>
