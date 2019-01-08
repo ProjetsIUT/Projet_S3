@@ -87,6 +87,12 @@ html{
     background-attachment: fixed;
 }
 
+body{
+
+  background-image:url("img/fond-1.jpg");
+  background-size: 100%;
+
+}
 .page_content{
 
   padding-top:49px;
@@ -162,6 +168,13 @@ html{
 
 }
 
+.form_filtres{
+
+  float: right;
+  color:white;
+  font-size:16px;
+}
+
 
 form>p{
 
@@ -185,6 +198,11 @@ input[type=submit]{
   width:216px;
 }
 
+#input_intervalle{
+
+  width: 60px;
+
+}
 
 
 #connexion {
@@ -214,6 +232,12 @@ header{
   padding: 15px;
 
 }
+#icon_refresh{
+
+  width: 18px;
+  height: 18px;
+
+}
 
 .menu{
 
@@ -230,9 +254,15 @@ header{
   margin: 5px 5px 0px 0px;
 }
 
+.graph{
+
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
 #connexion_inscription{
 
-
+  text-decoration:none;
   display: inline-block;
   padding: 16px 10px 0px 10px;
   height:32px;
@@ -307,7 +337,16 @@ footer{
 .div_error{
 
   background-color:red;
+  text-align:center;
 
+
+}
+
+.div_success{
+
+  
+  background-color:#71e7a4;
+  text-align:center;
 
 }
 
@@ -350,11 +389,67 @@ footer{
 
 .tab:hover{
   
+  width: 420px;
+  height: 320px;
+
+}
+
+.tab:hover ~ a{
+  
+  color:red;
+
+}
+
+
+.div_list{
+
+
+  background-color: rgba(126, 143, 160, 0.9);
+
+  margin:0px 26px;
+  padding:10px;
+  text-align: left;
+  width:400px;
+  height: 300px;
+  transition-duration:0.5s;
+  border-radius:10px;
+
+
+}
+
+.div_list:hover{
+  
   padding-left:20px;
   padding-right:20px;
   padding-bottom:20px;
 
 }
+
+.box_center{
+
+  margin: 20px 26px 0px 26px;
+  background-color: rgba(130, 161, 192, 0.9);
+  padding:20px;
+}
+
+
+.box_center>label,.box_center>input{
+
+  font-size:18px;
+  margin:10px;
+
+}
+
+.center_content{
+
+  text-align: center;
+}
+
+.question{
+
+  margin-bottom:20px;
+}
+
 
 h3{
 
@@ -363,8 +458,49 @@ h3{
   color: white;
 }
 
+h1{
+
+  margin: 25px 26px 0px 26px;
+  color:white;
+
+}
+
+h2{
+
+  margin: 6px 26px;
+  color:white;
+  font-size:18px;
+}
+
+legend{
+
+  font-style: italic;
+
+}
+
+td{
+
+  padding: 5px 80px 0px 80px;
+  text-align: center;
+
+}
+
+tr,th{
+
+  border:1px solid black;
+}
+
+table{
+
+  width: 100%;
+  
+}
+
+
 .bouton{
 
+
+  text-decoration: none;
   padding:5px;
   background-color: #e6850c;
   border-radius: 3px;
@@ -372,6 +508,7 @@ h3{
   cursor:pointer;
   float: right;
   font-size: 15px;
+  margin-right: 5px;
 
 
 }
@@ -385,6 +522,54 @@ h3{
 
 }
 
+.bouton_suppr{
+
+  text-decoration: none;
+  padding:5px;
+  background-color: #e60c0c;
+  border-radius: 3px;
+  color:white;
+  cursor:pointer;
+  float: right;
+  font-size: 15px;
+  margin-right: 5px;
+
+
+}
+
+.bouton_suppr:hover{
+
+  background-color: white;
+  color:gray;
+  transition-duration:0.5s;
+  
+
+}
+
+.bloc_boutons>.bouton,.bloc_boutons>.bouton_suppr{
+
+  float:none;
+
+}
+
+.bloc_boutons{
+
+  text-align: center;
+  height: 30px;
+}
+
+
+.bloc_boutons>h3{
+
+  text-align: center;
+  height: 30px;
+  
+}
+
+.note{
+
+  float:right;
+}
 
 
 

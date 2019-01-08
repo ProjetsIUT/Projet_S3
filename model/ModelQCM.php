@@ -10,12 +10,9 @@ class ModelQCM extends Model {
 
 	private $codeQCM;
 	private $nomQCM;
-	private $question;
-	private $proposition1;
-  private $proposition2;
-  private $proposition3;
-  private $proposition4;
-  private $propositionCorrecte;
+  private $themeQCM;  //Theme = codeMatiere 
+	private $resume;
+  private $dateQCM;
 
   public function get($nom_attribut) {
     if (property_exists($this, $nom_attribut))
@@ -35,29 +32,12 @@ class ModelQCM extends Model {
  
     $this->codeQCM =$data["codeQCM"];
     $this->nomQCM = $data["nomQCM"];
-    $this->question=$data["question"];
-    $this->proposition1=$data["proposition1"];
-    $this->proposition2=$data["proposition2"];
-    $this->proposition3=$data["proposition3"];    
-    $this->proposition4=$data["proposition4"];
-    $this->propositionCorrecte=$data["propositionCorrecte"];
+    $this->themeQCM = $data["themeQCM"];
+    $this->resume=$data["resume"];
+    $this->dateQCM=$data["dateQCM"];
+
   }
-  
-  public static function getAllQuestion(){
-    $rep = Model::$pdo->query("SELECT * FROM agora_qcm");
-    $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelQCM');
-    $tab_qcm = $rep->fetchAll();
-	return $tab_voit;
-  }
-  
 }
-
-
-
-
-
-
-
 
 
 }

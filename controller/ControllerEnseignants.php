@@ -17,7 +17,7 @@ class ControllerEnseignants extends ControllerUtilisateurs{
     
      public static function show_perso_page(){
 
-
+        //ModelEnseignants::
         $view='pageperso';
         $page_id="page_perso_enseignants";
         $pagetitle="Agora - La nouvelle façon d'apprendre";

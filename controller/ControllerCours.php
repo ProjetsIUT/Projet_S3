@@ -15,23 +15,47 @@ class ControllerCours {
 		
 	}
 
-	public static function upload_cours(){
+	public static function list(){
 
-
-		$data=array("codeCours"=>uniqid(),"nomCours"=>$_POST['nomCours'],"codeMatiere"=>$_POST['nomMatiere'],"accesCours"=>$_POST['accesCours'],"fichierCours"=>"vide");
-		$cours_temporaire = new ModelCours($data);
-		$chemin_fichier_cours=$cours_temporaire->upload();
-		$cours_temporaire->set("file",$chemin_fichier_cours);
-		$data=array("codeCours"=>uniqid(),"nomCours"=>$_POST['nomCours'],"codeMatiere"=>$_POST['nomMatiere'],"accesCours"=>$_POST['accesCours'],"fichierCours"=>$chemin_fichier_cours);
-		$cours=new ModelCours($data);
-		$cours->save($data);
-
-		$view="uploaded";
-		$pagetitle="Votre cours a été enregistré - Agora";
+		$tab = ModelCours::getAllByEtud();
+		$path=array('model','ModelMatieres.php');
+		require_once File::build_path($path);
+		$view="list";
+		$pagetitle="Tous mes cours - Agora";
 		require(File::build_path(array('view','view.php')));
 
 
+
+	}
+
+
+	public static function upload_cours(){
+
+		$codeCours = uniqid();
+		$chemin_fichier_cours=ModelCours::upload($codeCours);
+		$date=date('l jS F Y ');
+		$data=array("codeCours"=>$codeCours,"nomCours"=>$_POST['nomCours'],"datePublication"=>$date ,"codeMatiere"=>$_POST['code'],"accesCours"=>$_POST['accesCours'],"fichierCours"=>$chemin_fichier_cours, "resumeCours"=>$_POST['resume']);
+		$cours=new ModelCours($data);
+		$cours->save($data);
+
+		$tab = ModelCours::selectAll();
+		$path=array('model','ModelMatieres.php');
+		require_once File::build_path($path);
+		$view="list";
+		$pagetitle="Tous mes cours - Agora";
+		require(File::build_path(array('view','view.php')));
+
 		
+	}
+
+
+	public static function suppr(){
+
+		$codeCours = $_GET["code"];
+		ModelCours::delete($codeCours);
+		self::list();
+
+
 	}
 
 

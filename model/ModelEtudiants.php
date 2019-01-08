@@ -1,5 +1,5 @@
 <?php
-
+ 
 
 require_once (File::build_path(array('model','ModelUtilisateurs.php')));
 require_once (File::build_path(array('lib','Security.php')));
@@ -13,7 +13,7 @@ class ModelEtudiants extends ModelUtilisateurs {
   	  private $anneeCourantEtudiant;
   	  private $SemestreCourantEtudiant;
   	  private $codeDepartement;
-
+  	 
   public function get($nom_attribut) {
     if (property_exists($this, $nom_attribut))
         return $this->$nom_attribut;
@@ -29,62 +29,44 @@ class ModelEtudiants extends ModelUtilisateurs {
 
   public function __construct($data = array()) {
 	  if (!empty($data)) {
-	    // If both $m, $c and $i are not NULL, 
-	    // then they must have been supplied
-	    // so fall back to constructor with 3 arguments
+
 	    $this->anneeCourantEtudiant= $data["anneeCourantEtudiant"];
 	    $this->SemestreCourantEtudiant = $data["SemestreCourantEtudiant"];
 	    $this->codeDepartement=$data["codeDepartement"];
+	    $this->moyenneGenerale=$data["moyenneGenerale"];
 
 	  	}
    }
 
- /*  public function connect(){ //essayer de lancer une connexion 
 
 
-		$req=Model::$pdo->prepare("SELECT loginEtudiant, mdpEtudiant, prenomEtudiant FROM agora_etudiants WHERE loginEtudiant=:userName ");
-		$req->execute(array('userName'=>$this->loginEtudiant));
-
-		$res=$req->fetch();
-
-		$hash=Security::chiffrer($this->mdpEtudiant);
-
-		$correct=$res['mdpEtudiant']===$hash;
-
-		$prenom=$res['prenomEtudiant'];
-
-		if (!$res){
- 
-			return -1; //utilisateur non inscrit 	
-
-		}else{
-
-			if($correct){
-
-			   session_start();	
-
-			   $_SESSION["isLogedIn"]=true;
-			   $_SESSION["login"]=$res['loginEtudiant'];
-			   $_SESSION["prenomUtilisateur"]=$res['prenomEtudiant'];
+   public static function getAllByEnseignant(){
 
 
-		       return 1;
+          //Retourne tous les enseignants inscrits dans les matières dans lesquelles enseigne un enseignant ($login)
+
+          $login='"'.$_SESSION['loginUtilisateur'].'"';
+
+          $sql = "SELECT loginEtudiant from agora_suitMatiere S
+          JOIN agora_enseigner E ON E.codeMatiere=S.codeMatiere
+          WHERE codeEnseignant=$login";
+          $rep = Model::$pdo->query($sql);
+
+          $rep->setFetchMode(PDO::FETCH_NUM);
+          $tab_loginsEtudiant = $rep->fetchAll();
+
+          $tab =array();
+
+          foreach ($tab_loginsEtudiant as $key) { 
+
+            array_push($tab,$key[0]);
+
+          }
+
+          return $tab;
 
 
-			}else{
-
-				return 0; //mauvais mot de passe
-
-			}
-
-		}
-
-
-	}*/
-
-
-
-
+   }
 
 
 }
