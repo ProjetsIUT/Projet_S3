@@ -1,8 +1,11 @@
 <div class="page_content">
 
-	<h1>Liste des Exercices (en attente de correction) <a class="bouton" href="./index.php?controller=exerciceClassique&action=creerExercice">Publier un Exercice</a></h1>
+	<h1>Liste des Exercices (en attente de correction) 
 
 	<?php
+	
+	if(Session::is_student()) echo '<a class="bouton" href="./index.php?controller=exerciceClassique&action=list_a_faire">Voir les exercices à réaliser </a>';
+	echo '</h1>';
 
 			$i = 0;
 			$d = 0;

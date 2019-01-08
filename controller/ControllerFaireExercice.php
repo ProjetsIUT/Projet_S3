@@ -8,7 +8,7 @@ class ControllerFaireExercice{
     
     protected static $object = 'faireExercice';
 
-    static function reponse(){
+    public static function reponse(){
         
          //Traitement du fichier
         if ($_FILES['fichier']['error'] > 0) $error_code = "Erreur lors du transfert de la correction";
@@ -22,7 +22,7 @@ class ControllerFaireExercice{
         $extension_upload = strtolower(  substr(  strrchr($_FILES['fichier']['name'], '.')  ,1)  );
         if ( in_array($extension_upload,$extensions_valides) ){
             //$name = File::build_path(array('lib',"corrections/{$idExercice}.{$extension_upload}")); //on donne l'id de l'exercice comme nom de fichier
-            $name = "./lib/exercices/".$_POST['idExercice'].$_SESSION['loginUtilisateur'].".".$extension_upload;
+            $name = "./data/".$_POST['idExercice'].$_SESSION['loginUtilisateur'].".".$extension_upload;
             $resultat = move_uploaded_file($_FILES['fichier']['tmp_name'],$name);
         }else{
             $error_code = "extension incorecte";
@@ -48,10 +48,10 @@ class ControllerFaireExercice{
        }
     }
 
-    static function correction(){
+    public static function correction(){
 
     	$id = $_GET['id'];
-    	$loginEtudiant = $_GET['loginEtudiant'];
+    	$loginEtudiant = $_GET['login'];
 
         
         $e = ModelExerciceClassique::select($id);

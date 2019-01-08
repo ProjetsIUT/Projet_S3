@@ -91,6 +91,35 @@ class ModelFaireExercice extends Model{
         
       }
 
+      public static function selectByEnseignant($enseignant){
+      
+      $class_name = 'Model'.ucfirst(static::$object);
+
+      $sql = "SELECT DISTINCT f.idExercice, f.loginEtudiant, f.reponse, f.date, f.correction from agora_faireExercice f 
+      JOIN agora_ExerciceClassique e ON e.idExercice = f.idExercice 
+      JOIN agora_cours c ON e.themeExercice = c.codeCours 
+      JOIN agora_matieres m ON c.codeMatiere = m.codeMatiere
+      JOIN agora_enseigner ens ON ens.codeMatiere = ens.codeMatiere 
+      WHERE codeEnseignant=:val1";
+
+      // Préparation de la requête
+      $req_prep = Model::$pdo->prepare($sql); //permet de protéger la requete SQL
+            
+      $values = array(
+        "val1" => $enseignant,
+      );
+
+      $req_prep->execute($values);
+
+      // On récupère les résultats comme précédemment
+      $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
+      $tab_obj = $req_prep->fetchAll();
+      // Attention, si il n'y a pas de résultats, on renvoie false
+      if (empty($tab_obj))
+        return false;
+      return $tab_obj;
+    }
+
     }
 
 

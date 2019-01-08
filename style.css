@@ -599,3 +599,8 @@ table{
   font-weight: bold;
 }
 
+textarea{
+
+  width:50% ;
+  height:50%;
+}

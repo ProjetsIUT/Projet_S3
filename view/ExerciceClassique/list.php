@@ -5,7 +5,9 @@
 	<h1>Liste des Exercices à faire 
 <?php
 	
-	if(Session::is_teacher()) echo '<a class="bouton" href="./index.php?controller=exerciceClassique&action=creerExercice">Publier un Exercice</a></h1>';	
+	if(Session::is_teacher()) echo '<a class="bouton" href="./index.php?controller=exerciceClassique&action=creerExercice">Publier un Exercice</a>';
+	if(Session::is_student()) echo '<a class="bouton" href="./index.php?controller=exerciceClassique&action=list_en_attente">Voir les exercices en attente de correction</a>';
+	echo '</h1>';
 
 			$i = 0;
 		if($tab){

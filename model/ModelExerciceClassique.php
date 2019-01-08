@@ -14,12 +14,12 @@ class ModelExerciceClassique extends Model{
     private $themeExercice;
     private $tempsLimite;
 
-    private $acces;  
+ 
     private $enonce; 
 
      
 
-    public function __construct($idExercice = NULL, $nomExercice = NULL, $themeExercice = NULL, $tempsLimite = NULL, $acces = NULL,$enonce = NULL)
+    public function __construct($idExercice = NULL, $nomExercice = NULL, $themeExercice = NULL, $tempsLimite = NULL, $enonce = NULL)
     {
         if(isset($idExercice)){
         
@@ -28,7 +28,7 @@ class ModelExerciceClassique extends Model{
         
             $this->nomExercice = $nomExercice;
 
-            $this->acces = $acces;
+
 
             $this->tempsLimite = $tempsLimite;
 
@@ -50,6 +50,7 @@ class ModelExerciceClassique extends Model{
         $this->$nom_attribut = $valeur;
     return false;
   }
+
 
 }
 

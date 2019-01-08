@@ -24,7 +24,6 @@ Class ControllerExerciceClassique {
     public static function created(){
         $idExercice = uniqid(); //String
         $nomExercice = $_POST['nomExercice'];
-        $acces = $_POST['acces'];
         $tempsLimite = $_POST['tempsLimite'];
         $enonce = $_POST['enonce'];
         $themeExercice=$_POST['theme'];
@@ -52,8 +51,8 @@ Class ControllerExerciceClassique {
             $pagetitle="Erreur - Agora";
             require (File::build_path(array('view', 'view.php')));
         }else{
-            $data = array("idExercice" => $idExercice,"nomExercice" => $nomExercice, "themeExercice"=>$themeExercice, "acces" => $acces,"tempsLimite" => $tempsLimite, "enonce" =>$enonce);
-            $e = new ModelExerciceClassique($idExercice,$nomExercice, $difficulte, $acces, $tempsLimite, $coeff,$enonce);
+            $data = array("idExercice" => $idExercice,"nomExercice" => $nomExercice, "themeExercice"=>$themeExercice, "tempsLimite" => $tempsLimite, "enonce" =>$enonce);
+            $e = new ModelExerciceClassique($idExercice,$nomExercice, $tempsLimite, $enonce);
             $e->save($data);
             
             $view = "created";
@@ -151,6 +150,17 @@ Class ControllerExerciceClassique {
         $view="list";
         $pagetitle="Mes Exercices - Agora";
         require (File::build_path(array('view', 'view.php')));
+    }
+
+    public static function list_a_corriger(){
+
+        $tab = ModelFaireExercice::selectByEnseignant($_SESSION['loginUtilisateur']);
+        
+        $view="listCorriger";
+        $pagetitle="Mes Exercices - Agora";
+        require (File::build_path(array('view', 'view.php')));
+        
+
     }
  
 }

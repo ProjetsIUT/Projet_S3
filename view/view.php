@@ -29,7 +29,7 @@
 
 						<a class="menu" href="index.php?controller=cours&action=list">Cours</a>
 					
-						<a class="menu" href="index.php?controller=Exercice&action=choixExercice">Exercices</a> 
+						<a class="menu" href="index.php?controller=ExerciceClassique&action=list_a_faire">Exercices</a> 
 						
 						<a class="menu" <?php if(Session::is_student()){echo('href="./index.php?controller=notes&action=statsEtud"');} ?>>Statistiques</a>
 					
