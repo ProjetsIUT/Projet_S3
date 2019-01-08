@@ -1,14 +1,12 @@
 <div class="page_content">
 
-	<h1>Liste des Exercices (en attente de correction) </h1>
+	<h1>Liste des Exercices (en attente de correction) <a class="bouton" href="./index.php?controller=exerciceClassique&action=creerExercice">Publier un Exercice</a></h1>
 
-
-
-		<?php
+	<?php
 
 			$i = 0;
 			$d = 0;
-		if($tab){
+			if($tab){
 			foreach ($tab as $e) {
 
 				if($i==0){
@@ -58,6 +56,7 @@
 
 						<div class="bloc_boutons">
 							<h3>	
+							
 							<a class="bouton" href="./lib/corrections/' .$code_e . '.pdf"> Correction </a> 
 							<a class="bouton" href="./data/'.$theme_e_code.'.pdf">Voir le cours</a>
 							 

@@ -1,10 +1,11 @@
 <div class="page_content">
 
-	<h1>Liste des Exercices à faire </h1>
 
 
-
-		<?php
+	<h1>Liste des Exercices à faire 
+<?php
+	
+	if(Session::is_teacher()) echo '<a class="bouton" href="./index.php?controller=exerciceClassique&action=creerExercice">Publier un Exercice</a></h1>';	
 
 			$i = 0;
 		if($tab){
@@ -60,6 +61,7 @@
 							<h3>	
 							<a class="bouton" href="./index.php?controller=exerciceClassique&action=faireExercice&id=' .$code_e . '">Faire l\'exercice </a> 
 							<a class="bouton" href="./data/'.$theme_e_code.'.pdf">Voir le cours</a>
+							<a class="bouton_suppr" href="./index.php?controller=exerciceClassique&action=suppr&code=' .$code_e . '">Supprimer</a> 
 							 
 							</h3>
 						</div>
