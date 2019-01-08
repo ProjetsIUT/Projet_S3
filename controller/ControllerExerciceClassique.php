@@ -23,11 +23,8 @@ Class ControllerExerciceClassique {
     public static function created(){
         $idExercice = uniqid(); //String
         $nomExercice = $_POST['nomExercice'];
-        $difficulte = $_POST['difficulte'];
         $acces = $_POST['acces'];
-        //$idMatiere = $_POST['idMatiere'];
         $tempsLimite = $_POST['tempsLimite'];
-        $coeff = $_POST['coeff'];
         $enonce = $_POST['enonce'];
         $themeExercice=$_POST['theme'];
         
@@ -54,7 +51,7 @@ Class ControllerExerciceClassique {
             $pagetitle="Erreur - Agora";
             require (File::build_path(array('view', 'view.php')));
         }else{
-            $data = array("idExercice" => $idExercice,"nomExercice" => $nomExercice, "themeExercice"=>$themeExercice, "difficulte" =>$difficulte, "acces" => $acces,"tempsLimite" => $tempsLimite, "coeff" => $coeff,"enonce" =>$enonce);
+            $data = array("idExercice" => $idExercice,"nomExercice" => $nomExercice, "themeExercice"=>$themeExercice, "acces" => $acces,"tempsLimite" => $tempsLimite, "enonce" =>$enonce);
             $e = new ModelExerciceClassique($idExercice,$nomExercice, $difficulte, $acces, $tempsLimite, $coeff,$enonce);
             $e->save($data);
             

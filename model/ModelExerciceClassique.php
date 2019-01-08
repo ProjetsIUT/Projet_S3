@@ -12,15 +12,14 @@ class ModelExerciceClassique extends Model{
     private $idExercice;
     private $nomExercice;
     private $themeExercice;
-    private $difficulte;
     private $tempsLimite;
-    private $coeff;
+
     private $acces;  
     private $enonce; 
 
      
 
-    public function __construct($idExercice = NULL, $nomExercice = NULL, $themeExercice = NULL, $difficulte = NULL, $tempsLimite = NULL, $coeff = NULL, $acces = NULL,$enonce = NULL)
+    public function __construct($idExercice = NULL, $nomExercice = NULL, $themeExercice = NULL, $tempsLimite = NULL, $acces = NULL,$enonce = NULL)
     {
         if(isset($idExercice)){
         
@@ -28,11 +27,10 @@ class ModelExerciceClassique extends Model{
             $this->themeExercice=$themeExercice;
         
             $this->nomExercice = $nomExercice;
-            $this->difficulte = $difficulte;
+
             $this->acces = $acces;
 
             $this->tempsLimite = $tempsLimite;
-            $this->coeff = $coeff;
 
             $this->enonce = $enonce;               
         }

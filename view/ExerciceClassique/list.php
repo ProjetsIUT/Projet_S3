@@ -54,7 +54,7 @@
 				echo '
 
 						<br>
-						<a>'. $enonce_e .'</a>
+						<a>'. $theme_e .'</a>
 
 						<div class="bloc_boutons">
 							<h3>	
