@@ -5,11 +5,12 @@
 
 	<div class="box_center">
 
-		<form method="get" action="./index.php">
+		<form method="post" action="./index.php">
 		
 
 		<input type="hidden" name="action" value="corriger">
 		<input type="hidden" name="controller" value="QCM">
+		<input type="hidden" name="codeQCM" value=<?php echo '"'.$_GET["code"].'"'; ?> >
 		<?php
 
 			$c=1;

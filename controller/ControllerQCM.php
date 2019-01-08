@@ -3,6 +3,7 @@
 <?php
 require_once (File::build_path(array('model','ModelQCM.php')));
 require_once (File::build_path(array('model','ModelCours.php')));
+require_once (File::build_path(array('model','ModelNotes.php')));
 require_once (File::build_path(array('model','ModelQuestions.php')));
 require_once (File::build_path(array('controller', 'Controller.php'))); 
 
@@ -97,16 +98,19 @@ class ControllerQCM extends Controller{
 		$nbReponseJuste = 0;
 		foreach ($tab_questions_all as $question) {
 
-			if($question->get("codeQCM")==$codeQCM){
+			if($question->get("codeQCM")===$codeQCM){
 
 				$compteur ++;
-				if($_POST["choix_question".$compteur] == $question->get("propositionExacte")){
+				if($_POST["choix_question".$compteur] === $question->get("propositionExacte")){
 					$nbReponseJuste ++;
 				}
 	
 			}
 	
 		}
+
+		$note=$nbReponseJuste/$compteur * 20;
+		$note=round($note,2);
 		if($compteur != 0){
 			$ModelNote = new ModelNotes();
 			$ModelNote->save(array(
@@ -114,11 +118,16 @@ class ControllerQCM extends Controller{
 				"codeEtudiant"=>$_SESSION["loginUtilisateur"],
 				"codeExercice"=>$codeQCM ,
 				"typeExercice"=>"QCM",
-				"note"=>$nbReponseJuste/$compteur * 20,
+				"note"=>$note,
 				"dateNote"=>date('Y-m-d')
 			,));
+		
+			header('Location: ./index.php?controller=notes&action=listByEtud');
+
+		}else{
+			header('Location: ./index.php');
 		}
-		header('Location: http://webinfo.iutmontp.univ-montp2.fr/~dumairet/PROJET_PHP/Projet_S3/index.php?controller=notes&action=listByEtud'); 
+		 
 	}
 
 
