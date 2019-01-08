@@ -311,9 +311,11 @@ class ControllerUtilisateurs extends Controller{
             $pagetitle = 'Liste des utilisateurs';
             require (File::build_path(array('view', 'view.php')));
         }
-        $pagetitle = 'Erreur';
-        $error_code = 'Vous n\'avez pas acceder à ces informations !';
-        require File::build_path(array('view', 'error.php'));
+        else {
+            $pagetitle = 'Erreur';
+            $error_code = 'readAll : Vous n\'avez pas acceder à ces informations !';
+            require File::build_path(array('view', 'error.php'));
+        }
     }
 
     public static function read() {
