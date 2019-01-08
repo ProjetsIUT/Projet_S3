@@ -15,6 +15,7 @@ class ControllerNotes{
  	protected static $object="Notes";
 
  	public static function noteExerciceClassique(){
+
  		$id = $_POST['id'];
  		$loginEtudiant = $_POST['loginEtudiant'];
  		$correction = $_POST['correction'];
@@ -25,6 +26,7 @@ class ControllerNotes{
  		$faireEx = ModelFaireExercice::selectFaireExercice($id, $loginEtudiant);
  		$faireEx->addCorrection($id, $loginEtudiant, $correction);
  		$note->save($data);
+
 
  		self::list();
  	}

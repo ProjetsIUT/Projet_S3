@@ -1,12 +1,13 @@
 <div class="page_content">
 
-	<h1>Liste des Exercices à faire </h1>
+	<h1>Liste des Exercices (en attente de correction) </h1>
 
 
 
 		<?php
 
 			$i = 0;
+			$d = 0;
 		if($tab){
 			foreach ($tab as $e) {
 
@@ -23,7 +24,6 @@
 				$theme_e=htmlspecialchars($theme_e_cours->get('nomCours'));  
 				$enonce_e=htmlspecialchars($e->get("enonce"));
 				$date_e=htmlspecialchars($e->get("tempsLimite"));
-				$date_ajd = date("Y-m-d H:i:s");
 
 			
 
@@ -37,28 +37,28 @@
 						<h3>' . $nom_e . '
 						   </h3>
 						<br>
-						<legend>Dans ' . $theme_e.' </legend>';
-						
-				if($date_e >= date("Y-m-d H:i:s")){		
-					echo'
-						<legend>A rendre avant le ' . $date_e . '</legend>
-						';
+						<legend>Dans ' . $theme_e. ' </legend> ';
+				if($dates[$d] <= $date_e){
+					echo' 
+						 <legend>Rendu le ' . $dates[$d] . '</legend>';
 				}else{
 					$dteStart = new DateTime($date_e); 
-   					$dteEnd   = new DateTime($date_ajd); 
+   					$dteEnd   = new DateTime($dates[$d]); 
 
 					$dteDiff  = $dteStart->diff($dteEnd); 
-
-					echo '<legend class="retard"> En retard de ' . $dteDiff->format("%d jour(s), %H heure(s) et %I minute(s)") . '</legend>';
+					echo '<legend class="retard"> Rendu en retard de ' . $dteDiff->format("%d jour(s), %H heure(s) et %I minute(s)") . '</legend>';
 				}
-				echo '
+						 
+				echo'
 
-						<br>
-						<a>'. $enonce_e .'</a>
+
+
+						 <br>
+						 <a>'. $enonce_e .'</a>
 
 						<div class="bloc_boutons">
 							<h3>	
-							<a class="bouton" href="./index.php?controller=exerciceClassique&action=faireExercice&id=' .$code_e . '">Faire l\'exercice </a> 
+							<a class="bouton" href="./lib/corrections/' .$code_e . '.pdf"> Correction </a> 
 							<a class="bouton" href="./data/'.$theme_e_code.'.pdf">Voir le cours</a>
 							 
 							</h3>
@@ -71,6 +71,7 @@
 				' ;
 
 				$i++;
+				$d++;
 
 
 				if($i==4){
