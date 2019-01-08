@@ -1,3 +1,4 @@
+
 /* Définition des polices personnalisées */
 
 @font-face
@@ -593,4 +594,8 @@ table{
 }
 
 
+.retard{
+  color:red;
+  font-weight: bold;
+}
 

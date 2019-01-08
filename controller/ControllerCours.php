@@ -1,3 +1,4 @@
+
 <?php
 
 require_once (File::build_path(array('model','ModelCours.php')));
@@ -76,5 +77,6 @@ class ControllerCours extends Controller{
 
 
 }
+
 
 ?>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <?php
 require_once (File::build_path(array('model','ModelQCM.php')));
@@ -347,11 +348,26 @@ class ControllerNotes extends Controller {
 
  	}
 
+ 	public static function noteExerciceClassique(){
+
+ 		$id = $_POST['id'];
+ 		$loginEtudiant = $_POST['loginEtudiant'];
+ 		$correction = $_POST['correction'];
+
+
+ 		$data = array('codeNote' => uniqid() , 'codeEtudiant' => $loginEtudiant, 'codeExercice' => $id, 'typeExercice' => 'Exercice Classique', 'note' => $_POST["note"], "dateNote" => date("Y-m-d H:i:s") );
+ 		$note = new ModelNotes($data);
+ 		$faireEx = ModelFaireExercice::selectFaireExercice($id, $loginEtudiant);
+ 		$faireEx->addCorrection($id, $loginEtudiant, $correction);
+ 		$note->save($data);
+
+
+ 		self::list();
+ 	}
+
 
 }
 
- 	
+?> 	
 
 
-
-?>

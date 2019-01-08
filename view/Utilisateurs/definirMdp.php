@@ -1,3 +1,4 @@
+
 <article id="page_connexion">
 	<form id="formulaire_mdp_etudiant" method="get" action="index.php">
 		<p>Bienvenue sur Agora</p>
@@ -23,3 +24,4 @@
 		</div>
 	</form>
 </article>
+

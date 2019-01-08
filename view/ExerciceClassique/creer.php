@@ -1,3 +1,4 @@
+
         <form method="post" action="index.php?" enctype="multipart/form-data" id="formulaire_ajouterqcm">
             <fieldset>
             <legend>Creer un exercice :</legend>
@@ -15,7 +16,7 @@
                         $path=array('model','ModelCours.php');
                         require_once File::build_path($path);
 
-                        $tab_cours = ModelCours::getAllByEnseignant();
+                        $tab_cours = ModelCours::selectAll();
 
                         $tab_nom_cours=array();
                         $tab_code_cours=array();
@@ -73,7 +74,9 @@
                     <textarea name="enonce" id="enonce_id" required></textarea>
                 </p>
                 <p>
+
                     <label for="correction_id">Correction (max 1mo)</label>
+
                     <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
                     <input type="file" name="correction" id="correction_id">
                 </p>

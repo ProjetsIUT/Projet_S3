@@ -1,3 +1,4 @@
+
 <?php // content="text/plain; charset=utf-8"
 
 			require_once ('jpgraph/src/jpgraph.php');
@@ -57,5 +58,6 @@
 
 			// Output line
 			$graph->Stroke();
+
 
 		?>

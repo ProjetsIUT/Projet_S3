@@ -1,4 +1,4 @@
- 
+
 	<div class="page_content" id="div_page_perso_etudiant">
 
 		<div class="ligne">
@@ -168,6 +168,3 @@
 
 	</div>
 
-	
-	
-			

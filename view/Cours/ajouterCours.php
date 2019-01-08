@@ -1,4 +1,5 @@
 
+
 	<form enctype="multipart/form-data" id="formulaire_ajouterCours" method="post" action=<?php echo '"'.(File::build_path(array('index.php'))). '"'; ?>>
 
 		<input type="hidden" name="controller" value="cours" />
@@ -88,3 +89,4 @@
 
 
 	</form>
+

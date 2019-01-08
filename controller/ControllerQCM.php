@@ -1,4 +1,5 @@
 
+
 <?php
 require_once (File::build_path(array('model','ModelQCM.php')));
 require_once (File::build_path(array('model','ModelCours.php')));
@@ -124,4 +125,3 @@ class ControllerQCM extends Controller{
 }
 
 ?>
-

@@ -1,3 +1,4 @@
+
 <?php
 
 class Session {
@@ -18,5 +19,6 @@ class Session {
         return (!empty($_SESSION['typeUtilisateur']) && $_SESSION['typeUtilisateur'] === 'enseignant');
     }
 }
+
 
 ?> 
