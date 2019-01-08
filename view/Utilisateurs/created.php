@@ -6,6 +6,6 @@
 	    Veuillez activer votre compte via le lien reçu par mail. 
 	    Vous allez être redirigé vers l'accueil.
     </p>
-	</div>
-	<meta http-equiv="refresh" content="3; URL=index.php" />
+</div>
+<meta http-equiv="refresh" content="3; URL=index.php" />
 </article>
