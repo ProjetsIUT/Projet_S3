@@ -11,32 +11,36 @@
 			}
 
 			$controller_class="Controller" . ucfirst($controller);
-
 			$path=array("controller","$controller_class.php");
-			require_once File::build_path($path);
+			$filepath = File::build_path($path);
+			if (file_exists($filepath)) {
+				require_once $filepath;
+				if(class_exists($controller_class)) {
+					$methods=get_class_methods($controller_class);
+					
+					if (isset($_GET['action'])) {
+						$action=$_GET["action"];
+					}else if(isset($_POST['action'])){
+						$action=$_POST["action"];
+					}else{
+						$action = "show_login_page";
+					}
 
-			if(class_exists($controller_class)) {
-
-				$methods=get_class_methods($controller_class);
-				
-				if (isset($_GET['action'])) {
-					$action=$_GET["action"];
-				}else if(isset($_POST['action'])){
-					$action=$_POST["action"];
-				}else{
-					$action = "show_login_page";
-				}
-
-				if(in_array($action, $methods)) {
-					$controller_class::$action();
+					if(in_array($action, $methods)) {
+						$controller_class::$action();
+					}
+					else {
+						$controller_class::errorAction();
+					}
 				}
 				else {
-					$controller_class::errorAction();
+					$controller_class = 'Controller';
+					$controller_class::errorClass();
 				}
 			}
 			else {
-				$controller_class = 'ControllerUtilisateurs';
-				$controller_class::errorClass();
+				require_once File::build_path(array('controller','Controller.php'));
+				Controller::errorController();
 			}
 ?>
 

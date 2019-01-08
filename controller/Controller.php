@@ -16,7 +16,14 @@ class Controller {
 	    $view = 'error';
 	    $pagetitle = 'Erreur';
 	    require (File::build_path(array('view', 'error.php')));
-    }
+	}
+	
+	public static function errorController() {
+		$error_code = 'routeur : controller inexistant !';
+		$view = 'error';
+	    $pagetitle = 'Erreur';
+	    require (File::build_path(array('view', 'error.php')));
+	}
 }
 
 ?>
