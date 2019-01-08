@@ -65,7 +65,10 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 			$_SESSION['codeDepartement'] = $e->get('codeDepartement');
 
 
- 			$tab_notes=ModelNotes::selectByEtud();
+			$tab_notes=ModelNotes::selectByEtud();
+			if(empty($tab_notes)) {
+				$verif = "Il n'y a aucune note";
+			}
  			$tab_cours=ModelCours::getAllByEtud();
 
  			$moyenneGenerale=ModelNotes::moyenneGenerale();

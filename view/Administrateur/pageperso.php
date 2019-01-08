@@ -6,7 +6,8 @@
 
             <h3>Bienvenue sur Agora</h3>
 
-            <a>Bienvenue dans votre espace personnel<?php echo ' '.$_SESSION["prenomUtilisateur"].' '.$_SESSION["nomUtilisateur"] ?></a>
+            <a>Bienvenue dans votre espace personnel<?php echo ' '.$_SESSION["prenomUtilisateur"].' '.$_SESSION["nomUtilisateur"] ?>
+            <br>Vous utilisez la version Alpha d'Agora. Certaines fonctionnalités ne sont pas encore disponibles.</a>
             <br>
             <br>
             <a href="index.php?controller=utilisateurs&action=readAll" class="bouton">Gérer les utilisateurs</a>

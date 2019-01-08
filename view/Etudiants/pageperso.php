@@ -100,6 +100,11 @@
 				<br>
 
 				<?php
+				
+				if(isset($verif)) {
+					echo '<a>'.$verif.'</a>';
+				}
+				else {
 
 					$note = current($tab_notes);
 
@@ -159,7 +164,7 @@
 
 					}
 
-
+				}
 				?>
 			</div>
 
