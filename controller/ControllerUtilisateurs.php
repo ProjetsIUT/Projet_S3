@@ -415,20 +415,54 @@ class ControllerUtilisateurs extends Controller{
     }
 
     // A modifier
-
+ 
     public static function update() {
+        $type = "Modification";
         if (isset($_GET['loginUtilisateur'])) {
             $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
-            $nom = $u->get('nomUtilisateur');
-            $prenom = $u->get('prenomUtilisateur');
-            $view = 'update';
-            $pagetitle = 'Utilisateur à modifier';
-            require (File::build_path(array('view', 'view.php')));
+            if($u) {
+                if (Session::is_user($_GET['loginUtilisateur']) && !Session::is_admin()) {
+                        $ulogin = $u->get('loginUtilisateur');
+                        $uprenom = $u->get('prenomUtilisateur');
+                        $unom = $u->get('nomUtilisateur');
+                        $uemail = $u->get('emailUtilisateur');
+                        $ucodeEtablissement = $u->get('codeEtablissement');
+                        $etat = 'readonly required';
+                        $view = 'update';
+                        $pagetitle = 'Mes informations personnelles';
+                        require (File::build_path(array('view', 'view.php')));
+                }
+                else if(Session::is_admin()) {
+                    $ulogin = $u->get('loginUtilisateur');
+                    $uprenom = $u->get('prenomUtilisateur');
+                    $unom = $u->get('nomUtilisateur');
+                    $uemail = $u->get('emailUtilisateur');
+                    $ucodeEtablissement = $u->get('codeEtablissement');
+                    $utype = $u->get('typeUtilisateur');
+                    $etat = 'required';
+                    $view = 'update';
+                    $pagetitle = 'Utilisateur '.$ulogin;
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                else {
+                    $error_code = 'update : vous n\'avez pas accès à ces données';
+                    $view = 'error';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                } 
+            }
+            else {
+                $error_code = 'update : utilisateur inexistant';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
         }
         else {
+            $error_code = 'update : loginUtilisateur vide';
             $view = 'error';
             $pagetitle = 'Erreur';
-            require (File::build_path(array('view', 'view.php')));
+            require (File::build_path(array('view', 'error.php')));
         }
     }
 
