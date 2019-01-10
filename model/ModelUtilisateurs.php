@@ -25,27 +25,27 @@ class ModelUtilisateurs extends Model {
 				$this->loginUtilisateur= $data["loginUtilisateur"];
 			}
 
-			if(isset($data["prenomUtilisateur"];)) {
+			if(isset($data["prenomUtilisateur"])) {
 				$this->prenomUtilisateur=$data["prenomUtilisateur"];
 			}
 
-			if(isset($data["nomUtilisateur"];)) {
+			if(isset($data["nomUtilisateur"])) {
 				$this->nomUtilisateur=$data["nomUtilisateur"];
 			}
 
-			if(isset($data["mdpUtilisateur"];)) {
+			if(isset($data["mdpUtilisateur"])) {
 				$this->mdpUtilisateur=$data["mdpUtilisateur"];
 			}
 
-			if(isset($data["emailUtilisateur"];)) {
+			if(isset($data["emailUtilisateur"])) {
 				$this->emailUtilisateur=$data["emailUtilisateur"];
 			}
 
-			if(isset($data["codeEtablissement"];)) {
+			if(isset($data["codeEtablissement"])) {
 				$this->codeEtablissement=$data["codeEtablissement"];
 			}
 			
-			if(isset($data["nonce"];)) {
+			if(isset($data["nonce"])) {
 				$this->nonce=$data["nonce"];
 			}
 		}
