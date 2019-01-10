@@ -102,19 +102,22 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 
 	public static function read() {
         if(isset($_GET['loginEtudiant'])) {
-            $u = ModelEtudiants::select($_GET['loginEtudiant']);
+			$u = ModelEtudiants::select($_GET['loginEtudiant']);
+			$ut = ModelUtilisateurs::select($_GET['loginEtudiant']);
             if($u) {
                 if (Session::is_user($_GET['loginEtudiant']) || Session::is_admin()) {
                     $umoyenneGenerale = $u->get('moyenneGenerale');
-                    $ulogin = $u->get('loginEtudiant');
-                    $uace = $u->get('anneeCourantEtudiant');
+					$ulogin = $u->get('loginEtudiant');
+					$unom = $ut->get('nomUtilisateur');
+					$uprenom = $ut->get('prenomUtilisateur');
+					$uace = $u->get('anneeCourantEtudiant');
                     $ucd = $u->get('codeDepartement');
                     $usce = $u->get('SemestreCourantEtudiant');
 					$view = 'detail';
 					if(Session::is_user($_GET['loginEtudiant'])) {
-                        $pagetitle = 'Mes informations utilisateurs';
+                        $pagetitle = 'Mes informations utilisateur';
                     }
-                    $pagetitle = 'Details des utilisateurs';
+                    $pagetitle = 'Details de l\'étudiant '.$ulogin;
                     require (File::build_path(array('view', 'view.php')));
                 }
                 else {
