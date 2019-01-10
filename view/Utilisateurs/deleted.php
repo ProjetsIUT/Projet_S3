@@ -3,5 +3,14 @@
 <p> L'utilisateur a bien été supprimé ! <br>
     Vous allez être redirigez vers la liste des utilisateurs.</p>
 </div>
-<meta http-equiv="refresh" content="3; URL=index.php?controller=utilisateurs&action=readAll" />
+
+<?php 
+    if(Session::is_admin()) {
+        echo '<meta http-equiv="refresh" content="3; URL=index.php?controller=utilisateurs&action=readAll" />';
+    }
+    else {
+        echo '<meta http-equiv="refresh" content="3; URL=index.php" />';
+    }
+?>
+
 </article>

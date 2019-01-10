@@ -1,7 +1,9 @@
+<article id="page_connexion">
+<div id="formulaire_connexion">
 <?php
     echo '<p> L\'utilisateur de login '.htmlspecialchars($_GET['loginUtilisateur']).' a été mis à jour!
     <br>
-    Vous allez être redirigez vers l\'acceuil.</p>
+    Vous allez être redirigez vers l\'accueil.</p>
     ';
     if(Session::is_student()){ //si c'est un étudiant 
         $redirection = 'index.php?controller=etudiants&action=show_perso_page';
@@ -20,4 +22,7 @@
         header('Refresh: 3; url='.$redirection);
     }
 
-?> 
+?>
+
+</div>
+</article>

@@ -1,4 +1,5 @@
 <article id="page_connexion">
+<div id="formulaire_connexion">
     <a>Votre mot de passe vient dêtre changé.
     <br>Vous allez être redirigé vers l'accueil du site</a>
     <?php
@@ -19,4 +20,5 @@
             header('Refresh: 3; url='.$redirection);
         }
 	?>
+</div>
 </article>

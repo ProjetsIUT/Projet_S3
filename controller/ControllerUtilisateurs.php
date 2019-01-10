@@ -414,7 +414,6 @@ class ControllerUtilisateurs extends Controller{
         require (File::build_path(array('view', 'view.php')));
     }
 
-    // A modifier
  
     public static function update() {
         $type = "Modification";
@@ -427,6 +426,7 @@ class ControllerUtilisateurs extends Controller{
                         $unom = $u->get('nomUtilisateur');
                         $uemail = $u->get('emailUtilisateur');
                         $ucodeEtablissement = $u->get('codeEtablissement');
+                        $type = "Modification de mes informations";
                         $etat = 'readonly required';
                         $view = 'update';
                         $pagetitle = 'Mes informations personnelles';
@@ -439,6 +439,7 @@ class ControllerUtilisateurs extends Controller{
                     $uemail = $u->get('emailUtilisateur');
                     $ucodeEtablissement = $u->get('codeEtablissement');
                     $utype = $u->get('typeUtilisateur');
+                    $type = 'Modification des informations de l\'utilisateur '.$ulogin;
                     $etat = 'required';
                     $view = 'update';
                     $pagetitle = 'Utilisateur '.$ulogin;
@@ -466,25 +467,62 @@ class ControllerUtilisateurs extends Controller{
         }
     }
 
+
     public static function updated() {
-        if(isset($_GET['loginUtilisateur']) && isset($_GET['nomUtilisateur']) && isset($_GET['prenomUtilisateur'])) {
-            $view = 'updated';
-            $pagetitle = 'Utilisateur modifié';
-            $login = $_GET['loginUtilisateur'];
-            $data = array(
-                "loginUtilisateur" => $_GET['loginUtilisateur'],
-                "nomUtilisateur" => $_GET['nomUtilisateur'],
-                "prenomUtilisateur" => $_GET['prenomUtilisateur'],
-            );
-            $u = new ModelUtilisateurs($data);
-            $u->update($data);
-            $tab_u = ModelUtilisateurs::selectAll();
-            require (File::build_path(array('view', 'view.php')));
+        if(isset($_GET['loginUtilisateur']) && isset($_GET['nomUtilisateur']) && isset($_GET['prenomUtilisateur']) && isset($_GET['emailUtilisateur']) && isset($_GET['typeUtilisateur']) && isset($_GET['codeEtablissement'])) {
+            $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
+            if($u) {
+                if (Session::is_user($_GET['loginUtilisateur'])) {
+                    $etat = 'required readonly';
+                    $view = 'updated';
+                    $pagetitle = 'Utilisateur ajouté';
+                    $data = array(
+                        "loginUtilisateur" => $_GET['loginUtilisateur'],
+                        "nomUtilisateur" => $_GET['nomUtilisateur'],
+                        "prenomUtilisateur" => $_GET['prenomUtilisateur'],
+                        "emailUtilisateur" => $_GET['emailUtilisateur'],
+                        "codeEtablissement" => $_GET['codeEtablissement'],
+                    );
+                    $u = new ModelUtilisateurs($data);
+                    $u->update($data);
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                else if(Session::is_admin()) {
+                    $etat = 'required';
+                    $view = 'updated';
+                    $pagetitle = 'Utilisateur ajouté';
+                    $data = array(
+                        "loginUtilisateur" => $_GET['loginUtilisateur'],
+                        "nomUtilisateur" => $_GET['nomUtilisateur'],
+                        "prenomUtilisateur" => $_GET['prenomUtilisateur'],
+                        "emailUtilisateur" => $_GET['emailUtilisateur'],
+                        "typeUtilisateur" => $_GET['typeUtilisateur'],
+                        "codeEtablissement" => $_GET['codeEtablissement'],
+                    );
+                    $u = new ModelUtilisateurs($data);
+                    $u->update($data);
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                else {
+                    $error_code = 'updated : Vous ne pouvez pas avoir accès à ces informations';
+                    $view = 'error';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                }
+            }
+            else {
+                $error_code = 'updated : ce loginUtilisateur est inexistant';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
+
         }
         else {
+            $error_code = 'updated : l\'un des champs est vide';
             $view = 'error';
             $pagetitle = 'Erreur';
-            require (File::build_path(array('view', 'view.php')));
+            require (File::build_path(array('view', 'error.php')));
         }
     }
 

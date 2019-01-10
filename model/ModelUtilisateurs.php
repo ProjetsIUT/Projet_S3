@@ -22,12 +22,12 @@ class ModelUtilisateurs extends Model {
 	    // then they must have been supplied
 	    // so fall back to constructor with 3 arguments
 	    $this->loginUtilisateur= $data["loginUtilisateur"];
-	    $this->mdpUtilisateur = $data["mdpUtilisateur"];
+	    //$this->mdpUtilisateur = $data["mdpUtilisateur"];
 	    $this->prenomUtilisateur=$data["prenomUtilisateur"];
 	    $this->nomUtilisateur=$data["nomUtilisateur"];
 	    $this->emailUtilisateur=$data["emailUtilisateur"];
-	    $this->codeEtablissement=$data["codeEtablissement"];    
-		$this->nonce=$data["nonce"];
+	    //$this->codeEtablissement=$data["codeEtablissement"];    
+		//$this->nonce=$data["nonce"];
 	  	}
    	}
 
