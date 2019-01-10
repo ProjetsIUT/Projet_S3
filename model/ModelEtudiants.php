@@ -9,10 +9,12 @@ class ModelEtudiants extends ModelUtilisateurs {
 
 	  protected static $primary = 'loginEtudiant';
   	  protected static $object = 'etudiants';
-  	  
+      
+      private $loginEtudiant;
   	  private $anneeCourantEtudiant;
   	  private $SemestreCourantEtudiant;
-  	  private $codeDepartement;
+      private $codeDepartement;
+      private $moyenneGenerale;
   	 
   public function get($nom_attribut) {
     if (property_exists($this, $nom_attribut))
@@ -30,10 +32,19 @@ class ModelEtudiants extends ModelUtilisateurs {
   public function __construct($data = array()) {
 	  if (!empty($data)) {
 
-	    $this->anneeCourantEtudiant= $data["anneeCourantEtudiant"];
-	    $this->SemestreCourantEtudiant = $data["SemestreCourantEtudiant"];
-	    $this->codeDepartement=$data["codeDepartement"];
-	    $this->moyenneGenerale=$data["moyenneGenerale"];
+      $arr = array();
+      $arr = get_class_vars("ModelEtudiants");
+
+      foreach ($arr as $k) {
+        $arr[$k] = $attrib;
+        if(isset($attirb)) {
+          $this->attrib = $data[$k];
+        }
+      }
+	    //$this->anneeCourantEtudiant= $data["anneeCourantEtudiant"];
+	    //$this->SemestreCourantEtudiant = $data["SemestreCourantEtudiant"];
+	    //$this->codeDepartement=$data["codeDepartement"];
+	    //$this->moyenneGenerale=$data["moyenneGenerale"];
 
 	  	}
    }

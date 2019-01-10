@@ -93,8 +93,12 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 		require (File::build_path(array('view', 'view.php')));
 	}
 
-
-
+	public static function readAll() {
+		$view = 'list';
+		$pagetitle = 'Liste étudiante';
+		$tab_u = ModelEtudiants::selectAll();
+		require (File::build_path(array('view', 'view.php')));
+	}
 
 }
 
