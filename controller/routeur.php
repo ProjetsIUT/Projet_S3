@@ -1,4 +1,5 @@
 <?php
+			require_once File::build_path(array('controller','Controller.php'));
 			$controller_default="utilisateurs"; //Contrôleur par défaut 
 
 			if (isset($_GET['controller'])) {
@@ -39,7 +40,6 @@
 				}
 			}
 			else {
-				require_once File::build_path(array('controller','Controller.php'));
 				Controller::errorController();
 			}
 ?>
