@@ -139,6 +139,41 @@ class ControllerEtudiants extends ControllerUtilisateurs{
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
         }
+	}
+	
+	public static function delete() {
+        if(isset($_GET['loginEtudiant'])) {
+            if (Session::is_user($_GET['loginEtudiant']) || Session::is_admin()) {
+                    $t = ModelEtudiants::delete($_GET['loginEtudiant']);
+                    if($t) {
+                        $view = 'deleted';
+						$pagetitle = 'Suppression d\'un utilisateur';
+						if(Session::is_user($_GET['loginUtilisateur'])) {
+							self::deconnect();
+						}
+						require (File::build_path(array('view', 'view.php')));
+                    }
+                    else {
+                        $error_code = 'delete : utilisateur déja supprimé';
+                        $view = 'error';
+                        $pagetitle = 'Erreur';
+                        require (File::build_path(array('view', 'error.php')));
+                    }
+                }
+            } 
+            else {
+                $error_code = 'delete : Vous ne pouvez pas effectuer cette action';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            } 
+        }
+        else {
+            $error_code = 'delete : loginUtilisateur vide';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
     }
 
 }
