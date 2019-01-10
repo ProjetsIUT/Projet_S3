@@ -64,14 +64,14 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 			$_SESSION['SemestreCourantEtudiant'] = $e->get('SemestreCourantEtudiant');
 			$_SESSION['codeDepartement'] = $e->get('codeDepartement');
 
-
 			$tab_notes=ModelNotes::selectByEtud();
 			if(empty($tab_notes)) {
 				$verif = "Il n'y a aucune note";
 			}
  			$tab_cours=ModelCours::getAllByEtud();
 
- 			$moyenneGenerale=ModelNotes::moyenneGenerale();
+			$moyenneGenerale=ModelNotes::moyenneGenerale();
+			$_SESSION['moyenneGenerale'] = $moyenneGenerale;
  			ControllerNotes::setGraphsEtudiant();
  			$monClassement = self::getRang();
  			$taillePromo=self::nbEtudiants();
@@ -99,6 +99,45 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 		$tab_u = ModelEtudiants::selectAll();
 		require (File::build_path(array('view', 'view.php')));
 	}
+
+	public static function read() {
+        if(isset($_GET['loginEtudiant'])) {
+            $u = ModelEtudiants::select($_GET['loginEtudiant']);
+            if($u) {
+                if (Session::is_user($_GET['loginEtudiant']) || Session::is_admin()) {
+                    $umoyenneGenerale = $u->get('moyenneGenerale');
+                    $ulogin = $u->get('loginEtudiant');
+                    $uace = $u->get('anneeCourantEtudiant');
+                    $ucd = $u->get('codeDepartement');
+                    $usce = $u->get('SemestreCourantEtudiant');
+					$view = 'detail';
+					if(Session::is_user($_GET['loginEtudiant'])) {
+                        $pagetitle = 'Mes informations utilisateurs';
+                    }
+                    $pagetitle = 'Details des utilisateurs';
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                else {
+                    $error_code = 'read : Vous ne pouvez pas avoir accès à des informations confidentiels sur d\'autre utilisateur';
+                    $view = 'error';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                }
+            }
+            else {
+                $error_code = 'read : loginEtudiant inexistant';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
+        }
+        else {
+            $error_code = 'read : loginEtudiant vide';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+    }
 
 }
 

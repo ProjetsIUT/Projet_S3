@@ -325,15 +325,30 @@ class ControllerUtilisateurs extends Controller{
 
         if(isset($_GET['loginUtilisateur'])) {
             if (Session::is_user($_GET['loginUtilisateur']) || Session::is_admin()) {
-                if(ModelUtilisateurs::select($_GET['loginUtilisateur'])) {
-                    $u = ModelUtilisateurs::delete($_GET['loginUtilisateur']);
-                    $view = 'deleted';
-                    $pagetitle = 'Suppression d\'un utilisateur';
-                    $tab_u = ModelUtilisateurs::selectAll();
-                    if(Session::is_user($_GET['loginUtilisateur'])) {
-                        self::deconnect();
+                $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
+                if($u) {
+                    $t = ModelUtilisateurs::delete($_GET['loginUtilisateur']);
+                    if($t) {
+                        if($u->get('typeUtilisateur') === 'etudiant') {
+                            $redirection = 'index.php?controller=etudiants&action=delete';
+                            header('Location: '.$redirection);
+                        }
+                        else if($u->get('typeUtilisateur') === 'enseignant') {
+                            $redirection = 'index.php?controller=enseignants&action=delete';
+                            header('Location: '.$redirection);
+                        }
+                        else {
+                            $view = 'deleted';
+                            $pagetitle = 'Administrateur supprimé';
+                            require (File::build_path(array('view', 'error.php')));
+                        }
                     }
-                    require (File::build_path(array('view', 'view.php')));
+                    else {
+                        $error_code = 'delete : utilisateur déja supprimé';
+                        $view = 'error';
+                        $pagetitle = 'Erreur';
+                        require (File::build_path(array('view', 'error.php')));
+                    }
                 }
                 else {
                     $error_code = 'delete : loginUtilisateur inexistant';
@@ -383,11 +398,14 @@ class ControllerUtilisateurs extends Controller{
                     $ucode = $u->get('codeEtablissement');
                     $utype = $u->get('typeUtilisateur');
                     $view = 'detail';
-                    $pagetitle = 'Details des utilisateurs';
+                    if(Session::is_user($_GET['loginUtilisateur'])) {
+                        $pagetitle = 'Mes informations utilisateurs';
+                    }
+                    $pagetitle = "Détails utilisateurs";
                     require (File::build_path(array('view', 'view.php')));
                 }
                 else {
-                    $error_code = 'read : Vous ne pouvez pas avoir accès à des informations confidentiels sur d\'autre client';
+                    $error_code = 'read : Vous ne pouvez pas avoir accès à des informations confidentiels sur d\'autre utilisateurs';
                     $view = 'error';
                     $pagetitle = 'Erreur';
                     require (File::build_path(array('view', 'error.php')));
