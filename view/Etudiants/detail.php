@@ -8,7 +8,7 @@
     Annee en cours : '. htmlspecialchars($uace) .' <br>
     Code Departement : '. htmlspecialchars($ucd) .' <br>
     Semestre en cours : '.htmlspecialchars($usce).' <br>
-    Moyenne générale actuelle : '.htmlspecialchars($umoyenneGeneral).' <br> </p>';
+    Moyenne générale actuelle : '.htmlspecialchars($umoyenneGenerale).'/20 <br> </p>';
     
 
         echo ('<br><a class= "bouton" href="index.php?controller=utilisateurs&action=read&loginUtilisateur=' . rawurlencode($ulogin) . '" > Retour sur les informations utilisateurs ! </a>');

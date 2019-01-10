@@ -71,7 +71,6 @@ class ControllerEtudiants extends ControllerUtilisateurs{
  			$tab_cours=ModelCours::getAllByEtud();
 
 			$moyenneGenerale=ModelNotes::moyenneGenerale();
-			$_SESSION['moyenneGenerale'] = $moyenneGenerale;
  			ControllerNotes::setGraphsEtudiant();
  			$monClassement = self::getRang();
  			$taillePromo=self::nbEtudiants();
@@ -106,7 +105,7 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 			$ut = ModelUtilisateurs::select($_GET['loginEtudiant']);
             if($u) {
                 if (Session::is_user($_GET['loginEtudiant']) || Session::is_admin()) {
-                    $umoyenneGenerale = $u->get('moyenneGenerale');
+                    $umoyenneGenerale = ModelNotes::moyenneGenerale($_GET['loginEtudiant']);
 					$ulogin = $u->get('loginEtudiant');
 					$unom = $ut->get('nomUtilisateur');
 					$uprenom = $ut->get('prenomUtilisateur');
