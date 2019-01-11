@@ -1,6 +1,20 @@
 <div class="page_content">
 
-	<h1>Mes cours <a class="bouton" href="./index.php?controller=cours&action=show_form_new">Publier un cours</a></h1>
+
+		<?php 
+
+			if(Session::is_teacher()){
+
+				echo '<h1> Mes cours <a class="bouton" href="./index.php?controller=cours&action=show_form_new">Publier un cours</a></h1>';
+
+			}else{
+
+				echo '<h1>Mes cours</h1>';
+
+			}
+
+		?>
+	
 
 
 

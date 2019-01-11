@@ -303,5 +303,34 @@ class ModelNotes extends Model{
 
      }
 
+
+     public static function exerciceDejaFait($codeExercice){
+
+            //Vérifie si un étudiant a déjà réalisé un exercice représenté par $codeExercice
+            //Si oui, la fonction renvoie true, sinon false
+        
+            $sql = "SELECT * from agora_notes WHERE codeEtudiant=:val1 AND codeExercice=:val2";
+            // Préparation de la requête
+            $req_prep = Model::$pdo->prepare($sql); //permet de protéger la requete SQL
+            
+            $values = array(
+                "val1" => $_SESSION['loginUtilisateur'],
+                "val2" => $codeExercice,
+            );
+
+            $req_prep->execute($values);
+
+            $req_prep->setFetchMode(PDO::FETCH_NUM);
+            $tab_obj = $req_prep->fetchAll();
+
+            if (empty($tab_obj))
+                return false;
+            return true;
+
+
+
+
+     }
+
 }
 ?>

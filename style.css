@@ -94,13 +94,7 @@ body{
   background-size: 100%;
 
 }
-.page_content{
 
-  padding-top:49px;
-  width: 100%;
-  height: 100%;
-
-}
 
 #page_perso_etudiants{
 
@@ -241,11 +235,73 @@ header{
 
 .menu{
 
-  padding:15px 15px;
+  padding:15px 35px;
   text-align: center;
   text-decoration: none;
   color:black;
 
+
+}
+
+nav a{
+
+  display: inline-block;
+}
+
+
+nav ul{
+
+  display:flex;
+  padding:0px;
+  margin:0px;
+  list-style-type: none;
+
+}
+
+nav ul::after{
+
+  content:"";
+  display: block;
+  clear: both;
+}
+
+nav ul li {
+
+  float:left;
+  position:relative;
+}
+
+.texte_sous_menu{
+      background-color: rgba(130, 161, 192, 0.9);
+      width: 69px;
+
+}
+
+
+.page_content{
+
+  padding-top:49px;
+  width: 100%;
+  height: 100%;
+
+}
+
+
+nav li:hover .sous_menu{
+
+  display: inline-block;
+  position: absolute;
+  top:100%;
+  left:0px;
+  padding: 0px;
+  z-index: 100000;
+}
+
+
+.sous_menu{
+
+  display: none;
+  padding:0px;
 
 }
 
@@ -574,6 +630,11 @@ table{
 
 }
 
+.description{
+
+  height: 170px;
+}
+
 .bloc_boutons{
 
   text-align: center;
@@ -599,3 +660,7 @@ table{
   font-weight: bold;
 }
 
+form{
+
+  border-radius: 7px;
+}

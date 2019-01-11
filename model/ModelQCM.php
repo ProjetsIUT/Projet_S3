@@ -40,6 +40,55 @@ class ModelQCM extends Model {
 }
 
 
+  public static function getAllByEtud(){
+
+      $login = '"'.$_SESSION['loginUtilisateur'].'"';
+
+      $sql = "SELECT * from agora_QCM Q JOIN agora_cours C ON Q.themeQCM=C.codeCours
+      JOIN agora_matieres M ON M.codeMatiere=C.codeMatiere JOIN agora_suitMatiere S
+      ON S.codeMatiere=M.codeMatiere 
+      WHERE loginEtudiant=$login";
+
+      $rep = Model::$pdo->query($sql);
+      $rep->setFetchMode(PDO::FETCH_CLASS, "ModelQCM");
+      $tab_obj = $rep->fetchAll();
+
+      if (empty($tab_obj)) {
+         return false;
+      }
+
+      return $tab_obj;
+    
+    
+
+  }
+
+
+    public static function getAllByEnseignant(){
+
+      $login = '"'.$_SESSION['loginUtilisateur'].'"';
+
+      $sql = "SELECT * from agora_QCM Q JOIN agora_cours C ON Q.themeQCM=C.codeCours
+      JOIN agora_matieres M ON M.codeMatiere=C.codeMatiere JOIN agora_enseigner E
+      ON E.codeMatiere=M.codeMatiere 
+      WHERE codeEnseignant=$login";
+      
+      $rep = Model::$pdo->query($sql);
+      $rep->setFetchMode(PDO::FETCH_CLASS, "ModelQCM");
+      $tab_obj = $rep->fetchAll();
+
+      if (empty($tab_obj)) {
+         return false;
+      }
+
+      return $tab_obj;
+    
+    
+
+  }
+
+
+
 }
 
 
