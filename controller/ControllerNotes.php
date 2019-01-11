@@ -70,9 +70,7 @@ class ControllerNotes extends Controller {
         	require (File::build_path(array('view', 'view.php')));
 		}
 		else {
-			$pagetitle = "Erreur";
-			$error_code = "listEtud : vous ne pouvez pas accéder à une page réservé aux étudiants";
-			require (File::build_path(array('view', 'error.php')));
+			header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
 		}
  	}
 
@@ -92,9 +90,7 @@ class ControllerNotes extends Controller {
         	require (File::build_path(array('view', 'view.php')));
 		}
 		else {
-			$pagetitle = "Erreur";
-			$error_code = "list : vous ne pouvez pas accéder à une page réservé aux enseignants";
-			require (File::build_path(array('view', 'error.php')));
+			header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
 		}
  	}
 
@@ -162,7 +158,7 @@ class ControllerNotes extends Controller {
 						}else{
 
 							$tab_codesMatieres=ModelMatieres::getAllByEnseignant();
-							var_dump($tab_codesMatieres);
+							var_dump($tab_codesMatieres); 
 
 						}
 
@@ -171,27 +167,28 @@ class ControllerNotes extends Controller {
 						$tab_noms_matieres=array();
 						$tab_moyennes= array();
 
+					if($tab_codesMatieres){	
+							foreach ($tab_codesMatieres as $codeMatiere) {
+								
+								$matiere=ModelMatieres::select($codeMatiere);
+								$nom_matiere=$matiere->get('nomMatiere');
+								$moyenne_4=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_4);
+								array_push($tab_moyennes,$moyenne_4);
+								$moyenne_3=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_3);
+								array_push($tab_moyennes,$moyenne_3);
+								$moyenne_2=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_2);
+								array_push($tab_moyennes,$moyenne_2);
+							    $moyenne_1=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_1);
+							    array_push($tab_moyennes,$moyenne_1);
+							    $moyenne=ModelNotes::moyenneMatiere($login,$codeMatiere,$date);
+							    array_push($tab_moyennes,$moyenne);
+								array_push($tab_noms_matieres, $nom_matiere);
+							}
 
-						foreach ($tab_codesMatieres as $codeMatiere) {
-							
-							$matiere=ModelMatieres::select($codeMatiere);
-							$nom_matiere=$matiere->get('nomMatiere');
-							$moyenne_4=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_4);
-							array_push($tab_moyennes,$moyenne_4);
-							$moyenne_3=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_3);
-							array_push($tab_moyennes,$moyenne_3);
-							$moyenne_2=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_2);
-							array_push($tab_moyennes,$moyenne_2);
-						    $moyenne_1=ModelNotes::moyenneMatiere($login,$codeMatiere,$date_1);
-						    array_push($tab_moyennes,$moyenne_1);
-						    $moyenne=ModelNotes::moyenneMatiere($login,$codeMatiere,$date);
-						    array_push($tab_moyennes,$moyenne);
-							array_push($tab_noms_matieres, $nom_matiere);
+							setcookie("data3",serialize($tab_noms_matieres),time()+3600);
+							setcookie("data4",serialize($tab_moyennes),time()+3600);
+						
 						}
-
-						setcookie("data3",serialize($tab_noms_matieres),time()+3600);
-						setcookie("data4",serialize($tab_moyennes),time()+3600);
-					
 					}
 
 	 			
@@ -200,20 +197,29 @@ class ControllerNotes extends Controller {
 
  	public static function statsEtud(){
 
- 		self::setGraphsEtudiant();
+ 		if(!Session::is_student()){
 
- 		$moyenneGenerale=ModelNotes::moyenneGenerale();
- 		$monClassement= ControllerEtudiants::getRang();
- 		$taillePromo = ControllerEtudiants::nbEtudiants();
- 		$classement=ModelNotes::classementPromo();
-
-		$tab_logins=ModelNotes::classementPromo();
-		$taillePromo= count($tab_logins);
+ 	 		header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
 
 
-		$view='statsEtud';
-      	$pagetitle="Relevé de notes - Agora";
-        require (File::build_path(array('view', 'view.php')));
+ 	 	}else{
+
+	 		self::setGraphsEtudiant();
+
+	 		$moyenneGenerale=ModelNotes::moyenneGenerale();
+	 		$monClassement= ControllerEtudiants::getRang();
+	 		$taillePromo = ControllerEtudiants::nbEtudiants();
+	 		$classement=ModelNotes::classementPromo();
+
+			$tab_logins=ModelNotes::classementPromo();
+			$taillePromo= count($tab_logins);
+
+
+			$view='statsEtud';
+	      	$pagetitle="Relevé de notes - Agora";
+	        require (File::build_path(array('view', 'view.php')));
+
+    	}
 
 
  	}
@@ -352,19 +358,27 @@ class ControllerNotes extends Controller {
 
 
 
-
-
-
  	}
 
  	 public static function statsEnseignant(){
 
- 	 	self::setGraphsEtudiant();
- 		self::setGraphsEnseignant();
+ 	 	if(!Session::is_teacher()){
 
-		$view='statsEnseignant';
-      	$pagetitle="Statistiques des étudiants - Agora";
-        require (File::build_path(array('view', 'view.php')));
+ 	 		header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
+
+
+ 	 	}else{
+
+	 	 	self::setGraphsEtudiant();
+	 		self::setGraphsEnseignant();
+
+			$view='statsEnseignant';
+	      	$pagetitle="Statistiques des étudiants - Agora";
+	        require (File::build_path(array('view', 'view.php')));
+
+ 	 	}
+
+
 
 
  	}

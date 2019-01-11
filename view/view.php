@@ -26,16 +26,43 @@
 				
 				<nav>
 
+						<ul>
 
-						<a class="menu" href="index.php?controller=cours&action=list">Cours</a>
+						<li class="menu1"><a class="menu" href="index.php?controller=cours&action=list">Cours</a>
+			
 					
-				<?php
-				if(Session::is_student()){
-						echo '<a class="menu" href="index.php?controller=ExerciceClassique&action=list_a_faire">Exercices</a>'; 
-				}else if(Session::is_teacher()){
-						echo '<a class="menu" href="index.php?controller=ExerciceClassique&action=list_a_corriger">Exercices</a>';
-				}?>
-						<a class="menu" <?php if(Session::is_student()){echo('href="./index.php?controller=notes&action=statsEtud"');} ?>>Statistiques</a>
+
+						</li>
+
+						<li class="menu2"><a class="menu">Exercices</a> 
+
+							<ul class="sous_menu">
+
+								<li><a class="menu texte_sous_menu" href="index.php?controller=QCM&action=list">QCMs</a></li>
+								<li><a class="menu texte_sous_menu" href="index.php?controller=ExerciceClassique&action=list">Classiques</a></li>
+
+							</ul>
+
+						</li>
+						
+						<?php
+
+							if(Session::is_teacher()){
+
+									echo'<li class="menu3"><a class="menu" href="./index.php?controller=notes&action=statsEnseignant">Statistiques</a>';
+
+							}else{
+
+									echo'<li class="menu3"><a class="menu"  href="./index.php?controller=notes&action=statsEtud" >Statistiques</a>';
+							}
+
+						?>
+
+					
+
+
+						</li>
+
 					
 				</nav>
 
