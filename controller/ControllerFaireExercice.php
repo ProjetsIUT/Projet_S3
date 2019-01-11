@@ -39,9 +39,11 @@ class ControllerFaireExercice{
                 $pagetitle="Erreur - Agora";
                 require (File::build_path(array('view', 'view.php')));
             }else{
-        $data = array('loginEtudiant' => $_SESSION['loginUtilisateur'], 'idExercice' => $_POST['idExercice'], "reponse" => $_POST['reponse'], "date" => date("Y-m-d H:i:s"));
 
-        $obj = new ModelFaireExercice($_SESSION['loginUtilisateur'], $_POST['idExercice'], $_POST['reponse'], date("Y-m-d H:i:s"));
+        if(!isset($name))$name = NULL;
+        $data = array('loginEtudiant' => $_SESSION['loginUtilisateur'], 'idExercice' => $_POST['idExercice'], "reponse" => $_POST['reponse'], "date" => date("Y-m-d H:i:s"), "fichier" => $name);
+
+        $obj = new ModelFaireExercice($_SESSION['loginUtilisateur'], $_POST['idExercice'], $_POST['reponse'], date("Y-m-d H:i:s"), NULL, $name);
 
         $obj->save($data);
 
@@ -54,7 +56,11 @@ class ControllerFaireExercice{
     }
 
     public static function correction(){
-
+         if(!Session::is_teacher()){
+            $error_code = "acces non autorisé";
+            $pagetitle="Erreur - Agora";
+            require (File::build_path(array('view', 'error.php')));
+        }else{
     	$id = $_GET['id'];
     	$loginEtudiant = $_GET['login'];
 
@@ -65,12 +71,14 @@ class ControllerFaireExercice{
         $nomE = $e->get('nomExercice');
         $enonce = $e->get('enonce');
         $reponse = $f->get('reponse');
+        $fichier = $f->get('fichier');
 
 
     	$view = "correction";
     	$pagetitle = "Agora - Correction";
     	require (File::build_path(array('view', 'view.php')));
 
+    }
     }
 
 

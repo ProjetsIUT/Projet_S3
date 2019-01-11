@@ -63,7 +63,7 @@
 							<h3>	
 							<a class="bouton" href="./index.php?controller=exerciceClassique&action=faireExercice&id=' .$code_e . '">Faire l\'exercice </a> 
 							<a class="bouton" href="./data/'.$theme_e_code.'.pdf">Voir le cours</a>
-							<a class="bouton_suppr" href="./index.php?controller=exerciceClassique&action=suppr&code=' .$code_e . '">Supprimer</a> 
+							
 							 
 							</h3>
 						</div>
@@ -88,7 +88,7 @@
 
 			}
 		}else{
-			echo "aucun ex";
+			echo "<h1> Vous n'avez aucun exercice à faire pour l'instant </h1>";
 		}
 
 		?>

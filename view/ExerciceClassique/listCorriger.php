@@ -42,15 +42,15 @@
 						   </h3>
 						<br>
 						<legend>Dans ' . $theme_e.' </legend> 
-						<legend>'. $login .'</legend>';
+						<legend>Fait par l\'etudiant '. $login .'</legend>';
 						
 				if($date_r >= $date_e){		
 					echo'
 						<legend>Rendu le ' . $date_r . '</legend>
 						';
 				}else{
-					$dteStart = new DateTime($date_r); 
-   					$dteEnd   = new DateTime($date_e); 
+					$dteStart = new DateTime($date_e); 
+   					$dteEnd   = new DateTime($date_r); 
 
 					$dteDiff  = $dteStart->diff($dteEnd); 
 
