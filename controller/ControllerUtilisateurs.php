@@ -344,25 +344,18 @@ class ControllerUtilisateurs extends Controller{
             if (Session::is_user($_GET['loginUtilisateur']) || Session::is_admin()) {
                 $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
                 if($u) {
-                    if(ModelUtilisateurs::delete($_GET['loginUtilisateur'])) {
-                        if($u->get('typeUtilisateur') === 'etudiant') {
-                            $redirection = 'index.php?controller=etudiants&action=delete';
-                            header('Location: '.$redirection);
-                        }
-                        else if($u->get('typeUtilisateur') === 'enseignant') {
-                            $redirection = 'index.php?controller=enseignants&action=delete';
-                            header('Location: '.$redirection);
-                        }
-                        else {
-                            $view = 'deleted';
-                            $pagetitle = 'Administrateur supprimé';
-                            require (File::build_path(array('view', 'error.php')));
-                        }
+                    ModelUtilisateurs::delete($_GET['loginUtilisateur']);
+                    if($u->get('typeUtilisateur') === 'etudiant') {
+                        $redirection = 'index.php?controller=etudiants&action=delete&loginEtudiant='.$_GET['loginUtilisateur'];
+                        header('Location: '.$redirection);
+                    }
+                    else if($u->get('typeUtilisateur') === 'enseignant') {
+                        $redirection = 'index.php?controller=enseignants&action=delete&loginEnseignant='.$_GET['loginUtilisateur'];
+                        header('Location: '.$redirection);
                     }
                     else {
-                        $error_code = 'delete : utilisateur déja supprimé';
-                        $view = 'error';
-                        $pagetitle = 'Erreur';
+                        $view = 'deleted';
+                        $pagetitle = 'Administrateur supprimé';
                         require (File::build_path(array('view', 'error.php')));
                     }
                 }
