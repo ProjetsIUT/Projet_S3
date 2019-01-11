@@ -165,6 +165,7 @@ class ControllerUtilisateurs extends Controller{
                 $entete = 'From agoradmin@agora.fr';
                 $mail = 'Bonjour '.htmlspecialchars($u->get('prenomUtilisateur')).',
                 
+
                 Pour changer votre mot de passe, veuillez cliquer sur le lien-ci dessous ou 
                 copier/coller dans votre navigateur internet :
                 
@@ -267,13 +268,17 @@ class ControllerUtilisateurs extends Controller{
                         $entete = 'From serviceclient@agora.com';
                         $mail = 'Bienvenue sur Agora,
                         
+                        Voici votre identifiant de connexion : '.$_GET['loginUtilisateur'].'
+
                         Pour activer votre compte, veuillez cliquer sur le lien-ci dessous ou 
                         copier/coller dans votre navigateur internet
 
                         http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/Projet_S3/index.php?controller=utilisateurs&action=show_password_page&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'&nonce='.rawurlencode($nonc).'
 
 
-                        Ceci est un mail automatique, Merci de ne pas y répondre';
+                        Ceci est un mail automatique, Merci de ne pas y répondre
+                        
+                        ';
                         mail($destinataire, $sujet, $mail, $entete);
                         
                         if($_SESSION["typeUtilisateur"] === "etudiant"){ //si c'est un étudiant 
