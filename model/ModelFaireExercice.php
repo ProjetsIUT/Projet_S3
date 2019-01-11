@@ -13,15 +13,17 @@ class ModelFaireExercice extends Model{
     private $reponse;
     private $date;
     private $correction;
+    private $fichier;
      
 
-    public function __construct($loginEtudiant = NULL,$idExercice = NULL,$reponse = NULL, $Date = NULL, $correction = NULL)
+    public function __construct($loginEtudiant = NULL,$idExercice = NULL,$reponse = NULL, $Date = NULL, $correction = NULL, $fichier = NULL)
     {
         if(isset($idExercice)) $this->$idExercice =$idExercice;
         if(isset($loginEtudiant)) $this->$loginEtudiant =$loginEtudiant;
         if(isset($reponse)) $this->$reponse =$reponse;
         if(isset($date)) $this->$date = $date;
         if(isset($correction)) $this->$correction = $correction;
+        if(isset($fichier)) $this->$fichier = $fichier;
 
     }
 
@@ -100,7 +102,7 @@ class ModelFaireExercice extends Model{
       JOIN agora_cours c ON e.themeExercice = c.codeCours 
       JOIN agora_matieres m ON c.codeMatiere = m.codeMatiere
       JOIN agora_enseigner ens ON ens.codeMatiere = ens.codeMatiere 
-      WHERE codeEnseignant=:val1";
+      WHERE codeEnseignant=:val1 AND f.correction is NULL";
 
       // Préparation de la requête
       $req_prep = Model::$pdo->prepare($sql); //permet de protéger la requete SQL

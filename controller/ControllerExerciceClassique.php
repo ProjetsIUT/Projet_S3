@@ -11,6 +11,12 @@ Class ControllerExerciceClassique {
     
     public static function creerExercice()
     {
+        if(!Session::is_teacher()){
+            $error_code = "acces non autorisé";
+            $pagetitle="Erreur - Agora";
+            require (File::build_path(array('view', 'error.php')));
+        }else{
+
         $view="creer";
 
 	    $pagetitle="Créer un nouvel exercice - Agora";
@@ -19,6 +25,7 @@ Class ControllerExerciceClassique {
 
         $PATH = File::build_path($path_array);
         require "$PATH";
+    }
     }
     
     public static function created(){
@@ -35,7 +42,7 @@ Class ControllerExerciceClassique {
         $maxsize = 1048576;
         if ($_FILES['correction']['size'] > $maxsize) $error_code = "Le fichier est trop gros";
         
-        $extensions_valides = array( 'pdf' , 'docx');
+        $extensions_valides = array('pdf', 'docx');
         //strrchr renvoie l'extension avec le point (« . »).
         //substr(chaine,1) ignore le premier caractère de chaine.
         //strtolower met l'extension en minuscules.
@@ -52,8 +59,9 @@ Class ControllerExerciceClassique {
             $pagetitle="Erreur - Agora";
             require (File::build_path(array('view', 'error.php')));
         }else{
-            $data = array("idExercice" => $idExercice,"nomExercice" => $nomExercice, "themeExercice"=>$themeExercice, "tempsLimite" => $tempsLimite, "enonce" =>$enonce);
-            $e = new ModelExerciceClassique($idExercice,$nomExercice, $tempsLimite, $enonce);
+            if(!isset($name)) $name = NULL;
+            $data = array("idExercice" => $idExercice,"nomExercice" => $nomExercice, "themeExercice"=>$themeExercice, "tempsLimite" => $tempsLimite, "enonce" =>$enonce, "fichier" => $name);
+            $e = new ModelExerciceClassique($idExercice,$nomExercice, $tempsLimite, $enonce, $name);
             $e->save($data);
             
             $view = "created";
@@ -111,7 +119,7 @@ Class ControllerExerciceClassique {
         }else{
         $loginEtudiant = $_SESSION['loginUtilisateur'];
 
-        $tabe = ModelExerciceClassique::selectAll();
+        $tabe = ModelExerciceClassique::getAllByEtud();
         $tab = array();
         $dates = array();
 
@@ -148,7 +156,7 @@ Class ControllerExerciceClassique {
         }else{
         $loginEtudiant = $_SESSION['loginUtilisateur'];
 
-        $tabe = ModelExerciceClassique::selectAll();
+        $tabe = ModelExerciceClassique::getAllByEtud();
         $tab = array();
 
         foreach ($tabe as $e) {

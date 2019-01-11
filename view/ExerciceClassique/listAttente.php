@@ -3,10 +3,12 @@
 	<h1>Liste des Exercices (en attente de correction) 
 
 	<?php
+
+
 	
 	if(Session::is_student()) echo '<a class="bouton" href="./index.php?controller=exerciceClassique&action=list_a_faire">Voir les exercices à réaliser </a>';
 	echo '</h1>';
-
+var_dump($tab);
 			$i = 0;
 			$d = 0;
 			if($tab){
@@ -25,6 +27,8 @@
 				$theme_e=htmlspecialchars($theme_e_cours->get('nomCours'));  
 				$enonce_e=htmlspecialchars($e->get("enonce"));
 				$date_e=htmlspecialchars($e->get("tempsLimite"));
+				$fichier = htmlspecialchars($e->get("fichier"));
+
 
 			
 
@@ -59,10 +63,12 @@
 
 						<div class="bloc_boutons">
 							<h3>	
+							';
 							
-							<a class="bouton" href="./lib/corrections/' .$code_e . '.pdf"> Correction </a> 
-							<a class="bouton" href="./data/'.$theme_e_code.'.pdf">Voir le cours</a>
-							 
+							if($fichier != NULL){ 
+								echo ' <a class="bouton" href="'. $fichier .'"> Consulter la Correction </a>'; 
+							}
+				echo '		<a class="bouton" href="./data/'.$theme_e_code.'.pdf">Voir le cours</a>	 
 							</h3>
 						</div>
 
@@ -89,6 +95,7 @@
 		}else{
 			echo "aucun ex";
 		}
+
 
 		?>
 
