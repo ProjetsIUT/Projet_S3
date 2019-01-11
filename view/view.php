@@ -1,21 +1,26 @@
+
 <!DOCTYPE html>
 
 <html id=<?php if(isset($page_id)){ echo ($page_id); } ?>>
     <head>
+		<link rel="icon" href="img/Agora_icone_finale_CR_JulieValentin.png" />
 		<meta charset="utf-8" />
 		<title><?php echo $pagetitle?></title>
 			<link rel="stylesheet" type="text/css" href="./style.css">
 	
 <header>
 				<?php
-				if (isset($_SESSION['typeUtilisateur']) && $_SESSION['typeUtilisateur'] === 'enseignant') {
-					echo '<a href="index.php?controller=enseignants&action=show_perso_page" id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </a>';
+				if (Session::is_teacher()) {
+					echo '<a href="index.php?controller=enseignants&action=show_perso_page" id="logo"><img src="img/Agora_logo_final_CR_JulieValentin_redimensionne.png" alt="LogoAgora"> </a>';
 				}
-				else if (isset($_SESSION['typeUtilisateur']) && $_SESSION['typeUtilisateur'] === 'etudiant') {
-					echo '<a href="index.php?controller=etudiants&action=show_perso_page" id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </a>';
+				else if (Session::is_student()) {
+					echo '<a href="index.php?controller=etudiants&action=show_perso_page" id="logo"><img src="img/Agora_logo_final_CR_JulieValentin_redimensionne.png" alt="LogoAgora"> </a>';
+				}
+				else if (Session::is_admin()) {
+					echo '<a href="index.php?controller=administrateur&action=show_perso_page" id="logo"><img src="img/Agora_logo_final_CR_JulieValentin_redimensionne.png" alt="LogoAgora"> </a>';
 				} 
 				else if (!isset($_SESSION['typeUtilisateur'])){
-					echo '<a href="index.php?controller=Utilisateurs&action=show_login_page" id="logo"><img src="img/LogoHomepage3.png" alt="LogoAgora"> </a>';
+					echo '<a href="index.php?controller=Utilisateurs&action=show_login_page" id="logo"><img src="img/Agora_logo_final_CR_JulieValentin_redimensionne.png" alt="LogoAgora"> </a>';
 				}
 				?>
 				
@@ -23,11 +28,10 @@
 
 
 						<a class="menu" href="index.php?controller=cours&action=list">Cours</a>
-
 					
-						<a class="menu" href="index.php?controller=QCM&action=list">Exercices</a> 
+						<a class="menu" href="index.php?controller=Exercice&action=choixExercice">Exercices</a> 
 						
-						<a class="menu" <?php if(isset($_SESSION['typeUtilisateur']) && $_SESSION['typeUtilisateur']==='etudiant'){echo('href="./index.php?controller=notes&action=statsEtud"');} ?>>Statistiques</a>
+						<a class="menu" <?php if(Session::is_student()){echo('href="./index.php?controller=notes&action=statsEtud"');} ?>>Statistiques</a>
 					
 				</nav>
 

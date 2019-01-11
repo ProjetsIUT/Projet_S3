@@ -1,3 +1,4 @@
+
 <?php
 
 require_once (File::build_path(array('model','Model.php')));
@@ -44,7 +45,42 @@ class ModelNotes extends Model{
 
 
   }
+    public static function getNotesByMatieresAndEtud($cMatiere) {
+      $sql = "SELECT an.codeNote
+              FROM agora_notes an
+              JOIN agora_QCM aq ON an.codeExercice = aq.codeQCM
+              JOIN agora_cours ac ON aq.themeQCM = ac.codeCours
+              JOIN agora_matieres am ON ac.codeMatiere = am.codeMatiere
+              WHERE an.codeEtudiant=:codeE AND am.codeMatiere=:codeM
+              UNION
+              SELECT an.codeNote 
+              FROM agora_notes an
+              JOIN agora_ExerciceClassique aec ON an.codeExercice = aec.idExercice
+              JOIN agora_cours ac ON aec.idExercice = ac.codeCours
+              JOIN agora_matieres am ON ac.codeMatiere = am.codeMatiere
+              WHERE an.codeEtudiant=:codeE AND am.codeMatiere=:codeM";
 
+      $req_prep = Model::$pdo->prepare($sql);
+      $values = array(
+        "codeE" => $_SESSION['loginUtilisateur'],
+        "codeM" => $cMatiere,
+      );
+      $req_prep->execute($values);
+      $req_prep->setFetchMode(PDO::FETCH_NUM);
+      $tab_user = $req_prep->fetchAll();
+      // Attention, si il n'y a pas de résultats, on renvoie false
+      if (empty($tab_user)) {
+        return false;
+      }
+      
+      $tab = array();
+
+      foreach ($tab_user as $key) { 
+        array_push($tab,$key[0]);
+      }
+
+      return $tab;
+    }
 
      public static function selectByEtud() {
 
@@ -55,6 +91,10 @@ class ModelNotes extends Model{
 
 		        $rep->setFetchMode(PDO::FETCH_CLASS, "ModelNotes");
             $tab_obj = $rep->fetchAll();
+
+            if (empty($tab_obj)) {
+              return false;
+            }
 
             return $tab_obj;
      }
@@ -103,7 +143,7 @@ class ModelNotes extends Model{
 
          $etudiant=ModelEtudiants::select($_SESSION['loginUtilisateur']);
 
-
+ 
          if(!isset($date)){
 
               $date='"'.date("Y-m-d").'"';
@@ -259,12 +299,9 @@ class ModelNotes extends Model{
           }
           $tab_login=$rep->fetchAll();
 
-
-          var_dump(count($tab_login));
           return $tab_login;
 
      }
 
 }
-
 ?>

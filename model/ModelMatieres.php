@@ -1,3 +1,4 @@
+
 <?php
 
 $path=array('model','Model.php');
@@ -65,9 +66,10 @@ class ModelMatieres extends Model {
             array_push($tab,$key[0]);
 
           }
-
-
-
+          if (empty($tab)) {
+            return false;
+          }
+ 
           return $tab;
 
 
@@ -95,7 +97,6 @@ class ModelMatieres extends Model {
           }
 
 
-
           return $tab;
 
 
@@ -107,6 +108,7 @@ class ModelMatieres extends Model {
 
 
 }
+
 
 
 ?>

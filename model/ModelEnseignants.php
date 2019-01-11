@@ -1,3 +1,4 @@
+
 <?php
 
 
@@ -5,7 +6,6 @@ require_once (File::build_path(array('model','ModelUtilisateurs.php')));
 require_once (File::build_path(array('lib','Security.php')));
 
 class ModelEnseignants extends ModelUtilisateurs {
-
 
 	  protected static $primary = 'loginEnseignant';
   	  protected static $object = 'enseignants';
@@ -32,12 +32,7 @@ class ModelEnseignants extends ModelUtilisateurs {
 
 	  	}
 	 }
-	 
-	 
-
 
 }
-
-
 
 ?>

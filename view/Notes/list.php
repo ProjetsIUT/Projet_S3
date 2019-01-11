@@ -1,9 +1,20 @@
+
 <div class="page_content">
 
 	<h1>Relevé de notes des étudiants</h1>
 
-
 	<div class="box_center">
+
+	<form id=filtres method=get action=./index.php>
+		<input type=hidden name=controller value=notes>
+		<input type=hidden name=action value=list>
+		<label> Filtrer par : </label>
+
+		<?php 
+
+		?>
+
+	</form>
 
 		<table>
 
@@ -53,9 +64,6 @@
 						 <td>'.$typeExercice .'</td>
 						</tr>
 
-
-
-
 					');
 
 				}
@@ -65,5 +73,6 @@
 		</table>
 
 	</div>	
+
 
 </div>

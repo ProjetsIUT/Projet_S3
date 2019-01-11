@@ -1,3 +1,4 @@
+
 <?php
 
 $path=array('model','ModelEnseignants.php');
@@ -34,6 +35,5 @@ class ControllerEnseignants extends ControllerUtilisateurs{
 
 
 }
-
-
+ 
 ?>

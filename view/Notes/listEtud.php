@@ -1,22 +1,50 @@
+
 <div class="page_content">
 
 	<h1>Mon bulletin de notes</h1>
 
-
 	<div class="box_center">
+			<form id=filtres method=get action=./index.php>
+				<input type=hidden name=controller value=notes>
+				<input type=hidden name=action value=listByEtud>
+				<label> Filtrer par : </label>
+				
+				<select name="codeMatiere" required  onchange="document.getElementById('filtres').submit();">
+						<option value="" disabled selected><?php if(isset($_GET['codeMatiere'])) {
+							echo $nomM;						
+						}
+						else {
+							echo "Matieres";
+						}
+						?></option>
+						<option value="all">Voir tout</option>
+						<?php
+							foreach($tab_nomMatieres_etud as $value) {
+							  echo '<option value="'.current($tab_codesMatieres_etud).'"' .'>'.$value.'</option>';
+							  next($tab_codesMatieres_etud);
+							}
+						?> 
+				</select>
+				<br>
+				<br>
+
+			</form>
 
 				<table>
 
-			<tr>
+			<?php
+			if(!empty($tab_notes)) {
 
-				<th>Intitulé de l'exercice</th>
+				echo '
+				<tr>
+
+				<th>Intitulé de l\'exercice</th>
 				<th>Cours</th>
 				<th>Note obtenue</th>
-				<th>Type d'exercice</th>
+				<th>Type d\'exercice</th>
 
-			</tr>
-
-			<?php
+				</tr>
+				';
 
 				foreach ($tab_notes as $note) {
 					$noteObtenue=htmlspecialchars($note->get('note'));
@@ -72,12 +100,15 @@
 						 <td>'.$typeExercice .'</td>
 						</tr>
 
-
-
-
 					');
 
 				}
+			}
+			else {
+				echo ('
+					<p> '.$verif.' </p>
+				');
+			}
 
 			?>
 
@@ -85,5 +116,6 @@
 
 
 	</div>	
+
 
 </div>

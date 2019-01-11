@@ -9,40 +9,90 @@ require_once (File::build_path(array('model','ModelExerciceClassique.php')));
 require_once (File::build_path(array('model','ModelEnseignants.php')));
 require_once (File::build_path(array('controller','ControllerEtudiants.php')));
 require_once (File::build_path(array('lib','Session.php')));
+require_once (File::build_path(array('controller', 'Controller.php'))); 
 
-
-class ControllerNotes{ 
+class ControllerNotes extends Controller { 
 
  	protected static $object="Notes";
 
 
  	public static function listByEtud(){
 
- 		if(isset($_SESSION['loginUtilisateur']) && $_SESSION['typeUtilisateur']==="etudiant"){
+		if(Session::is_student()) {
+			$tab_codesMatieres_etud = ModelMatieres::getAllbyEtud();
+			$tab_nomMatieres_etud = array();
 
- 			$tab_notes=ModelNotes::selectByEtud();
+			foreach ($tab_codesMatieres_etud as $codeMatiere_etud) {
+				$matiere=ModelMatieres::select($codeMatiere_etud);
+				array_push($tab_nomMatieres_etud,$matiere->get("nomMatiere"));
+			}
+
+			if(!isset($_GET['codeMatiere']) || $_GET['codeMatiere'] === 'all'){
+
+
+				$tab_notes=ModelNotes::selectByEtud();
+
+				if(!$tab_notes){
+
+					header('Location: ./index.php');
+				}
+
+				$tab_notes=array_reverse($tab_notes);
+				$nomM = 'Matieres';
+			}
+			else if(isset($_GET['codeMatiere'])) {
+				$m = ModelMatieres::select($_GET['codeMatiere']);
+				
+				if($m) {
+					$nomM = $m->get('nomMatiere');
+				}
+				else {
+					$nomM = 'Matieres';
+				}
+				$tab_codes_notes=ModelNotes::getNotesByMatieresAndEtud($_GET['codeMatiere']);
+				if($tab_codes_notes) {
+					$tab_notes=array();
+					foreach($tab_codes_notes as $code){
+						$note=ModelNotes::select($code);
+						array_push($tab_notes,$note);
+					}
+				}
+				else {
+					$verif = 'Il n\'y a aucune notes pour cette matière';
+				}
+			}
+			
  			$view='listEtud';
-      	 	$pagetitle="Relevé de notes - Agora";
+        	$pagetitle="Mon relevé de notes - Agora";
         	require (File::build_path(array('view', 'view.php')));
-
-
- 		}else{
-
- 			header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
-
- 		}
-
- 	
-
+		}
+		else {
+			$pagetitle = "Erreur";
+			$error_code = "listEtud : vous ne pouvez pas accéder à une page réservé aux étudiants";
+			require (File::build_path(array('view', 'error.php')));
+		}
  	}
 
  	public static function list(){
- 	
- 		$tab_notes=ModelNotes::selectAll();
- 		$view='list';
-        $pagetitle="Relevé de notes - Agora";
-        require (File::build_path(array('view', 'view.php')));
+		
+		if(Session::is_teacher()) {
+			$tab_codesMatieres_enseig = ModelMatieres::getAllbyEnseignant();
+			$tab_nomMatieres_enseig = array();
 
+			foreach ($tab_codesMatieres_enseig as $codeMatiere_enseig) {
+				$matiere=ModelMatieres::select($codeMatiere_enseig);
+				array_push($tab_nomMatieres_enseig,$matiere->get("nomMatiere"));
+			}
+			$tab_notes=ModelNotes::selectAll();
+ 			$view='list';
+        	$pagetitle="Relevé de notes des etudiants- Agora";
+        	require (File::build_path(array('view', 'view.php')));
+		}
+		else {
+			$pagetitle = "Erreur";
+			$error_code = "list : vous ne pouvez pas accéder à une page réservé aux enseignants";
+			require (File::build_path(array('view', 'error.php')));
+		}
  	}
 
  	public static function setGraphsEtudiant(){
@@ -102,8 +152,18 @@ class ControllerNotes{
 						setcookie("data",serialize($datay1),time()+3600);
 						setcookie("data2",serialize($datay2),time()+3600);
 
+						if(Session::is_student()){
 
-						$tab_codesMatieres=ModelMatieres::getAllByEtud();
+							$tab_codesMatieres=ModelMatieres::getAllByEtud();
+
+						}else{
+
+							$tab_codesMatieres=ModelMatieres::getAllByEnseignant();
+							var_dump($tab_codesMatieres);
+
+						}
+
+						
 
 						$tab_noms_matieres=array();
 						$tab_moyennes= array();
@@ -306,11 +366,26 @@ class ControllerNotes{
 
  	}
 
+ 	public static function noteExerciceClassique(){
+
+ 		$id = $_POST['id'];
+ 		$loginEtudiant = $_POST['loginEtudiant'];
+ 		$correction = $_POST['correction'];
+
+
+ 		$data = array('codeNote' => uniqid() , 'codeEtudiant' => $loginEtudiant, 'codeExercice' => $id, 'typeExercice' => 'Exercice Classique', 'note' => $_POST["note"], "dateNote" => date("Y-m-d H:i:s") );
+ 		$note = new ModelNotes($data);
+ 		$faireEx = ModelFaireExercice::selectFaireExercice($id, $loginEtudiant);
+ 		$faireEx->addCorrection($id, $loginEtudiant, $correction);
+ 		$note->save($data);
+
+
+ 		self::list();
+ 	}
+
 
 }
 
- 	
+?> 	
 
 
-
-?>

@@ -7,7 +7,7 @@
 				<input type="hidden" name="action" value="show_form_new_questions" />
 
 
-				<p>Formulaire de création de QCM</p>
+				<p>Nouveau QCM</p>
 				<div id="part_form">
 				<p>Sujet du QCM</p>
 
