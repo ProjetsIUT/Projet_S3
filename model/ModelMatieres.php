@@ -96,9 +96,6 @@ class ModelMatieres extends Model {
 
           }
 
-      if (empty($tab_user)) {
-        return false;
-      }
 
           return $tab;
 

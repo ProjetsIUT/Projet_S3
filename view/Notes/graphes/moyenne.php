@@ -1,11 +1,10 @@
-
 <?php // content="text/plain; charset=utf-8"
 
 			require_once ('jpgraph/src/jpgraph.php');
 			require_once ('jpgraph/src/jpgraph_line.php');
 
 			$dates=unserialize($_COOKIE['dates']);
-			$date_4=$dates[0];
+			$date_4=$dates[0]; 
 			$date_3=$dates[1];
 			$date_2=$dates[2];
 			$date_1=$dates[3];
@@ -14,7 +13,7 @@
 		
 			$datay1=unserialize($_COOKIE['data']);
 			$datay2 =unserialize($_COOKIE['data2']);
-			$datay3 = array(5,17,32,24,10);
+
 
 			// Setup the graph
 			$graph = new Graph(1400,550);

@@ -28,8 +28,7 @@ class ControllerCours extends Controller{
 
 		}else{
 
-			$tab=ModelCours::getAllByEnseignant();
-					$tab = ModelCours::getAllByEtud();
+			$tab=ModelCours::getAllByEnseignant(); 
 
 		}
 
