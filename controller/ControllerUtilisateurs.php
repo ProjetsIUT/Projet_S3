@@ -229,9 +229,9 @@ class ControllerUtilisateurs extends Controller{
 
     public static function create() {
         if(Session::is_admin()) {
-            $type = 'Ajout';
+            $type = 'Ajout d\'un utilisateur';
             $view = 'update';
-            $pagetitle = 'Ajout d\'un utilisateur';
+            $pagetitle = 'Ajout d\'un utilisateur - 1/2 - Agora';
             require (File::build_path(array('view', 'view.php')));
         }
         else {

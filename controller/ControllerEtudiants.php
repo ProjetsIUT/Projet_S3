@@ -87,10 +87,49 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 	}
 	
 	public static function create_info_etud() {
-		$view = 'create_info_etud';
-		$pagetitle = 'Ajout d\'un utilisateur - 2/2 - Agora';
-		require (File::build_path(array('view', 'view.php')));
+		if (Session::is_admin()) {
+			$type = 'Ajout d\'un étudiant';
+			$view = 'create_info_etud';
+			$pagetitle = 'Ajout d\'un utilisateur - 2/2 - Agora';
+			require (File::build_path(array('view', 'view.php')));
+		}
+		else {
+            $error_code = 'Impossible de créer un compte universitaire étudiant. Contactez l\'administrateur de votre université pour tout renseignement';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
 	}
+
+	public static function created_info_etud() {
+        if(isset($_GET['loginEtudiant']) && isset($_GET['anneencours']) && isset($_GET['codedepartement']) && isset($_GET['semestreencours'])) {
+            $u = ModelEtudiants::select($_GET['loginEtudiant']);
+            if($u == false) {
+				$data = array(
+					"loginEtudiant" => $_GET['loginEtudiant'],
+					"anneeCourantEtudiant" => $_GET['anneencours'],
+					"SemestreCourantEtudiant" => $_GET['semestreencours'],
+					"codeDepartement" => $_GET['codedepartement'],
+				);
+
+				$u = new ModelEtudiant();
+				$u->save($data);
+				
+			}
+			else {
+                $type = 'Ajout';
+                $verif = 'Ce nom d\'étudiant existe déja';
+                $view = 'update';
+                $pagetitle = 'Ajout d\'un utilisateur - 2/2 - Agora';
+                require (File::build_path(array('view', 'view.php')));                    
+            }  
+        }
+        else {
+            $error_code = 'created_info_etud : l\'un des champs est vide';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+    }
 
 	public static function readAll() {
 		$view = 'list';
@@ -173,7 +212,9 @@ class ControllerEtudiants extends ControllerUtilisateurs{
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
         }
-    }
+	}
+	
+
 
 }
 
