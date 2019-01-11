@@ -5,8 +5,14 @@
         <div class="tab" id="tab_profil">
 
             <h3>Bienvenue sur Agora</h3>
-
-            <a>Bienvenue dans votre espace personnel<?php echo ' '.$_SESSION["prenomUtilisateur"].' '.$_SESSION["nomUtilisateur"] ?></a>
+            <br>
+            <?php 
+            if(isset($error_page)) {
+                echo '<h3 style="color:#E70739;"> '.$error_page.' </h3> <br>';
+            }
+            ?>
+            <a>Bienvenue dans votre espace personnel<?php echo ' '.$_SESSION["prenomUtilisateur"].' '.$_SESSION["nomUtilisateur"] ?>
+            <br>Vous utilisez la version Alpha d'Agora. Certaines fonctionnalités ne sont pas encore disponibles.</a>
             <br>
             <br>
             <a href="index.php?controller=utilisateurs&action=readAll" class="bouton">Gérer les utilisateurs</a>

@@ -39,6 +39,7 @@ class ControllerNotes extends Controller {
 
 				$tab_notes=array_reverse($tab_notes);
 				$nomM = 'Matieres';
+				$verif = 'Il n\'y a aucune notes';
 			}
 			else if(isset($_GET['codeMatiere'])) {
 				$m = ModelMatieres::select($_GET['codeMatiere']);
@@ -56,6 +57,7 @@ class ControllerNotes extends Controller {
 						$note=ModelNotes::select($code);
 						array_push($tab_notes,$note);
 					}
+					
 				}
 				else {
 					$verif = 'Il n\'y a aucune notes pour cette matière';
