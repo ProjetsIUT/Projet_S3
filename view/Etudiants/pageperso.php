@@ -99,7 +99,19 @@
 				<h3>Dernières notes <a class="bouton" href="./index.php?controller=notes&action=listByEtud">Bulletin</a></h3>
 				<br>
 
+
+
 				<?php
+
+				if($monClassement==-1){
+
+					echo ('Aucune note enregistrée. Réalisez des QCM et des exercices pour commencer');
+
+				}else{
+
+
+
+					$tab_notes=array_reverse($tab_notes);
 
 					$note = current($tab_notes);
 
@@ -158,6 +170,8 @@
 						}
 
 					}
+
+				}
 
 
 				?>

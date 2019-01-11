@@ -28,7 +28,16 @@ class ControllerNotes extends Controller {
 			}
 
 			if(!isset($_GET['codeMatiere']) || $_GET['codeMatiere'] === 'all'){
+
+
 				$tab_notes=ModelNotes::selectByEtud();
+
+				if(!$tab_notes){
+
+					header('Location: ./index.php');
+				}
+
+				$tab_notes=array_reverse($tab_notes);
 				$nomM = 'Matieres';
 			}
 			else if(isset($_GET['codeMatiere'])) {
@@ -143,8 +152,18 @@ class ControllerNotes extends Controller {
 						setcookie("data",serialize($datay1),time()+3600);
 						setcookie("data2",serialize($datay2),time()+3600);
 
+						if(Session::is_student()){
 
-						$tab_codesMatieres=ModelMatieres::getAllByEtud();
+							$tab_codesMatieres=ModelMatieres::getAllByEtud();
+
+						}else{
+
+							$tab_codesMatieres=ModelMatieres::getAllByEnseignant();
+							var_dump($tab_codesMatieres);
+
+						}
+
+						
 
 						$tab_noms_matieres=array();
 						$tab_moyennes= array();

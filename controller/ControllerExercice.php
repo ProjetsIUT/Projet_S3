@@ -10,7 +10,7 @@ Class ControllerExercice {
     {
     	$type_e = $_GET['type'];
 
-    	if()
+    
 
     	$view = "choixExercice";
     	$pagetitle="Choix du type d'exercice - Agora";
