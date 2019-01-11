@@ -54,7 +54,11 @@ class ControllerFaireExercice{
     }
 
     public static function correction(){
-
+         if(!Session::is_teacher()){
+            $error_code = "acces non autorisé";
+            $pagetitle="Erreur - Agora";
+            require (File::build_path(array('view', 'error.php')));
+        }else{
     	$id = $_GET['id'];
     	$loginEtudiant = $_GET['login'];
 
@@ -71,6 +75,7 @@ class ControllerFaireExercice{
     	$pagetitle = "Agora - Correction";
     	require (File::build_path(array('view', 'view.php')));
 
+    }
     }
 
 

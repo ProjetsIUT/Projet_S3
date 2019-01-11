@@ -49,9 +49,8 @@ Class ControllerExerciceClassique {
         }
         }
         if (isset($error_code)){
-            $view="error";
             $pagetitle="Erreur - Agora";
-            require (File::build_path(array('view', 'view.php')));
+            require (File::build_path(array('view', 'error.php')));
         }else{
             $data = array("idExercice" => $idExercice,"nomExercice" => $nomExercice, "themeExercice"=>$themeExercice, "tempsLimite" => $tempsLimite, "enonce" =>$enonce);
             $e = new ModelExerciceClassique($idExercice,$nomExercice, $tempsLimite, $enonce);
@@ -65,6 +64,12 @@ Class ControllerExerciceClassique {
     }
 
     public static function faireExercice(){
+        if(!Session::is_student()){
+            $error_code = "acces non autorisé";
+            $pagetitle="Erreur - Agora";
+            require (File::build_path(array('view', 'error.php')));
+        }else{
+
         $id = $_GET['id'];
         
         $e = ModelExerciceClassique::select($id);
@@ -78,7 +83,7 @@ Class ControllerExerciceClassique {
 
         $PATH = File::build_path($path_array);
         require "$PATH";
-    }
+    }}
 
    /* public static function list(){
 
@@ -99,7 +104,11 @@ Class ControllerExerciceClassique {
     }
 
     public static function list_en_attente(){
-        
+         if(!Session::is_student()){
+            $error_code = "acces non autorisé";
+            $pagetitle="Erreur - Agora";
+            require (File::build_path(array('view', 'error.php')));
+        }else{
         $loginEtudiant = $_SESSION['loginUtilisateur'];
 
         $tabe = ModelExerciceClassique::selectAll();
@@ -127,10 +136,16 @@ Class ControllerExerciceClassique {
         $view="listAttente";
         $pagetitle="Mes Exercices - Agora";
         require (File::build_path(array('view', 'view.php')));
+        }
     }
 
     public static function list_a_faire(){
         
+         if(!Session::is_student()){
+            $error_code = "acces non autorisé";
+            $pagetitle="Erreur - Agora";
+            require (File::build_path(array('view', 'error.php')));
+        }else{
         $loginEtudiant = $_SESSION['loginUtilisateur'];
 
         $tabe = ModelExerciceClassique::selectAll();
@@ -153,9 +168,14 @@ Class ControllerExerciceClassique {
         $pagetitle="Mes Exercices - Agora";
         require (File::build_path(array('view', 'view.php')));
     }
+    }
 
     public static function list_a_corriger(){
-
+         if(!Session::is_teacher()){
+            $error_code = "acces non autorisé";
+            $pagetitle="Erreur - Agora";
+            require (File::build_path(array('view', 'error.php')));
+        }else{
         $tab = ModelFaireExercice::selectByEnseignant($_SESSION['loginUtilisateur']);
         
         $view="listCorriger";
@@ -163,6 +183,7 @@ Class ControllerExerciceClassique {
         require (File::build_path(array('view', 'view.php')));
         
 
+    }
     }
  
 }
