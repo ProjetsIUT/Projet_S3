@@ -130,7 +130,11 @@ class ControllerEtudiants extends ControllerUtilisateurs{
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
         }
-    }
+	}
+	
+	public static function update_info_etud() {
+		
+	}
 
 	public static function readAll() {
 		$view = 'list';
