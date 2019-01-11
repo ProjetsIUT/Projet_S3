@@ -18,6 +18,10 @@ class Session {
     public static function is_teacher() {
         return (!empty($_SESSION['typeUtilisateur']) && $_SESSION['typeUtilisateur'] === 'enseignant');
     }
+
+    public static function is_connect() {
+        return (!empty($_SESSION['loginUtilisateur']));
+    }
 }
 
 

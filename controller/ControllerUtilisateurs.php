@@ -69,10 +69,31 @@ class ControllerUtilisateurs extends Controller{
     }
 
 	public static function show_login_page(){
-		$view='login';
-		$pagetitle="Connexion - Agora";
-		require (File::build_path(array('view', 'view.php')));
-	}	
+        if(!isset($_SESSION['loginUtilisateur'])) {
+            $view='login';
+            $pagetitle="Connexion - Agora";
+            require (File::build_path(array('view', 'view.php')));
+        }
+        else {
+            $error_code = 'connect : vous êtes déja connecté';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+    }
+
+    public static function show_error_page() {
+        $error_code = 'Erreur';
+        if(isset($_GET['error'])) {
+            $error = $_GET['error'];
+            if($error === '404') {
+                $error_code = 'Erreur 404 - Document Introuvable';
+            }
+        }
+        $pagetitle = 'Erreur';
+        require (File::build_path(array('view', 'error.php')));
+
+    }
  
     public static function connect() {
         if(isset($_GET['loginUtilisateur']) && isset($_GET['mdpUtilisateur'])){ //succès: l'utilisateur est connecté
@@ -145,6 +166,7 @@ class ControllerUtilisateurs extends Controller{
                 $entete = 'From agoradmin@agora.fr';
                 $mail = 'Bonjour '.htmlspecialchars($u->get('prenomUtilisateur')).',
                 
+
                 Pour changer votre mot de passe, veuillez cliquer sur le lien-ci dessous ou 
                 copier/coller dans votre navigateur internet :
                 
@@ -208,9 +230,9 @@ class ControllerUtilisateurs extends Controller{
 
     public static function create() {
         if(Session::is_admin()) {
-            $type = 'Ajout';
+            $type = 'Ajout d\'un utilisateur';
             $view = 'update';
-            $pagetitle = 'Ajout d\'un utilisateur';
+            $pagetitle = 'Ajout d\'un utilisateur - 1/2 - Agora';
             require (File::build_path(array('view', 'view.php')));
         }
         else {
@@ -247,21 +269,25 @@ class ControllerUtilisateurs extends Controller{
                         $entete = 'From serviceclient@agora.com';
                         $mail = 'Bienvenue sur Agora,
                         
+                        Voici votre identifiant de connexion : '.$_GET['loginUtilisateur'].'
+
                         Pour activer votre compte, veuillez cliquer sur le lien-ci dessous ou 
                         copier/coller dans votre navigateur internet
 
                         http://webinfo.iutmontp.univ-montp2.fr/~bourdesj/Projet_S3/index.php?controller=utilisateurs&action=show_password_page&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'&nonce='.rawurlencode($nonc).'
 
 
-                        Ceci est un mail automatique, Merci de ne pas y répondre';
+                        Ceci est un mail automatique, Merci de ne pas y répondre
+                        
+                        ';
                         mail($destinataire, $sujet, $mail, $entete);
                         
-                        if($_SESSION["typeUtilisateur"] === "etudiant"){ //si c'est un étudiant 
+                        if($_GET["typeUtilisateur"] === "etudiant"){ //si c'est un étudiant 
                             $redirection = 'index.php?controller=etudiants&action=create_info_etud&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
                             header('Location: '.$redirection);
                         }
         
-                        if($_SESSION["typeUtilisateur"] === "enseignant"){ //si c'est un enseignant
+                        if($_GET["typeUtilisateur"] === "enseignant"){ //si c'est un enseignant
                             $redirection = 'index.php?controller=enseignants&action=create_info_enseig&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
                             header('Location: '.$redirection);
                         }
@@ -317,15 +343,22 @@ class ControllerUtilisateurs extends Controller{
 
         if(isset($_GET['loginUtilisateur'])) {
             if (Session::is_user($_GET['loginUtilisateur']) || Session::is_admin()) {
-                if(ModelUtilisateurs::select($_GET['loginUtilisateur'])) {
-                    $u = ModelUtilisateurs::delete($_GET['loginUtilisateur']);
-                    $view = 'deleted';
-                    $pagetitle = 'Suppression d\'un utilisateur';
-                    $tab_u = ModelUtilisateurs::selectAll();
-                    if(Session::is_user($_GET['loginUtilisateur'])) {
-                        self::deconnect();
+                $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
+                if($u) {
+                    ModelUtilisateurs::delete($_GET['loginUtilisateur']);
+                    if($u->get('typeUtilisateur') === 'etudiant') {
+                        $redirection = 'index.php?controller=etudiants&action=delete&loginEtudiant='.$_GET['loginUtilisateur'];
+                        header('Location: '.$redirection);
                     }
-                    require (File::build_path(array('view', 'view.php')));
+                    else if($u->get('typeUtilisateur') === 'enseignant') {
+                        $redirection = 'index.php?controller=enseignants&action=delete&loginEnseignant='.$_GET['loginUtilisateur'];
+                        header('Location: '.$redirection);
+                    }
+                    else {
+                        $view = 'deleted';
+                        $pagetitle = 'Administrateur supprimé';
+                        require (File::build_path(array('view', 'error.php')));
+                    }
                 }
                 else {
                     $error_code = 'delete : loginUtilisateur inexistant';
@@ -375,11 +408,14 @@ class ControllerUtilisateurs extends Controller{
                     $ucode = $u->get('codeEtablissement');
                     $utype = $u->get('typeUtilisateur');
                     $view = 'detail';
-                    $pagetitle = 'Details des utilisateurs';
+                    if(Session::is_user($_GET['loginUtilisateur'])) {
+                        $pagetitle = 'Mes informations utilisateurs';
+                    }
+                    $pagetitle = "Détails utilisateurs";
                     require (File::build_path(array('view', 'view.php')));
                 }
                 else {
-                    $error_code = 'read : Vous ne pouvez pas avoir accès à des informations confidentiels sur d\'autre client';
+                    $error_code = 'read : Vous ne pouvez pas avoir accès à des informations confidentiels sur d\'autre utilisateurs';
                     $view = 'error';
                     $pagetitle = 'Erreur';
                     require (File::build_path(array('view', 'error.php')));
@@ -400,49 +436,124 @@ class ControllerUtilisateurs extends Controller{
         }
     }
 
-    public static function update() {
-        if (isset($_GET['loginUtilisateur'])) {
-            $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
-            $nom = $u->get('nomUtilisateur');
-            $prenom = $u->get('prenomUtilisateur');
-            $view = 'update';
-            $pagetitle = 'Utilisateur à modifier';
-            require (File::build_path(array('view', 'view.php')));
-        }
-        else {
-            $view = 'error';
-            $pagetitle = 'Erreur';
-            require (File::build_path(array('view', 'view.php')));
-        }
-    }
-
-    public static function updated() {
-        if(isset($_GET['loginUtilisateur']) && isset($_GET['nomUtilisateur']) && isset($_GET['prenomUtilisateur'])) {
-            $view = 'updated';
-            $pagetitle = 'Utilisateur modifié';
-            $login = $_GET['loginUtilisateur'];
-            $data = array(
-                "loginUtilisateur" => $_GET['loginUtilisateur'],
-                "nomUtilisateur" => $_GET['nomUtilisateur'],
-                "prenomUtilisateur" => $_GET['prenomUtilisateur'],
-            );
-            $u = new ModelUtilisateurs($data);
-            $u->update($data);
-            $tab_u = ModelUtilisateurs::selectAll();
-            require (File::build_path(array('view', 'view.php')));
-        }
-        else {
-            $view = 'error';
-            $pagetitle = 'Erreur';
-            require (File::build_path(array('view', 'view.php')));
-        }
-    }
-
     public static function mdp_oublie() {
         $view = 'mdp_oublie';
         $pagetitle = 'Mot de passe oublié';
         require (File::build_path(array('view', 'view.php')));
     }
+
+ 
+    public static function update() {
+        $type = "Modification";
+        if (isset($_GET['loginUtilisateur'])) {
+            $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
+            if($u) {
+                if (Session::is_user($_GET['loginUtilisateur']) && !Session::is_admin()) {
+                        $ulogin = $u->get('loginUtilisateur');
+                        $uprenom = $u->get('prenomUtilisateur');
+                        $unom = $u->get('nomUtilisateur');
+                        $uemail = $u->get('emailUtilisateur');
+                        $ucodeEtablissement = $u->get('codeEtablissement');
+                        $type = "Modification de mes informations";
+                        $etat = 'readonly required';
+                        $view = 'update';
+                        $pagetitle = 'Mes informations personnelles';
+                        require (File::build_path(array('view', 'view.php')));
+                }
+                else if(Session::is_admin()) {
+                    $ulogin = $u->get('loginUtilisateur');
+                    $uprenom = $u->get('prenomUtilisateur');
+                    $unom = $u->get('nomUtilisateur');
+                    $uemail = $u->get('emailUtilisateur');
+                    $ucodeEtablissement = $u->get('codeEtablissement');
+                    $utype = $u->get('typeUtilisateur');
+                    $type = 'Modification des informations de l\'utilisateur '.$ulogin;
+                    $etat = 'required';
+                    $view = 'update';
+                    $pagetitle = 'Utilisateur '.$ulogin;
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                else {
+                    $error_code = 'update : vous n\'avez pas accès à ces données';
+                    $view = 'error';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                } 
+            }
+            else {
+                $error_code = 'update : utilisateur inexistant';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
+        }
+        else {
+            $error_code = 'update : loginUtilisateur vide';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+    }
+
+
+    public static function updated() {
+        if(isset($_GET['loginUtilisateur']) && isset($_GET['nomUtilisateur']) && isset($_GET['prenomUtilisateur']) && isset($_GET['emailUtilisateur']) && isset($_GET['typeUtilisateur']) && isset($_GET['codeEtablissement'])) {
+            $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
+            if($u) {
+                if (Session::is_user($_GET['loginUtilisateur'])) {
+                    $etat = 'required readonly';
+                    $view = 'updated';
+                    $pagetitle = 'Utilisateur ajouté';
+                    $data = array(
+                        "loginUtilisateur" => $_GET['loginUtilisateur'],
+                        "nomUtilisateur" => $_GET['nomUtilisateur'],
+                        "prenomUtilisateur" => $_GET['prenomUtilisateur'],
+                        "emailUtilisateur" => $_GET['emailUtilisateur'],
+                        "codeEtablissement" => $_GET['codeEtablissement'],
+                    );
+                    $u = new ModelUtilisateurs($data);
+                    $u->update($data);
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                else if(Session::is_admin()) {
+                    $etat = 'required';
+                    $view = 'updated';
+                    $pagetitle = 'Utilisateur ajouté';
+                    $data = array(
+                        "loginUtilisateur" => $_GET['loginUtilisateur'],
+                        "nomUtilisateur" => $_GET['nomUtilisateur'],
+                        "prenomUtilisateur" => $_GET['prenomUtilisateur'],
+                        "emailUtilisateur" => $_GET['emailUtilisateur'],
+                        "typeUtilisateur" => $_GET['typeUtilisateur'],
+                        "codeEtablissement" => $_GET['codeEtablissement'],
+                    );
+                    $u = new ModelUtilisateurs($data);
+                    $u->update($data);
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                else {
+                    $error_code = 'updated : Vous ne pouvez pas avoir accès à ces informations';
+                    $view = 'error';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                }
+            }
+            else {
+                $error_code = 'updated : ce loginUtilisateur est inexistant';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
+
+        }
+        else {
+            $error_code = 'updated : l\'un des champs est vide';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+    }
+
 
 }
 

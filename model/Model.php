@@ -145,7 +145,6 @@
             $attributs = "";
             $variables = "";
             $values = array();
-
             foreach ($data as $cle => $valeur) {
 
                     $lastkey = end($data);
@@ -165,7 +164,7 @@
 
 
             $sql = "INSERT INTO $table_name ($attributs) VALUES ($variables)";
-
+            
             // Préparation de la requête
             try {
             $req_prep = Model::$pdo->prepare($sql); //permet de protéger la requete SQL
@@ -175,11 +174,10 @@
               catch(PDOException $e) {
                 if (Conf::getDebug()) {
                     
-                    $object="";
                     $error_code="Erreur au niveau de la base de données";
                     $view = 'error';
                     $pagetitle = 'Erreur dans la BD';
-                    require (File::build_path(array('view', 'view.php')));
+                    require (File::build_path(array('view', 'error.php')));
                   
               } else {
                   echo 'Une erreur est survenue cette voiture existe déja dans la base de données ! <br> <a href="?action=readAll&controller=voiture"> Retour a la page d\'accueil </a>';
