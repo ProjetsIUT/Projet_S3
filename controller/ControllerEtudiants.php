@@ -134,14 +134,90 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 	}
 	
 	public static function update_info_etud() {
-		
+        if (isset($_GET['loginEtudiant'])) {
+            $u = ModelEtudiants::select($_GET['loginEtudiant']);
+            if($u) {
+                if (Session::is_admin()) {
+						$ulogin = $_GET['loginEtudiant'];
+						$usemestre = $u->get('SemestreCourantEtudiant');
+						$ucodedepartement = $u->get('codeDepartement');
+						$uanneencours = $u->get('anneeCourantEtudiant');
+                        $type = "Modification des informations universitaire de l'étudiant $ulogin";
+                        $view = 'update_info_etud';
+                        $pagetitle = 'Mes informations personnelles';
+                        require (File::build_path(array('view', 'view.php')));
+                }
+                else {
+                    $error_code = 'update : vous n\'avez pas accès à ces données';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                } 
+            }
+            else {
+                $error_code = 'update : etudiant inexistant';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
+        }
+        else {
+            $error_code = 'update : loginEtudiant vide';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
 	}
 
+	public static function updated_info_etud() {
+        if(isset($_GET['loginEtudiant']) && isset($_GET['anneencours']) && isset($_GET['codedepartement']) && isset($_GET['semestreencours'])) {
+            $u = ModelEtudiants::select($_GET['loginEtudiant']);
+            if($u) {
+                if(Session::is_admin()) {
+                    $view = 'updated_info_etud';
+                    $pagetitle = 'Etudiant ajouté';
+                    $data = array(
+						"loginEtudiant" => $_GET['loginEtudiant'],
+						"anneeCourantEtudiant" => $_GET['anneencours'],
+						"SemestreCourantEtudiant" => $_GET['semestreencours'],
+						"codeDepartement" => $_GET['codedepartement'],
+					);
+                    $u = new ModelEtudiants();
+                    $u->update($data);
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                else {
+                    $error_code = 'updated : Vous ne pouvez pas avoir accès à ces informations';
+                    $view = 'error';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                }
+            }
+            else {
+                $error_code = 'updated : ce loginEtudiant est inexistant';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
+
+        }
+        else {
+            $error_code = 'updated : l\'un des champs est vide';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+    }
+
 	public static function readAll() {
-		$view = 'list';
-		$pagetitle = 'Liste étudiante';
-		$tab_u = ModelEtudiants::selectAll();
-		require (File::build_path(array('view', 'view.php')));
+		if(Session::is_admin()) {
+			$view = 'list';
+			$pagetitle = 'Liste étudiante';
+			$tab_u = ModelEtudiants::selectAll();
+			require (File::build_path(array('view', 'view.php')));
+		}
+		else {
+			$pagetitle = 'Erreur';
+			$error_code = 'readAll : vous ne disposez pas des droits necessaires pour accéder à cette liste';
+			require (File::build_path(array('view', 'error.php')));
+		}
 	}
 
 	public static function read() {
