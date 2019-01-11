@@ -29,8 +29,12 @@
 
 						<a class="menu" href="index.php?controller=cours&action=list">Cours</a>
 					
-						<a class="menu" href="index.php?controller=ExerciceClassique&action=list_a_faire">Exercices</a> 
-						
+				<?php
+				if(Session::is_student()){
+						echo '<a class="menu" href="index.php?controller=ExerciceClassique&action=list_a_faire">Exercices</a>'; 
+				}else if(Session::is_teacher()){
+						echo '<a class="menu" href="index.php?controller=ExerciceClassique&action=list_a_corriger">Exercices</a>';
+				}?>
 						<a class="menu" <?php if(Session::is_student()){echo('href="./index.php?controller=notes&action=statsEtud"');} ?>>Statistiques</a>
 					
 				</nav>

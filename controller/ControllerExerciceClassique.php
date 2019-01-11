@@ -28,6 +28,8 @@ Class ControllerExerciceClassique {
         $enonce = $_POST['enonce'];
         $themeExercice=$_POST['theme'];
         
+        if(is_uploaded_file($_FILES['correction']['tmp_name'])){
+
         //Traitement du fichier de correction
         if ($_FILES['correction']['error'] > 0) $error_code = "Erreur lors du transfert de la correction";
         $maxsize = 1048576;
@@ -45,7 +47,7 @@ Class ControllerExerciceClassique {
         }else{
             $error_code = "extension incorecte";
         }
-        
+        }
         if (isset($error_code)){
             $view="error";
             $pagetitle="Erreur - Agora";

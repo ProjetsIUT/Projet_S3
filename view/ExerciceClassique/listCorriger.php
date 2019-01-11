@@ -41,7 +41,8 @@
 						<h3>' . $nom_e . '
 						   </h3>
 						<br>
-						<legend>Dans ' . $theme_e.' </legend>';
+						<legend>Dans ' . $theme_e.' </legend> 
+						<legend>'. $login .'</legend>';
 						
 				if($date_r >= $date_e){		
 					echo'
@@ -64,7 +65,7 @@
 							<h3>	
 							<a class="bouton" href="./index.php?controller=FaireExercice&action=correction&id=' .$code_e . '&login='. $login .'">Corriger l\'exercice </a> 
 							<a class="bouton" href="./data/'.$theme_e_code.'.pdf">Voir le cours</a>
-							<a class="bouton_suppr" href="./index.php?controller=exerciceClassique&action=suppr&code=' .$code_e . '">Supprimer</a> 
+							
 							 
 							</h3>
 						</div>
