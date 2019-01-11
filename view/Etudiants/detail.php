@@ -11,7 +11,7 @@
     Moyenne générale actuelle : '.htmlspecialchars($umoyenneGenerale).'/20 <br> </p>';
     
 
-        echo ('<br><a class= "bouton" href="index.php?controller=utilisateurs&action=read&loginUtilisateur=' . rawurlencode($ulogin) . '" > Retour sur les informations utilisateurs ! </a>');
+        echo ('<br> <a class= "bouton" href="index.php?controller=utilisateurs&action=read&loginUtilisateur=' . rawurlencode($ulogin) . '" > Retour sur les informations utilisateurs ! </a>');
         echo ('<br>  <br> <a class= "bouton" href="index.php?controller=etudiants&action=update&loginEtudiant=' . rawurlencode($ulogin) . '" > Modifier les informations universitaires ! </a>');
         
 ?>

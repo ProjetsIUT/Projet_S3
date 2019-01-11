@@ -80,7 +80,31 @@ class ControllerUtilisateurs extends Controller{
             require (File::build_path(array('view', 'error.php')));
         }
     }
-    
+
+    public static function show_home_page() {
+        if(isset($_GET['error'])) {
+            $error = $_GET['error'];
+            if($error === '404') {
+                $error_page = 'Erreur 404 - Document Introuvable - vous avez été redirigé vers la page d\'accueil';
+            }
+        }
+        if(Session::is_student()){ //si c'est un étudiant 
+            $redirection = 'index.php?controller=etudiants&action=show_perso_page';
+            header('Refresh: 3; url='.$redirection);
+        }
+        else if(Session::is_teacher()){ //si c'est un enseignant
+            $redirection = 'index.php?controller=enseignants&action=show_perso_page';
+            header('Refresh: 3; url='.$redirection);
+        }
+        else if(Session::is_admin()){ //si c'est un admin
+            $redirection = 'index.php?controller=administrateur&action=show_perso_page';
+            header('Refresh: 3; url='.$redirection);
+        }
+        else {
+            $redirection = 'index.php';
+            header('Refresh: 3; url='.$redirection);
+        }
+    }
  
     public static function connect() {
         if(isset($_GET['loginUtilisateur']) && isset($_GET['mdpUtilisateur'])){ //succès: l'utilisateur est connecté
