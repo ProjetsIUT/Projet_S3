@@ -105,10 +105,7 @@ class ControllerQCM extends Controller{
 					$nbReponseJuste ++;
 				}
 
-				echo 'Choix question '.$compteur . ':' .$_POST["choix_question".$compteur] ;
-	
-
-				echo 'Bonne réponse: '.$question->get("propositionExacte") ."<br>";
+		
 
 	
 			}
@@ -128,10 +125,11 @@ class ControllerQCM extends Controller{
 				"dateNote"=>date('Y-m-d')
 			,));
 		
-			//header('Location: ./index.php?controller=notes&action=listByEtud');
+			header('Location: ./index.php?controller=notes&action=listByEtud');
 
 		}else{
-			//header('Location: ./index.php');
+			
+			header('Location: ./index.php');
 		}
 		 
 	}
