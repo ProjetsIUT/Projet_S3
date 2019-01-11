@@ -10,6 +10,7 @@ require_once (File::build_path(array('model','ModelEnseignants.php')));
 require_once (File::build_path(array('controller','ControllerEtudiants.php')));
 require_once (File::build_path(array('lib','Session.php')));
 require_once (File::build_path(array('controller', 'Controller.php'))); 
+require_once (File::build_path(array('model','ModelFaireExercice.php')));
 
 class ControllerNotes extends Controller { 
 
