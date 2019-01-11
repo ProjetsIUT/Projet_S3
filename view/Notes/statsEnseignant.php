@@ -217,7 +217,7 @@
 		 		}
 
 
-		 		if(isset($_GET['codeMatiere']) ){
+		 		if(isset($_GET['codeMatiere']) && !isset($_GET['codeEtudiant']) ){
 
 		 			if ($_GET['codeMatiere']!='all'){
 

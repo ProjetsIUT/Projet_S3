@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 
 <html id=<?php if(isset($page_id)){ echo ($page_id); } ?>>
     <head>
 		<meta charset="utf-8" />
-		<title><?php echo $pagetitle?></title>
+		<title>Erreur</title>
 			<link rel="stylesheet" type="text/css" href="./style.css">
 	</head>
 		<header>
@@ -43,11 +44,11 @@
 		<article id="page_connexion">
 			<div class="page_content">		
 				<div class='div_error'>
-					<a> Nous ne pouvons pas traiter votre demande</a>
 					<br>
-					<a> Code d'erreur : <?php echo $error_code?></a>
+					<a> <?php echo $error_code?></a>
 					<br>
 					<a> Vous allez être redirigé vers l'accueil</a>
+
 					 <?php /*
 						if(Session::is_student()){ //si c'est un étudiant 
 							$redirection = './index.php?controller=etudiants&action=show_perso_page';
@@ -66,8 +67,12 @@
 							header('Refresh: 3; url='.$redirection);
 						} */
 					?> 
+					<meta http-equiv="refresh" content="3;URL=./index.php" />
+
 				</div>
 			</div>
 		</article>	
 	</body>
 </html>
+
+

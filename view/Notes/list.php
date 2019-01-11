@@ -1,3 +1,4 @@
+
 <div class="page_content">
 
 	<h1>Relevé de notes des étudiants</h1>
@@ -72,5 +73,6 @@
 		</table>
 
 	</div>	
+
 
 </div>

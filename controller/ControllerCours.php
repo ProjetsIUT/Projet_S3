@@ -1,6 +1,8 @@
+
 <?php
 
 require_once (File::build_path(array('model','ModelCours.php')));
+require_once (File::build_path(array('model','ModelMatieres.php')));
 
 require_once (File::build_path(array('lib','Session.php')));
 require_once (File::build_path(array('controller', 'Controller.php'))); 
@@ -12,6 +14,19 @@ class ControllerCours extends Controller{
 
 	public static function show_form_new(){
 
+		$tab_matieres = ModelMatieres::getAllbyEnseignant();
+
+		$tab_nom_matieres=array();
+		$tab_code_matieres=array();
+
+		foreach ($tab_matieres as $code) {
+			
+			$matiere=ModelMatieres::select($code);
+			array_push($tab_nom_matieres,$matiere->get("nomMatiere"));
+			array_push($tab_code_matieres,$matiere->get("codeMatiere"));
+
+		}
+
 		$view="ajouterCours";
 		$pagetitle="Ajouter un nouveau cours - Agora";
 		require (File::build_path(array('view', 'view.php')));
@@ -20,15 +35,19 @@ class ControllerCours extends Controller{
 
 	public static function list(){
 
-		if(Session::is_student($_SESSION['loginUtilisateur'])){
+		if(!isset($_SESSION['loginUtilisateur'])){
+
+			header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
+		}
+
+		if(Session::is_student()){
 
 			$tab = ModelCours::getAllByEtud();
 	
 
 		}else{
 
-			$tab=ModelCours::getAllByEnseignant();
-					$tab = ModelCours::getAllByEtud();
+			$tab=ModelCours::getAllByEnseignant(); 
 
 		}
 
@@ -76,5 +95,6 @@ class ControllerCours extends Controller{
 
 
 }
+
 
 ?>

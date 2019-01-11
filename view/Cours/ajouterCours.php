@@ -1,4 +1,5 @@
 
+
 	<form enctype="multipart/form-data" id="formulaire_ajouterCours" method="post" action=<?php echo '"'.(File::build_path(array('index.php'))). '"'; ?>>
 
 		<input type="hidden" name="controller" value="cours" />
@@ -30,29 +31,6 @@
 		<br>
 		<br>
 		<label>Matière où enregistrer le cours:</label>
-
-			<?php 
-
-						$path=array('model','ModelMatieres.php');
-						require_once File::build_path($path);
-
-						$tab_matieres = ModelMatieres::selectAll();
-
-						$tab_nom_matieres=array();
-						$tab_code_matieres=array();
-
-						foreach ($tab_matieres as $matiere) {
-
-								
-							array_push($tab_nom_matieres,$matiere->get("nomMatiere"));
-							array_push($tab_code_matieres,$matiere->get("codeMatiere"));
-
-						}
-
-		
-
-
-			?>
 		<br>
 		<br>
 		<select name="code" required />
@@ -88,3 +66,4 @@
 
 
 	</form>
+

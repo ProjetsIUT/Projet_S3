@@ -1,3 +1,4 @@
+
 <?php
 
 class Session {
@@ -22,5 +23,6 @@ class Session {
         return (!empty($_SESSION['loginUtilisateur']));
     }
 }
+
 
 ?> 

@@ -1,3 +1,4 @@
+
 <article id="page_connexion"> 
 		<form id="formulaire_connexion" methode="get" action="index.php">
 			<p>Connexion à Agora</p>
@@ -32,3 +33,8 @@
 			<a href="index.php?action=mdp_oublie&controller=utilisateurs">Mot de passe oublié ?</a>
 		</form>
 </article>
+
+
+
+		
+

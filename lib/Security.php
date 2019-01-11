@@ -1,3 +1,4 @@
+
 <?php
 
 class Security {
@@ -22,5 +23,6 @@ class Security {
         return $hex;
     }
 }
+
 
 ?>
