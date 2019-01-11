@@ -112,7 +112,7 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 					"codeDepartement" => $_GET['codedepartement'],
 				);
 				$e = new ModelEtudiants();
-				$e->saveEtud($data);
+				$e->save($data);
 				$view = 'created_info_etud';
 				$pagetitle = 'Compte crée - Agora';
 				require (File::build_path(array('view', 'view.php')));                    
@@ -194,7 +194,7 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 					ModelEtudiants::delete($_GET['loginEtudiant']);
 					$view = 'deleted';
 					$pagetitle = 'Suppression d\'un utilisateur';
-					if(Session::is_user($_GET['loginUtilisateur'])) {
+					if(Session::is_user($_GET['loginEtudiant'])) {
 						self::deconnect();
 					}
 					require (File::build_path(array('view', 'view.php')));

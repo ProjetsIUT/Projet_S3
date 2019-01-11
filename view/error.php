@@ -49,7 +49,7 @@
 					<br>
 					<a> Vous allez être redirigé vers l'accueil</a>
 
-					 <?php /*
+					 <?php 
 						if(Session::is_student()){ //si c'est un étudiant 
 							$redirection = './index.php?controller=etudiants&action=show_perso_page';
 							header('Refresh: 3; url='.$redirection);
@@ -65,10 +65,9 @@
 						else {
 							$redirection = './index.php';
 							header('Refresh: 3; url='.$redirection);
-						} */
+						} 
 					?> 
-					<meta http-equiv="refresh" content="3;URL=./index.php" />
-
+					
 				</div>
 			</div>
 		</article>	
