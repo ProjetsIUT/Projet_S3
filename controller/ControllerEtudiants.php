@@ -110,10 +110,11 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 					"SemestreCourantEtudiant" => $_GET['semestreencours'],
 					"codeDepartement" => $_GET['codedepartement'],
 				);
-
-				$u = new ModelEtudiant();
-				$u->save($data);
-				
+				$e = new ModelEtudiants();
+				$e->saveEtud($data);
+				$view = 'created_info_etud';
+				$pagetitle = 'Compte crée - Agora';
+				require (File::build_path(array('view', 'view.php')));                    
 			}
 			else {
                 $type = 'Ajout';

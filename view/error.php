@@ -48,7 +48,7 @@
 					<a> Code d'erreur : <?php echo $error_code?></a>
 					<br>
 					<a> Vous allez être redirigé vers l'accueil</a>
-					<?php
+					 <?php /*
 						if(Session::is_student()){ //si c'est un étudiant 
 							$redirection = 'index.php?controller=etudiants&action=show_perso_page';
 							header('Refresh: 3; url='.$redirection);
@@ -64,8 +64,8 @@
 						else {
 							$redirection = 'index.php';
 							header('Refresh: 3; url='.$redirection);
-						}
-					?>
+						} */
+					?> 
 				</div>
 			</div>
 		</article>	

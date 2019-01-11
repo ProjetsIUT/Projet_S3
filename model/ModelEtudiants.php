@@ -31,7 +31,7 @@ class ModelEtudiants extends ModelUtilisateurs {
 
   public function __construct($data = array()) {
 	  if (!empty($data)) {
-
+      /*
       $arr = array();
       $arr = get_class_vars("ModelEtudiants");
 
@@ -40,11 +40,11 @@ class ModelEtudiants extends ModelUtilisateurs {
         if(isset($attirb)) {
           $this->attrib = $data[$k];
         }
-      }
-	    //$this->anneeCourantEtudiant= $data["anneeCourantEtudiant"];
-	    //$this->SemestreCourantEtudiant = $data["SemestreCourantEtudiant"];
-	    //$this->codeDepartement=$data["codeDepartement"];
-	    //$this->moyenneGenerale=$data["moyenneGenerale"];
+      } */
+	    $this->anneeCourantEtudiant= $data["anneeCourantEtudiant"];
+	    $this->SemestreCourantEtudiant = $data["SemestreCourantEtudiant"];
+	    $this->codeDepartement=$data["codeDepartement"];
+	    $this->moyenneGenerale=$data["moyenneGenerale"];
 
 	  	}
    }
@@ -77,6 +77,21 @@ class ModelEtudiants extends ModelUtilisateurs {
           return $tab;
 
 
+   }
+
+   public static function saveEtud($data = array()) {
+    $sql = "INSERT INTO agora_etudiants (loginEtudiant, anneeCourantEtudiant, SemestreCourantEtudiant, codeDepartement) VALUES (:loginEtudiantt, :anneeCourantEtudiantt, :SemestreCourantEtudiantt, :codeDepartementt)";
+    // Préparation de la requête
+    $req_prep = Model::$pdo->prepare($sql); //permet de protéger la requete SQL
+
+    $values = array(
+      "loginEtudiantt" => $data['loginEtudiant'],
+      "anneeCourantEtudiantt" => $data['anneeCourantEtudiant'],
+      "SemestreCourantEtudiantt" => $data['SemestreCourantEtudiant'],
+      "codeDepartementt" => $data['codeDepartement'],
+    );
+
+    $req_prep->execute($values);
    }
 
 

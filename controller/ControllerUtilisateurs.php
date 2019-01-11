@@ -281,12 +281,12 @@ class ControllerUtilisateurs extends Controller{
                         ';
                         mail($destinataire, $sujet, $mail, $entete);
                         
-                        if($_SESSION["typeUtilisateur"] === "etudiant"){ //si c'est un étudiant 
+                        if($_GET["typeUtilisateur"] === "etudiant"){ //si c'est un étudiant 
                             $redirection = 'index.php?controller=etudiants&action=create_info_etud&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
                             header('Location: '.$redirection);
                         }
         
-                        if($_SESSION["typeUtilisateur"] === "enseignant"){ //si c'est un enseignant
+                        if($_GET["typeUtilisateur"] === "enseignant"){ //si c'est un enseignant
                             $redirection = 'index.php?controller=enseignants&action=create_info_enseig&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
                             header('Location: '.$redirection);
                         }
