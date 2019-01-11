@@ -107,10 +107,6 @@
 
 				<?php
 				
-				if(isset($verif)) {
-					echo '<a>'.$verif.'</a>';
-				}
-				else {
 
 				if($monClassement==-1){
 
@@ -184,10 +180,10 @@
 
 
 				?>
+
 			</div>
 
 		</div>
 
 
 	</div>
-
