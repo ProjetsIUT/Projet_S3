@@ -184,8 +184,7 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 	public static function delete() {
         if(isset($_GET['loginEtudiant'])) {
             if (Session::is_user($_GET['loginEtudiant']) || Session::is_admin()) {
-				$t = ModelEtudiants::delete($_GET['loginEtudiant']);
-				if($t) {
+				if(ModelEtudiants::delete($_GET['loginEtudiant'])) {
 					$view = 'deleted';
 					$pagetitle = 'Suppression d\'un utilisateur';
 					if(Session::is_user($_GET['loginUtilisateur'])) {

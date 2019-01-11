@@ -344,8 +344,7 @@ class ControllerUtilisateurs extends Controller{
             if (Session::is_user($_GET['loginUtilisateur']) || Session::is_admin()) {
                 $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
                 if($u) {
-                    $t = ModelUtilisateurs::delete($_GET['loginUtilisateur']);
-                    if($t) {
+                    if(ModelUtilisateurs::delete($_GET['loginUtilisateur'])) {
                         if($u->get('typeUtilisateur') === 'etudiant') {
                             $redirection = 'index.php?controller=etudiants&action=delete';
                             header('Location: '.$redirection);
