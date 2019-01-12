@@ -6,7 +6,7 @@ require_once File::build_path($path);
 
 $path=array('model','ModelNotes.php');
 require_once File::build_path($path);
-
+require_once File::build_path(array('model', 'ModelDepartements.php'));
 $path=array('model','ModelQCM.php');
 require_once File::build_path($path);
 
@@ -89,6 +89,7 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 	
 	public static function create_info_etud() {
 		if (Session::is_admin()) {
+            $tab_d = ModelDepartements::selectAll();
 			$type = 'Ajout d\'un étudiant';
 			$view = 'create_info_etud';
 			$pagetitle = 'Ajout d\'un utilisateur - 2/2 - Agora';
@@ -119,6 +120,7 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 			}
 			else {
                 $type = 'Ajout';
+                $tab_d = ModelDepartements::selectAll();
                 $verif = 'Ce nom d\'étudiant existe déja';
                 $view = 'update';
                 $pagetitle = 'Ajout d\'un utilisateur - 2/2 - Agora';
@@ -230,8 +232,9 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 					$ulogin = $u->get('loginEtudiant');
 					$unom = $ut->get('nomUtilisateur');
 					$uprenom = $ut->get('prenomUtilisateur');
-					$uace = $u->get('anneeCourantEtudiant');
-                    $ucd = $u->get('codeDepartement');
+                    $uace = $u->get('anneeCourantEtudiant');
+                    $d = ModelDepartements::select($u->get('codeDepartement'));
+                    $ucd = $d->get('nomDepartement');
                     $usce = $u->get('SemestreCourantEtudiant');
 					$view = 'detail';
 					if(Session::is_user($_GET['loginEtudiant'])) {

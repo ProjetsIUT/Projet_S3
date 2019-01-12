@@ -4,6 +4,7 @@
 require_once (File::build_path(array('model', 'ModelUtilisateurs.php')));
 require_once (File::build_path(array('controller', 'Controller.php'))); 
 require_once (File::build_path(array('lib', 'Security.php')));
+require_once File::build_path(array('model', 'ModelEtablissements.php'));
  
 class ControllerUtilisateurs extends Controller{
 
@@ -230,6 +231,7 @@ class ControllerUtilisateurs extends Controller{
 
     public static function create() {
         if(Session::is_admin()) {
+            $tab_e = ModelEtablissements::selectAll();
             $type = 'Ajout d\'un utilisateur';
             $view = 'update';
             $pagetitle = 'Ajout d\'un utilisateur - 1/2 - Agora';
@@ -293,6 +295,7 @@ class ControllerUtilisateurs extends Controller{
                         }
                     }
                     else {
+                        $tab_e = ModelEtablissements::selectAll();
                         $type = 'Ajout';
                         $verif = 'Cette email est déja utilisé';
                         $view = 'update';
@@ -301,6 +304,7 @@ class ControllerUtilisateurs extends Controller{
                     }
                 }
                 else {
+                    $tab_e = ModelEtablissements::selectAll();
                     $type = 'Ajout';
                     $verif = 'Votre email n\'est pas valide !';
                     $view = 'update';
@@ -309,6 +313,7 @@ class ControllerUtilisateurs extends Controller{
                 }
             }
             else {
+                $tab_e = ModelEtablissements::selectAll();
                 $type = 'Ajout';
                 $verif = 'Ce nom d\'utilisateur existe déja';
                 $view = 'update';

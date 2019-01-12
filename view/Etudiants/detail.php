@@ -6,7 +6,7 @@
 <?php   
     echo '<p>  Login : '. htmlspecialchars($ulogin) .' <br> 
     Annee en cours : '. htmlspecialchars($uace) .' <br>
-    Code Departement : '. htmlspecialchars($ucd) .' <br>
+    Nom Departement : '. htmlspecialchars($ucd) .' <br>
     Semestre en cours : '.htmlspecialchars($usce).' <br>
     Moyenne générale actuelle : '.htmlspecialchars($umoyenneGenerale).'/20 <br> </p>';
     

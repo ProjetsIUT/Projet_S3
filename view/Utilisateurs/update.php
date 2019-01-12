@@ -37,7 +37,12 @@
           <br>
           <br>
           <label for="codeEtablissement_id">Code établissement : </label>
-          <input type="number" name="codeEtablissement" id="codeEtablissement_id" required/>
+          <select name="codeEtablissement" id="codeEtablissement_id" size="1" required/>';
+                foreach ($tab_e as $e) {
+                    echo '<option value='.htmlspecialchars($e->get('codeEtablissement')).'> '.htmlspecialchars($e->get('nomEtablissement')).'';
+                }
+                echo '
+          </select>
           <br>
           ';
         }
@@ -87,7 +92,12 @@
           <br>
           <br>
           <label for="codeEtablissement_id">Code établissement : </label>
-          <input type="number" value='.htmlspecialchars($ucodeEtablissement).' name="codeEtablissement" id="codeEtablissement_id" '.$etat.'/>
+          <select name="codeEtablissement" id="codeEtablissement_id" size="1" required/>';
+                foreach ($tab_e as $e) {
+                    echo '<option value='.htmlspecialchars($e->get('codeEtablissement')).'> '.htmlspecialchars($e->get('nomEtablissement')).'';
+                }
+                echo '
+          </select>
           <br>';
         }
         else if($_GET['action'] === 'created') {
@@ -133,7 +143,12 @@
           echo '</select>
           <br>
           <label for="codeEtablissement_id">Code établissement : </label>
-          <input type="number" value='.htmlspecialchars($_GET['codeEtablissement']).' name="codeEtablissement" id="codeEtablissement_id" required/>
+          <select value='.htmlspecialchars($_GET['codeEtablissement']).' name="codeEtablissement" id="codeEtablissement_id" size="1" required/>';
+                foreach ($tab_e as $e) {
+                    echo '<option value='.htmlspecialchars($e->get('codeEtablissement')).'> '.htmlspecialchars($e->get('nomEtablissement')).'';
+                }
+                echo '
+          </select>
           <br>';
         }
         else if($_GET['action'] === 'updated') {
