@@ -58,6 +58,38 @@ class ControllerMatieres extends Controller{
         }
 	}
 
+	public static function delete() {
+        if(isset($_GET['codeMatiere'])) {
+            if (Session::is_admin()) {
+				$e = ModelMatieres::select($_GET['codeMatiere']);
+				if($e) {
+					ModelMatieres::delete($_GET['codeMatiere']);
+					$view = 'deleted';
+					$pagetitle = 'Suppression d\'une matiere';
+					require (File::build_path(array('view', 'view.php')));
+				}
+				else {
+                    $error_code = 'delete : codeMatiere inexistant';
+                    $view = 'error';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                }
+            } 
+            else {
+                $error_code = 'delete : Vous ne pouvez pas effectuer cette action';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            } 
+        }
+        else {
+            $error_code = 'delete : codeMatiere vide';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+	}
+
 }
 
 ?>

@@ -26,6 +26,9 @@
 				
 				<nav>
 
+					<?php 
+					if(!Session::is_admin()) {
+						echo '
 						<ul>
 
 						<li class="menu1"><a class="menu" href="index.php?controller=cours&action=list">Cours</a>
@@ -44,6 +47,9 @@
 							</ul>
 
 						</li>
+						';
+					}
+						?>
 						
 						<?php
 
@@ -51,7 +57,7 @@
 
 									echo'<li class="menu3"><a class="menu" href="./index.php?controller=notes&action=statsEnseignant">Statistiques</a>';
 
-							}else{
+							}else if(Session::is_student()){
 
 									echo'<li class="menu3"><a class="menu"  href="./index.php?controller=notes&action=statsEtud" >Statistiques</a>';
 							}
