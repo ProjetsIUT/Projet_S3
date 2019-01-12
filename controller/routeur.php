@@ -36,8 +36,7 @@
 					}
 				}
 				else {
-					$controller_class = 'Controller';
-					$controller_class::errorClass();
+					Controller::errorClass();
 				}
 			}
 			else {
