@@ -3,7 +3,7 @@
 
 $path=array('model','Model.php');
 require_once File::build_path($path);
-
+ 
 class ModelMatieres extends Model {
 
 	protected static $object="matieres";
