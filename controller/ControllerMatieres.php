@@ -90,6 +90,123 @@ class ControllerMatieres extends Controller{
         }
 	}
 
+	public static function create() {
+		if (Session::is_admin()) {
+			$type = 'Ajout d\'une matière';
+			$view = 'create';
+			$pagetitle = 'Ajout d\'une matière - Agora';
+			require (File::build_path(array('view', 'view.php')));
+		}
+		else {
+            $error_code = 'Impossible de créer une matière';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+	}
+
+	public static function created() {
+        if(isset($_GET['codeMatiere']) && isset($_GET['nomMatière']) && isset($_GET['codeDepartement'])) {
+			$m = ModelMatieres::select($_GET['codeMatiere']);
+            if($m == false) {
+				$data = array(
+					"codeMatiere" => $_GET['codeMatiere'],
+					"nomMatiere" => $_GET['nomMatiere'],
+					"codeDepartement" => $_GET['codedepartement'],
+				);
+				$n = new ModelMatieres();
+				$n->save($data);
+				$view = 'created';
+				$pagetitle = 'Matiere crée - Agora';
+				require (File::build_path(array('view', 'view.php')));                    
+			}
+			else {
+                $type = 'Ajout d\'une matière';
+                $verif = 'Cette matière existe déja';
+                $view = 'create';
+                $pagetitle = 'Ajout d\'une matiere - Agora';
+                require (File::build_path(array('view', 'view.php')));                    
+            }  
+        }
+        else {
+            $error_code = 'created : l\'un des champs est vide';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+	}
+	
+	public static function update_info_etud() {
+        if (isset($_GET['codeMatiere'])) {
+            $m = ModelMatieres::select($_GET['codeMatiere']);
+            if($m) {
+                if (Session::is_admin()) {
+						$mcodematiere = $m->get('codeMatiere');
+						$mnommatiere = $m->get('nomMatiere');
+						$mcodeDepartement = $m->get('codeDepartement');
+                        $type = "Modification des informations de la matiere $mcodematiere";
+                        $view = 'update';
+                        $pagetitle = "Mes informations de la matière $mcodematiere";
+                        require (File::build_path(array('view', 'view.php')));
+                }
+                else {
+                    $error_code = 'update : vous n\'avez pas accès à ces données';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                } 
+            }
+            else {
+                $error_code = 'update : matiere inexistante';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
+        }
+        else {
+            $error_code = 'update : codeMatiere vide';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+	}
+
+	public static function updated_info_etud() {
+        if(isset($_GET['codeMatiere']) && isset($_GET['nomMatière']) && isset($_GET['codeDepartement'])) {
+            $m = ModelMatieres::select($_GET['codeMatiere']);
+            if($m) {
+                if(Session::is_admin()) {
+                    $data = array(
+						"codeMatiere" => $_GET['codeMatiere'],
+						"nomMatiere" => $_GET['nomMatiere'],
+						"codeDepartement" => $_GET['codedepartement'],
+					);
+					$n = new ModelMatieres();
+					$n->update($data);
+					$view = 'updated';
+					$pagetitle = 'Matiere modifié - Agora';
+					require (File::build_path(array('view', 'view.php')));                    
+				}
+                else {
+                    $error_code = 'updated : Vous ne pouvez pas avoir accès à ces informations';
+                    $view = 'error';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                }
+            }
+            else {
+                $error_code = 'updated : ce codeMatiere est inexistant';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
+
+        }
+        else {
+            $error_code = 'updated : l\'un des champs est vide';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+    }
+
+
 }
 
 ?>
