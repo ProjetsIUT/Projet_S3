@@ -24,6 +24,40 @@ class ControllerMatieres extends Controller{
 		}
 	}
 
+	public static function read() {
+        if(isset($_GET['codeMatiere'])) {
+			$m = ModelMatieres::select($_GET['codeMatiere']);
+            if($m) {
+                if (Session::is_admin()) {
+                    $mcodematiere = $m->get('codeMatiere');
+					$mnommatiere = $m->get('nomMatiere');
+					$mcodeDepartement = $m->get('codeDepartement');
+					$view = 'detail';
+                    $pagetitle = 'Details de la matière '.$mnommatiere;
+                    require (File::build_path(array('view', 'view.php')));
+                }
+                else {
+                    $error_code = 'read : Vous ne pouvez pas avoir accès à des informations confidentiels sur d\'autre utilisateur';
+                    $view = 'error';
+                    $pagetitle = 'Erreur';
+                    require (File::build_path(array('view', 'error.php')));
+                }
+            }
+            else {
+                $error_code = 'read : codeMatiere inexistant';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
+        }
+        else {
+            $error_code = 'read : codeMatiere vide';
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
+	}
+
 }
 
 ?>
