@@ -104,21 +104,28 @@ class ControllerEtablissements extends Controller{
 	}
 
 	public static function created() {
-        if(isset($_GET['nomEtablissement']) && isset($_GET['villeEtablissement'])) {
-				$data = array(
-					//"codeEtablissement" => $_GET['codeEtablissement'],
-					"nomEtablissement" => $_GET['nomEtablissement'],
-					"villeEtablissement" => $_GET['villeEtablissement'],
-				);
-				$n = new ModelEtablissements();
-				$n->save($data);
-				$view = 'created';
-				$pagetitle = 'Matiere crée - Agora';
-				require (File::build_path(array('view', 'view.php')));                      
+        if(Session::is_admin()) {
+            if(isset($_GET['nomEtablissement']) && isset($_GET['villeEtablissement'])) {
+                    $data = array(
+                        //"codeEtablissement" => $_GET['codeEtablissement'],
+                        "nomEtablissement" => $_GET['nomEtablissement'],
+                        "villeEtablissement" => $_GET['villeEtablissement'],
+                    );
+                    $n = new ModelEtablissements();
+                    $n->save($data);
+                    $view = 'created';
+                    $pagetitle = 'Matiere crée - Agora';
+                    require (File::build_path(array('view', 'view.php')));                      
+            }
+            else {
+                $error_code = 'created : l\'un des champs est vide';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
         }
         else {
-            $error_code = 'created : l\'un des champs est vide';
-            $view = 'error';
+            $error_code = 'Vous ne disposez des droits suffisant';
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
         }
@@ -132,7 +139,7 @@ class ControllerEtablissements extends Controller{
 						$mcodeEtablissement = $m->get('codeEtablissement');
 						$mnomEtablissement = $m->get('nomEtablissement');
 						$mvilleEtablissement = $m->get('villeEtablissement');
-                        $type = "Modification des informations de l'établissement $mcodeEtablissement";
+                        $type = "Modification des informations de l'établissement : $mnomEtablissement";
                         $view = 'update';
                         $pagetitle = "Mes informations de l'etablissement $mcodeEtablissement";
                         require (File::build_path(array('view', 'view.php')));

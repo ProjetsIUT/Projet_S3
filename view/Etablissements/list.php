@@ -2,7 +2,7 @@
 <h1>Gestion des établissements <a href="index.php?controller=etablissements&action=create" class="bouton">+ Ajouter un établissement</a></h1>
 <article id="page_connexion">
 <div id="formulaire_connexion">
-    <p>Voici la liste des établissements, cliquez sur un établissement pour le modifier</p>
+    <p>Voici la liste des établissements, cliquez sur un établissement pour le modifier :</p>
 
     <?php
         foreach ($tab_e as $e) 

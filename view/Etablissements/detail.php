@@ -1,6 +1,6 @@
 <div class="page_content">
 
-<h1>Détails de l'établissement <?php echo htmlspecialchars($mnomEtablissement).'' ?><a class=bouton href="index.php?controller=etablissements&action=readAll">Retour à la liste des établissements</a></h1>
+<h1>Détails de l'établissement : <?php echo htmlspecialchars($mnomEtablissement).'' ?><a class=bouton href="index.php?controller=etablissements&action=readAll">Retour à la liste des établissements</a></h1>
 <div class="box_center">
 
 <?php   
