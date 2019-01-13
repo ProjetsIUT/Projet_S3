@@ -10,7 +10,7 @@
             if($_GET['action'] === 'update') {
                 echo '
                 <label for="codeMatiere_id"> Code matière : </label>
-                <input type="text" value="'.htmlspecialchars($mcodematiere).'" name="codeMatiere" id="codeMatiere_id" required/>
+                <input type="text" value="'.htmlspecialchars($mcodematiere).'" name="codeMatiere" id="codeMatiere_id" required readonly/>
                 <br>
                 <br>
                 <label for="nomMatiere_id">Nom de la matière : </label>

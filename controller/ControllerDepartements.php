@@ -29,9 +29,9 @@ class ControllerDepartements extends Controller{
             if($m) {
                 if (Session::is_admin()) {
                     $mcodeDepartement = $m->get('codeDepartement');
-					$mnomDepartement = $m->get('nomMDepartement');
+					$mnomDepartement = $m->get('nomDepartement');
 					$e = ModelEtablissements::select($m->get('codeEtablissement'));
-					$mnomEtablissement = $d->get('nomEtablissement');
+					$mnomEtablissement = $e->get('nomEtablissement');
 					$view = 'detail';
                     $pagetitle = 'Details du département '.$mnomDepartement;
                     require (File::build_path(array('view', 'view.php')));
@@ -92,7 +92,7 @@ class ControllerDepartements extends Controller{
 
 	public static function create() {
 		if (Session::is_admin()) {
-			$tab_e = ModelEtablissementss::selectAll();
+			$tab_e = ModelEtablissements::selectAll();
 			$type = 'Ajout d\'un département';
 			$view = 'create';
 			$pagetitle = 'Ajout d\'un département - Agora';
@@ -132,9 +132,9 @@ class ControllerDepartements extends Controller{
             if($d) {
                 if (Session::is_admin()) {
                         $tab_e = ModelEtablissements::selectAll();
-						$mcodeDepartement = $m->get('codeDepartement');
-                        $mnomDepartement = $m->get('nomDepartement');
-						$mcodeEtablissement = $m->get('codeEtablissement');
+						$mcodeDepartement = $d->get('codeDepartement');
+                        $mnomDepartement = $d->get('nomDepartement');
+						$mcodeEtablissement = $d->get('codeEtablissement');
                         $type = "Modification des informations du département $mcodeDepartement";
                         $view = 'update';
                         $pagetitle = "Mes informations du département $mcodeDepartement";
@@ -166,7 +166,7 @@ class ControllerDepartements extends Controller{
                 if(Session::is_admin()) {
                     $data = array(
 						"codeDepartement" => $_GET['codeDepartement'],
-						"nomMatiere" => $_GET['nomMatiere'],
+						"nomDepartement" => $_GET['nomDepartement'],
 						"codeEtablissement" => $_GET['codeEtablissement'],
 					);
 					$n = new ModelDepartements();
