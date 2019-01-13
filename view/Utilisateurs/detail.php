@@ -1,6 +1,6 @@
 <div class="page_content">
 
-<h1>Détails de l'<?php echo htmlspecialchars($utype).' '.htmlspecialchars($uprenom).' '.htmlspecialchars($unom).' de login '.htmlspecialchars($ulogin)?><a class=bouton href="index.php?controller=utilisateurs&action=readAll">Retour à la liste des utilisateurs</a></h1>
+<h1>Détails de l'<?php echo htmlspecialchars($utype).' '.htmlspecialchars($uprenom).' '.htmlspecialchars($unom).' de login '.htmlspecialchars($ulogin); if(Session::is_admin()){echo'<a class=bouton href="index.php?controller=utilisateurs&action=readAll">Retour à la liste des utilisateurs</a>';}?></h1>
 <div class="box_center">
 
 <?php   

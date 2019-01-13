@@ -1,5 +1,5 @@
  <div class=page_content>
-<h1><?php echo htmlspecialchars($type)?><a class=bouton href="index.php?controller=utilisateurs&action=readAll">Retour à la liste des utilisateurs</a></h1>
+<h1><?php echo htmlspecialchars($type); if(Session::is_admin()){echo'<a class=bouton href="index.php?controller=utilisateurs&action=readAll">Retour à la liste des utilisateurs</a>';}?></h1>
 <article id="page_ajouterqcm">
   <form id="formulaire_connexion" method="get" action="index.php">
          
