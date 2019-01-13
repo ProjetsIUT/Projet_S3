@@ -392,6 +392,9 @@ class ControllerUtilisateurs extends Controller{
             if(!isset($_GET['typeUtilisateur']) || $_GET['typeUtilisateur'] === 'all') {
                 $tab_u = ModelUtilisateurs::selectAll();
                 $nomM = "Type d'utilisateur";
+                if(empty($tab_u)) {
+                    $verif = "Il n y a aucun utilisateur";
+                }
             }
             else if(isset($_GET['typeUtilisateur'])) {
                 $tab_ut = ModelUtilisateurs::selectAll();
@@ -406,7 +409,7 @@ class ControllerUtilisateurs extends Controller{
                     }
                 }
                 else {
-                    $verif = "Il n y a aucun utilisateur";
+                    $verif = 'Il n y a aucun'.$_GET['typeUtilisateur'];
                 }
             }
             $view = 'list';

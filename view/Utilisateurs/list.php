@@ -21,8 +21,13 @@
     </form>
     <p>Voici la liste des utilisateurs, cliquez sur un utilisateur pour le modifier</p>
     <?php
-        foreach ($tab_u as $u) 
-            echo ('<p> <a href="index.php?controller=utilisateurs&action=read&loginUtilisateur='.rawurlencode($u->get('loginUtilisateur')).'" style="color:black"> L\''.htmlspecialchars($u->get('typeUtilisateur')).' '.htmlspecialchars($u->get('prenomUtilisateur')).' '.htmlspecialchars($u->get('nomUtilisateur')).' de login '.htmlspecialchars($u->get('loginUtilisateur')).' </a> </p>');
+        if(!isset($verif)) {
+            foreach ($tab_u as $u) 
+                echo ('<p> <a href="index.php?controller=utilisateurs&action=read&loginUtilisateur='.rawurlencode($u->get('loginUtilisateur')).'" style="color:black"> L\''.htmlspecialchars($u->get('typeUtilisateur')).' '.htmlspecialchars($u->get('prenomUtilisateur')).' '.htmlspecialchars($u->get('nomUtilisateur')).' de login '.htmlspecialchars($u->get('loginUtilisateur')).' </a> </p>');
+        }
+        else {
+            echo '<p> '.$verif.' </p>';
+        }
     ?>
 </div>
 </article>
