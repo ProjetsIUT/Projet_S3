@@ -389,7 +389,26 @@ class ControllerUtilisateurs extends Controller{
 
 	public static function readAll() {
         if(Session::is_admin()) {
-            $tab_u = ModelUtilisateurs::selectAll();
+            if(!isset($_GET['typeUtilisateur']) || $_GET['typeUtilisateur'] === 'all') {
+                $tab_u = ModelUtilisateurs::selectAll();
+                $nomM = "Type d'utilisateur";
+            }
+            else if(isset($_GET['typeUtilisateur'])) {
+                $tab_ut = ModelUtilisateurs::selectAll();
+                $nomM = "Type d'utilisateur";
+                if($tab_ut) {
+                    $tab_u = array();
+                    foreach($tab_ut as $ut) {
+                        
+                        if($ut->get('typeUtilisateur') === $_GET['typeUtilisateur']) {
+                            array_push($tab_u,$ut);
+                        }
+                    }
+                }
+                else {
+                    $verif = "Il n y a aucun utilisateur";
+                }
+            }
             $view = 'list';
             $pagetitle = 'Liste des utilisateurs';
             require (File::build_path(array('view', 'view.php')));
