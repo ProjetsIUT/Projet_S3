@@ -1,18 +1,18 @@
 <div class="page_content">
 
-<h1>Détails de la matière <?php echo htmlspecialchars($mnommatiere).'' ?><a class=bouton href="index.php?controller=matieres&action=readAll">Retour à la liste des matières</a></h1>
+<h1>Détails de l'établissement <?php echo htmlspecialchars($mnomEtablissement).'' ?><a class=bouton href="index.php?controller=etablissements&action=readAll">Retour à la liste des établissements</a></h1>
 <div class="box_center">
 
 <?php   
-    echo '<p>  Code de la matière : '. htmlspecialchars($mcodematiere) .' <br> 
-    Nom de la matière : '. htmlspecialchars($mnommatiere) .' <br>
-    Nom du département : '. htmlspecialchars($mnomDepartement) .' <br>
+    echo '<p>  Code de l\'établissement : '. htmlspecialchars($mcodeEtablissement) .' <br> 
+    Nom de l\'établissement : '. htmlspecialchars($mnomEtablissement) .' <br>
+    Ville de l\'établissement : '. htmlspecialchars($mvilleEtablissement) .' <br>
     
-    <p style="color:#E70739;"> Attention ! Avant de supprimer une matière, il faut que tous les cours de celle-ci soit supprimé avant pour la version Alpha d\'Agora</p> <br>';
+    ';
     
 
-        echo ('<br> <br> <a class= "bouton" href="index.php?controller=matieres&action=update&codeMatiere=' . rawurlencode($mcodematiere) . '" > Modifier les informations de la matière ! </a>');
-        echo ('<br> <br> <a class="bouton_suppr" href="index.php?controller=matieres&action=delete&codeMatiere=' . rawurlencode($mcodematiere) . '" >  Supprimer cette matière !  </a> <br>');
+        echo ('<br> <br> <a class= "bouton" href="index.php?controller=etablissements&action=update&codeEtablissement=' . rawurlencode($mcodeEtablissement) . '" > Modifier les informations de l\'établissement ! </a>');
+        echo ('<br> <br> <a class="bouton_suppr" href="index.php?controller=etablissements&action=delete&codeEtablissement=' . rawurlencode($mcodeEtablissement) . '" >  Supprimer cet établissement !  </a> <br>');
 ?>
 
 </div>

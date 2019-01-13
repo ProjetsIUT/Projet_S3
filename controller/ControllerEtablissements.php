@@ -30,7 +30,7 @@ class ControllerEtablissements extends Controller{
                 if (Session::is_admin()) {
                     $mcodeEtablissement = $m->get('codeEtablissement');
 					$mnomEtablissement = $m->get('nomEtablissement');
-					$mvilleEtablissement = $d->get('villeEtablissement');
+					$mvilleEtablissement = $m->get('villeEtablissement');
 					$view = 'detail';
                     $pagetitle = 'Details de la matière '.$mnomEtablissement;
                     require (File::build_path(array('view', 'view.php')));
