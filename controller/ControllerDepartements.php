@@ -59,17 +59,17 @@ class ControllerDepartements extends Controller{
 	}
 
 	public static function delete() {
-        if(isset($_GET['codeMatiere'])) {
+        if(isset($_GET['codeDepartement'])) {
             if (Session::is_admin()) {
-				$e = ModelMatieres::select($_GET['codeMatiere']);
-				if($e) {
-					ModelMatieres::delete($_GET['codeMatiere']);
+				$d = ModelDepartements::select($_GET['codeDepartement']);
+				if($d) {
+					ModelDepartements::delete($_GET['codeDepartement']);
 					$view = 'deleted';
-					$pagetitle = 'Suppression d\'une matiere';
+					$pagetitle = 'Suppression d\'un departement';
 					require (File::build_path(array('view', 'view.php')));
 				}
 				else {
-                    $error_code = 'delete : codeMatiere inexistant';
+                    $error_code = 'delete : codeDepartement inexistant';
                     $view = 'error';
                     $pagetitle = 'Erreur';
                     require (File::build_path(array('view', 'error.php')));
@@ -83,7 +83,7 @@ class ControllerDepartements extends Controller{
             } 
         }
         else {
-            $error_code = 'delete : codeMatiere vide';
+            $error_code = 'delete : codeDepartement vide';
             $view = 'error';
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
@@ -92,10 +92,10 @@ class ControllerDepartements extends Controller{
 
 	public static function create() {
 		if (Session::is_admin()) {
-			$tab_d = ModelDepartements::selectAll();
-			$type = 'Ajout d\'une matière';
+			$tab_e = ModelEtablissementss::selectAll();
+			$type = 'Ajout d\'un département';
 			$view = 'create';
-			$pagetitle = 'Ajout d\'une matière - Agora';
+			$pagetitle = 'Ajout d\'un département - Agora';
 			require (File::build_path(array('view', 'view.php')));
 		}
 		else {
@@ -106,16 +106,16 @@ class ControllerDepartements extends Controller{
 	}
 
 	public static function created() {
-        if(isset($_GET['nomMatiere']) && isset($_GET['codeDepartement'])) {
+        if(isset($_GET['nomDepartement']) && isset($_GET['codeEtablissement'])) {
 				$data = array(
-					//"codeMatiere" => $_GET['codeMatiere'],
-					"nomMatiere" => $_GET['nomMatiere'],
-					"codeDepartement" => $_GET['codeDepartement'],
+					//"codeDepartement" => $_GET['codeDepartement'],
+					"nomDepartement" => $_GET['nomDepartement'],
+					"codeEtablissement" => $_GET['codeEtablissement'],
 				);
-				$n = new ModelMatieres();
+				$n = new ModelDepartements();
 				$n->save($data);
 				$view = 'created';
-				$pagetitle = 'Matiere crée - Agora';
+				$pagetitle = 'Departement crée - Agora';
 				require (File::build_path(array('view', 'view.php')));                      
         }
         else {
@@ -127,16 +127,17 @@ class ControllerDepartements extends Controller{
 	}
 	
 	public static function update() {
-        if (isset($_GET['codeMatiere'])) {
-            $m = ModelMatieres::select($_GET['codeMatiere']);
-            if($m) {
+        if (isset($_GET['codeDepartement'])) {
+            $d = ModelDepartements::select($_GET['codeDepartement']);
+            if($d) {
                 if (Session::is_admin()) {
-						$mcodematiere = $m->get('codeMatiere');
-						$mnommatiere = $m->get('nomMatiere');
+                        $tab_e = ModelEtablissements::selectAll();
 						$mcodeDepartement = $m->get('codeDepartement');
-                        $type = "Modification des informations de la matiere $mcodematiere";
+                        $mnomDepartement = $m->get('nomDepartement');
+						$mcodeEtablissement = $m->get('codeEtablissement');
+                        $type = "Modification des informations du département $mcodeDepartement";
                         $view = 'update';
-                        $pagetitle = "Mes informations de la matière $mcodematiere";
+                        $pagetitle = "Mes informations du département $mcodeDepartement";
                         require (File::build_path(array('view', 'view.php')));
                 }
                 else {
@@ -146,32 +147,32 @@ class ControllerDepartements extends Controller{
                 } 
             }
             else {
-                $error_code = 'update : matiere inexistante';
+                $error_code = 'update : département inexistante';
                 $pagetitle = 'Erreur';
                 require (File::build_path(array('view', 'error.php')));
             }
         }
         else {
-            $error_code = 'update : codeMatiere vide';
+            $error_code = 'update : codeDepartement vide';
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
         }
 	}
 
 	public static function updated() {
-        if(isset($_GET['codeMatiere']) && isset($_GET['nomMatiere']) && isset($_GET['codeDepartement'])) {
-            $m = ModelMatieres::select($_GET['codeMatiere']);
-            if($m) {
+        if(isset($_GET['codeDepartement']) && isset($_GET['nomDepartement']) && isset($_GET['codeEtablissement'])) {
+            $d = ModelDepartements::select($_GET['codeDepartement']);
+            if($d) {
                 if(Session::is_admin()) {
                     $data = array(
-						"codeMatiere" => $_GET['codeMatiere'],
+						"codeDepartement" => $_GET['codeDepartement'],
 						"nomMatiere" => $_GET['nomMatiere'],
-						"codeDepartement" => $_GET['codedepartement'],
+						"codeEtablissement" => $_GET['codeEtablissement'],
 					);
-					$n = new ModelMatieres();
+					$n = new ModelDepartements();
 					$n->update($data);
 					$view = 'updated';
-					$pagetitle = 'Matiere modifié - Agora';
+					$pagetitle = 'Département modifié - Agora';
 					require (File::build_path(array('view', 'view.php')));                    
 				}
                 else {
@@ -182,7 +183,7 @@ class ControllerDepartements extends Controller{
                 }
             }
             else {
-                $error_code = 'updated : ce codeMatiere est inexistant';
+                $error_code = 'updated : ce codeDepartement est inexistant';
                 $view = 'error';
                 $pagetitle = 'Erreur';
                 require (File::build_path(array('view', 'error.php')));
