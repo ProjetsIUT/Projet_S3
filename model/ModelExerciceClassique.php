@@ -13,13 +13,14 @@ class ModelExerciceClassique extends Model{
     private $nomExercice;
     private $themeExercice;
     private $tempsLimite;
+    private $fichier;
 
  
     private $enonce; 
 
      
 
-    public function __construct($idExercice = NULL, $nomExercice = NULL, $themeExercice = NULL, $tempsLimite = NULL, $enonce = NULL)
+    public function __construct($idExercice = NULL, $nomExercice = NULL, $themeExercice = NULL, $tempsLimite = NULL, $enonce = NULL, $fichier = NULL)
     {
         if(isset($idExercice)){
         
@@ -32,7 +33,9 @@ class ModelExerciceClassique extends Model{
 
             $this->tempsLimite = $tempsLimite;
 
-            $this->enonce = $enonce;               
+            $this->enonce = $enonce;
+
+            if(isset($fichier)) $this->$fichier = $fichier;              
         }
     
     }

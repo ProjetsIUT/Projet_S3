@@ -10,10 +10,12 @@ class ModelEtudiants extends ModelUtilisateurs {
 
 	  protected static $primary = 'loginEtudiant';
   	  protected static $object = 'etudiants';
-  	  
+      
+      private $loginEtudiant;
   	  private $anneeCourantEtudiant;
   	  private $SemestreCourantEtudiant;
-  	  private $codeDepartement;
+      private $codeDepartement;
+      private $moyenneGenerale;
   	 
   public function get($nom_attribut) {
     if (property_exists($this, $nom_attribut))
@@ -30,7 +32,16 @@ class ModelEtudiants extends ModelUtilisateurs {
 
   public function __construct($data = array()) {
 	  if (!empty($data)) {
+      /*
+      $arr = array();
+      $arr = get_class_vars("ModelEtudiants");
 
+      foreach ($arr as $k) {
+        $arr[$k] = $attrib;
+        if(isset($attirb)) {
+          $this->attrib = $data[$k];
+        }
+      } */
 	    $this->anneeCourantEtudiant= $data["anneeCourantEtudiant"];
 	    $this->SemestreCourantEtudiant = $data["SemestreCourantEtudiant"];
 	    $this->codeDepartement=$data["codeDepartement"];
@@ -67,6 +78,21 @@ class ModelEtudiants extends ModelUtilisateurs {
           return $tab;
 
 
+   }
+
+   public static function saveEtud($data = array()) {
+    $sql = "INSERT INTO agora_etudiants (loginEtudiant, anneeCourantEtudiant, SemestreCourantEtudiant, codeDepartement) VALUES (:loginEtudiantt, :anneeCourantEtudiantt, :SemestreCourantEtudiantt, :codeDepartementt)";
+    // Préparation de la requête
+    $req_prep = Model::$pdo->prepare($sql); //permet de protéger la requete SQL
+
+    $values = array(
+      "loginEtudiantt" => $data['loginEtudiant'],
+      "anneeCourantEtudiantt" => $data['anneeCourantEtudiant'],
+      "SemestreCourantEtudiantt" => $data['SemestreCourantEtudiant'],
+      "codeDepartementt" => $data['codeDepartement'],
+    );
+
+    $req_prep->execute($values);
    }
 
 

@@ -1,4 +1,3 @@
-
 <?php
 
 require_once (File::build_path(array('model','Model.php')));
@@ -18,18 +17,38 @@ class ModelUtilisateurs extends Model {
 	  private $nonce;
 
     public function __construct($data = array()) {
-	  if (!empty($data)) {
-	    // If both $m, $c and $i are not NULL, 
-	    // then they must have been supplied
-	    // so fall back to constructor with 3 arguments
-	    $this->loginUtilisateur= $data["loginUtilisateur"];
-	    $this->mdpUtilisateur = $data["mdpUtilisateur"];
-	    $this->prenomUtilisateur=$data["prenomUtilisateur"];
-	    $this->nomUtilisateur=$data["nomUtilisateur"];
-	    $this->emailUtilisateur=$data["emailUtilisateur"];
-	    $this->codeEtablissement=$data["codeEtablissement"];    
-		$this->nonce=$data["nonce"];
-	  	}
+	  	if (!empty($data)) {
+			// If both $m, $c and $i are not NULL, 
+			// then they must have been supplied
+			// so fall back to constructor with 3 arguments
+			if(isset($data["loginUtilisateur"])) {
+				$this->loginUtilisateur= $data["loginUtilisateur"];
+			}
+
+			if(isset($data["prenomUtilisateur"])) {
+				$this->prenomUtilisateur=$data["prenomUtilisateur"];
+			}
+
+			if(isset($data["nomUtilisateur"])) {
+				$this->nomUtilisateur=$data["nomUtilisateur"];
+			}
+
+			if(isset($data["mdpUtilisateur"])) {
+				$this->mdpUtilisateur=$data["mdpUtilisateur"];
+			}
+
+			if(isset($data["emailUtilisateur"])) {
+				$this->emailUtilisateur=$data["emailUtilisateur"];
+			}
+
+			if(isset($data["codeEtablissement"])) {
+				$this->codeEtablissement=$data["codeEtablissement"];
+			}
+			
+			if(isset($data["nonce"])) {
+				$this->nonce=$data["nonce"];
+			}
+		}
    	}
 
 	public function get($nom_attribut) {

@@ -316,16 +316,13 @@ nav li:hover .sous_menu{
   margin-bottom:10px;
 }
 
-#connexion_inscription{
-
-  text-decoration:none;
+#connexion_inscription {
+  text-decoration: none;
   display: inline-block;
   padding: 16px 10px 0px 10px;
-  height:32px;
-  width:170px;
-  color:black;
-
-
+  height: 32px;
+  width: 97px;
+  color: black;
 }
 
 .menu:hover,#connexion_inscription:hover{
@@ -659,7 +656,6 @@ table{
   color:red;
   font-weight: bold;
 }
-
 
 textarea{
 

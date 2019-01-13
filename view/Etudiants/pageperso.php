@@ -7,7 +7,11 @@
 
 				<h3>Bienvenue sur Agora</h3>
 				<br>
-
+				<?php 
+            	if(isset($error_page)) {
+                	echo '<h3 style="color:#E70739;"> '.$error_page.' </h3> <br>';
+            	}
+            	?>
 				<a>Bonjour, <?php echo $_SESSION["prenomUtilisateur"]?></a>
 				<br>
 				<a>Vous utilisez la version Alpha d'Agora. Certaines fonctionnalités ne sont pas encore disponibles.</a>
@@ -102,6 +106,7 @@
 
 
 				<?php
+				
 
 				if($monClassement==-1){
 
@@ -175,10 +180,10 @@
 
 
 				?>
+
 			</div>
 
 		</div>
 
 
 	</div>
-

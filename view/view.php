@@ -20,7 +20,7 @@
 					echo '<a href="index.php?controller=administrateur&action=show_perso_page" id="logo"><img src="img/Agora_logo_final_CR_JulieValentin_redimensionne.png" alt="LogoAgora"> </a>';
 				} 
 				else if (!isset($_SESSION['typeUtilisateur'])){
-					echo '<a href="index.php?controller=Utilisateurs&action=show_login_page" id="logo"><img src="img/Agora_logo_final_CR_JulieValentin_redimensionne.png" alt="LogoAgora"> </a>';
+					echo '<a href="index.php?controller=utilisateurs&action=show_login_page" id="logo"><img src="img/Agora_logo_final_CR_JulieValentin_redimensionne.png" alt="LogoAgora"> </a>';
 				}
 				?>
 				
@@ -30,7 +30,6 @@
 
 						<li class="menu1"><a class="menu" href="index.php?controller=cours&action=list">Cours</a>
 			
-	
 						</li>
 
 						<li class="menu2"><a class="menu">Exercices</a> 
@@ -43,7 +42,6 @@
 							</ul>
 
 						</li>
-
 						
 						<?php
 
@@ -62,6 +60,7 @@
 
 
 						</li>
+
 					
 				</nav>
 

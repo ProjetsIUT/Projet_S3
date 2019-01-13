@@ -16,6 +16,11 @@
                 Note sur 20 : <br />
                 <input type="number" name="note" max=20 min=0>
             </p>
+            <?php
+                if($fichier){
+                    echo'<a href="'.$fichier.'"> Fichier rendus</a> <br>';
+                }
+            ?>
 
             <p>
                 <label for="reponse_id">Commentaires:</label>
