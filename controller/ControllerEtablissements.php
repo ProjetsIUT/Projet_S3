@@ -1,19 +1,19 @@
 <?php
-require_once File::build_path(array('model', 'ModelDepartements.php'));
+;
  
-$path=array('model','ModelMatieres.php');
+$path=array('model','ModelEtablissements.php');
 require_once File::build_path($path);
 
 require_once (File::build_path(array('controller', 'Controller.php'))); 
-class ControllerMatieres extends Controller{
+class ControllerEtablissements extends Controller{
 
-	protected static $object = "matieres";
+	protected static $object = "etablissements";
 	
 	public static function readAll() {
 		if(Session::is_admin()) {
 			$view = 'list';
-			$pagetitle = 'Liste des matières';
-			$tab_m = ModelMatieres::selectAll();
+			$pagetitle = 'Liste des établissements';
+			$tab_e = ModelEtablissements::selectAll();
 			require (File::build_path(array('view', 'view.php')));
 		}
 		else {
@@ -24,16 +24,15 @@ class ControllerMatieres extends Controller{
 	}
 
 	public static function read() {
-        if(isset($_GET['codeMatiere'])) {
-			$m = ModelMatieres::select($_GET['codeMatiere']);
+        if(isset($_GET['codeEtablissement'])) {
+			$m = ModelEtablissements::select($_GET['codeEtablissement']);
             if($m) {
                 if (Session::is_admin()) {
-                    $mcodematiere = $m->get('codeMatiere');
-					$mnommatiere = $m->get('nomMatiere');
-					$d = ModelDepartements::select($m->get('codeDepartement'));
-					$mnomDepartement = $d->get('nomDepartement');
+                    $mcodeEtablissement = $m->get('codeEtablissement');
+					$mnomEtablissement = $m->get('nomEtablissement');
+					$mvilleEtablissement = $d->get('villeEtablissement');
 					$view = 'detail';
-                    $pagetitle = 'Details de la matière '.$mnommatiere;
+                    $pagetitle = 'Details de la matière '.$mnomEtablissement;
                     require (File::build_path(array('view', 'view.php')));
                 }
                 else {
@@ -44,14 +43,14 @@ class ControllerMatieres extends Controller{
                 }
             }
             else {
-                $error_code = 'read : codeMatiere inexistant';
+                $error_code = 'read : codeEtablissement inexistant';
                 $view = 'error';
                 $pagetitle = 'Erreur';
                 require (File::build_path(array('view', 'error.php')));
             }
         }
         else {
-            $error_code = 'read : codeMatiere vide';
+            $error_code = 'read : codeEtablissement vide';
             $view = 'error';
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
@@ -59,17 +58,17 @@ class ControllerMatieres extends Controller{
 	}
 
 	public static function delete() {
-        if(isset($_GET['codeMatiere'])) {
+        if(isset($_GET['codeEtablissement'])) {
             if (Session::is_admin()) {
-				$e = ModelMatieres::select($_GET['codeMatiere']);
+				$e = ModelEtablissements::select($_GET['codeEtablissement']);
 				if($e) {
-					ModelMatieres::delete($_GET['codeMatiere']);
+					ModelEtablissements::delete($_GET['codeEtablissement']);
 					$view = 'deleted';
-					$pagetitle = 'Suppression d\'une matiere';
+					$pagetitle = 'Suppression d\'un établissement';
 					require (File::build_path(array('view', 'view.php')));
 				}
 				else {
-                    $error_code = 'delete : codeMatiere inexistant';
+                    $error_code = 'delete : codeEtablissement inexistant';
                     $view = 'error';
                     $pagetitle = 'Erreur';
                     require (File::build_path(array('view', 'error.php')));
@@ -83,7 +82,7 @@ class ControllerMatieres extends Controller{
             } 
         }
         else {
-            $error_code = 'delete : codeMatiere vide';
+            $error_code = 'delete : codeEtablissement vide';
             $view = 'error';
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
@@ -92,27 +91,26 @@ class ControllerMatieres extends Controller{
 
 	public static function create() {
 		if (Session::is_admin()) {
-			$tab_d = ModelDepartements::selectAll();
-			$type = 'Ajout d\'une matière';
+			$type = 'Ajout d\'un établissement';
 			$view = 'create';
-			$pagetitle = 'Ajout d\'une matière - Agora';
+			$pagetitle = 'Ajout d\'un établissement - Agora';
 			require (File::build_path(array('view', 'view.php')));
 		}
 		else {
-            $error_code = 'Impossible de créer une matière';
+            $error_code = 'Impossible de créer un établissement';
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
         }
 	}
 
 	public static function created() {
-        if(isset($_GET['nomMatiere']) && isset($_GET['codeDepartement'])) {
+        if(isset($_GET['nomEtablissement']) && isset($_GET['villeEtablissement'])) {
 				$data = array(
-					//"codeMatiere" => $_GET['codeMatiere'],
-					"nomMatiere" => $_GET['nomMatiere'],
-					"codeDepartement" => $_GET['codeDepartement'],
+					//"codeEtablissement" => $_GET['codeEtablissement'],
+					"nomEtablissement" => $_GET['nomEtablissement'],
+					"villeEtablissement" => $_GET['villeEtablissement'],
 				);
-				$n = new ModelMatieres();
+				$n = new ModelEtablissements();
 				$n->save($data);
 				$view = 'created';
 				$pagetitle = 'Matiere crée - Agora';
@@ -127,16 +125,16 @@ class ControllerMatieres extends Controller{
 	}
 	
 	public static function update() {
-        if (isset($_GET['codeMatiere'])) {
-            $m = ModelMatieres::select($_GET['codeMatiere']);
+        if (isset($_GET['codeEtablissement'])) {
+            $m = ModelEtablissements::select($_GET['codeEtablissement']);
             if($m) {
                 if (Session::is_admin()) {
-						$mcodematiere = $m->get('codeMatiere');
-						$mnommatiere = $m->get('nomMatiere');
-						$mcodeDepartement = $m->get('codeDepartement');
-                        $type = "Modification des informations de la matiere $mcodematiere";
+						$mcodeEtablissement = $m->get('codeEtablissement');
+						$mnomEtablissement = $m->get('nomEtablissement');
+						$mvilleEtablissement = $m->get('villeEtablissement');
+                        $type = "Modification des informations de l'établissement $mcodeEtablissement";
                         $view = 'update';
-                        $pagetitle = "Mes informations de la matière $mcodematiere";
+                        $pagetitle = "Mes informations de l'etablissement $mcodeEtablissement";
                         require (File::build_path(array('view', 'view.php')));
                 }
                 else {
@@ -146,32 +144,32 @@ class ControllerMatieres extends Controller{
                 } 
             }
             else {
-                $error_code = 'update : matiere inexistante';
+                $error_code = 'update : etablissement inexistant';
                 $pagetitle = 'Erreur';
                 require (File::build_path(array('view', 'error.php')));
             }
         }
         else {
-            $error_code = 'update : codeMatiere vide';
+            $error_code = 'update : codeEtablissement vide';
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
         }
 	}
 
 	public static function updated() {
-        if(isset($_GET['codeMatiere']) && isset($_GET['nomMatiere']) && isset($_GET['codeDepartement'])) {
-            $m = ModelMatieres::select($_GET['codeMatiere']);
+        if(isset($_GET['codeEtablissement']) && isset($_GET['nomEtablissement']) && isset($_GET['villeEtablissement'])) {
+            $m = ModelEtablissements::select($_GET['codeEtablissement']);
             if($m) {
                 if(Session::is_admin()) {
                     $data = array(
-						"codeMatiere" => $_GET['codeMatiere'],
-						"nomMatiere" => $_GET['nomMatiere'],
-						"codeDepartement" => $_GET['codedepartement'],
+						"codeEtablissement" => $_GET['codeEtablissement'],
+						"nomEtablissement" => $_GET['nomEtablissement'],
+						"villeEtablissement" => $_GET['villeEtablissement'],
 					);
-					$n = new ModelMatieres();
+					$n = new ModelEtablissements();
 					$n->update($data);
 					$view = 'updated';
-					$pagetitle = 'Matiere modifié - Agora';
+					$pagetitle = 'Etablissement modifié - Agora';
 					require (File::build_path(array('view', 'view.php')));                    
 				}
                 else {
@@ -182,7 +180,7 @@ class ControllerMatieres extends Controller{
                 }
             }
             else {
-                $error_code = 'updated : ce codeMatiere est inexistant';
+                $error_code = 'updated : ce codeEtablissement est inexistant';
                 $view = 'error';
                 $pagetitle = 'Erreur';
                 require (File::build_path(array('view', 'error.php')));
