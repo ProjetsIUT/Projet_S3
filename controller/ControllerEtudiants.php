@@ -6,7 +6,7 @@ require_once File::build_path($path);
 
 $path=array('model','ModelNotes.php');
 require_once File::build_path($path);
-require_once File::build_path(array('model', 'ModelDepartements.php'));
+
 $path=array('model','ModelQCM.php');
 require_once File::build_path($path);
 
@@ -89,7 +89,6 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 	
 	public static function create_info_etud() {
 		if (Session::is_admin()) {
-            $tab_d = ModelDepartements::selectAll();
 			$type = 'Ajout d\'un étudiant';
 			$view = 'create_info_etud';
 			$pagetitle = 'Ajout d\'un utilisateur - 2/2 - Agora';
@@ -103,114 +102,31 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 	}
 
 	public static function created_info_etud() {
-            if(isset($_GET['loginEtudiant']) && isset($_GET['anneencours']) && isset($_GET['codedepartement']) && isset($_GET['semestreencours'])) {
-                $u = ModelEtudiants::select($_GET['loginEtudiant']);
-                if($u == false) {
-                    if(Session::is_admin()) {
-                        $data = array(
-                            "loginEtudiant" => $_GET['loginEtudiant'],
-                            "anneeCourantEtudiant" => $_GET['anneencours'],
-                            "SemestreCourantEtudiant" => $_GET['semestreencours'],
-                            "codeDepartement" => $_GET['codedepartement'],
-                        );
-                        $e = new ModelEtudiants();
-                        $e->save($data);
-                        $view = 'created_info_etud';
-                        $pagetitle = 'Compte crée - Agora';
-                        require (File::build_path(array('view', 'view.php')));
-                    }
-                    else {
-                        $error_code = 'created_info_etud : vous disposez pas des droits suffisant pour accéder à cette page';
-                        $view = 'error';
-                        $pagetitle = 'Erreur';
-                        require (File::build_path(array('view', 'error.php')));
-                    }                    
-                }
-                else {
-                    $type = 'Ajout';
-                    $tab_d = ModelDepartements::selectAll();
-                    $verif = 'Ce nom d\'étudiant existe déja';
-                    $view = 'update';
-                    $pagetitle = 'Ajout d\'un utilisateur - 2/2 - Agora';
-                    require (File::build_path(array('view', 'view.php')));                    
-                }  
-            }
-            else {
-                $error_code = 'created_info_etud : l\'un des champs est vide';
-                $view = 'error';
-                $pagetitle = 'Erreur';
-                require (File::build_path(array('view', 'error.php')));
-            }
-	}
-	
-	public static function update_info_etud() {
-        if (isset($_GET['loginEtudiant'])) {
-            $u = ModelEtudiants::select($_GET['loginEtudiant']);
-            if($u) {
-                if (Session::is_admin()) {
-                        $tab_d = ModelDepartements::selectAll();
-						$ulogin = $_GET['loginEtudiant'];
-						$usemestre = $u->get('SemestreCourantEtudiant');
-						$ucodedepartement = $u->get('codeDepartement');
-						$uanneencours = $u->get('anneeCourantEtudiant');
-                        $type = "Modification des informations universitaire de l'étudiant $ulogin";
-                        $view = 'update_info_etud';
-                        $pagetitle = 'Mes informations personnelles';
-                        require (File::build_path(array('view', 'view.php')));
-                }
-                else {
-                    $error_code = 'update : vous n\'avez pas accès à ces données';
-                    $pagetitle = 'Erreur';
-                    require (File::build_path(array('view', 'error.php')));
-                } 
-            }
-            else {
-                $error_code = 'update : etudiant inexistant';
-                $pagetitle = 'Erreur';
-                require (File::build_path(array('view', 'error.php')));
-            }
-        }
-        else {
-            $error_code = 'update : loginEtudiant vide';
-            $pagetitle = 'Erreur';
-            require (File::build_path(array('view', 'error.php')));
-        }
-	}
-
-	public static function updated_info_etud() {
         if(isset($_GET['loginEtudiant']) && isset($_GET['anneencours']) && isset($_GET['codedepartement']) && isset($_GET['semestreencours'])) {
             $u = ModelEtudiants::select($_GET['loginEtudiant']);
-            if($u) {
-                if(Session::is_admin()) {
-                    $view = 'updated_info_etud';
-                    $pagetitle = 'Etudiant ajouté';
-                    $data = array(
-						"loginEtudiant" => $_GET['loginEtudiant'],
-						"anneeCourantEtudiant" => $_GET['anneencours'],
-						"SemestreCourantEtudiant" => $_GET['semestreencours'],
-						"codeDepartement" => $_GET['codedepartement'],
-					);
-                    $u = new ModelEtudiants();
-                    $u->update($data);
-                    require (File::build_path(array('view', 'view.php')));
-                }
-                else {
-                    $error_code = 'updated : Vous ne pouvez pas avoir accès à ces informations';
-                    $view = 'error';
-                    $pagetitle = 'Erreur';
-                    require (File::build_path(array('view', 'error.php')));
-                }
-            }
-            else {
-                $error_code = 'updated : ce loginEtudiant est inexistant';
-                $view = 'error';
-                $pagetitle = 'Erreur';
-                require (File::build_path(array('view', 'error.php')));
-            }
-
+            if($u == false) {
+				$data = array(
+					"loginEtudiant" => $_GET['loginEtudiant'],
+					"anneeCourantEtudiant" => $_GET['anneencours'],
+					"SemestreCourantEtudiant" => $_GET['semestreencours'],
+					"codeDepartement" => $_GET['codedepartement'],
+				);
+				$e = new ModelEtudiants();
+				$e->saveEtud($data);
+				$view = 'created_info_etud';
+				$pagetitle = 'Compte crée - Agora';
+				require (File::build_path(array('view', 'view.php')));                    
+			}
+			else {
+                $type = 'Ajout';
+                $verif = 'Ce nom d\'étudiant existe déja';
+                $view = 'update';
+                $pagetitle = 'Ajout d\'un utilisateur - 2/2 - Agora';
+                require (File::build_path(array('view', 'view.php')));                    
+            }  
         }
         else {
-            $error_code = 'updated : l\'un des champs est vide';
+            $error_code = 'created_info_etud : l\'un des champs est vide';
             $view = 'error';
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
@@ -218,17 +134,10 @@ class ControllerEtudiants extends ControllerUtilisateurs{
     }
 
 	public static function readAll() {
-		if(Session::is_admin()) {
-			$view = 'list';
-			$pagetitle = 'Liste étudiante';
-			$tab_u = ModelEtudiants::selectAll();
-			require (File::build_path(array('view', 'view.php')));
-		}
-		else {
-			$pagetitle = 'Erreur';
-			$error_code = 'readAll : vous ne disposez pas des droits necessaires pour accéder à cette liste';
-			require (File::build_path(array('view', 'error.php')));
-		}
+		$view = 'list';
+		$pagetitle = 'Liste étudiante';
+		$tab_u = ModelEtudiants::selectAll();
+		require (File::build_path(array('view', 'view.php')));
 	}
 
 	public static function read() {
@@ -241,9 +150,8 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 					$ulogin = $u->get('loginEtudiant');
 					$unom = $ut->get('nomUtilisateur');
 					$uprenom = $ut->get('prenomUtilisateur');
-                    $uace = $u->get('anneeCourantEtudiant');
-                    $d = ModelDepartements::select($u->get('codeDepartement'));
-                    $ucd = $d->get('nomDepartement');
+					$uace = $u->get('anneeCourantEtudiant');
+                    $ucd = $u->get('codeDepartement');
                     $usce = $u->get('SemestreCourantEtudiant');
 					$view = 'detail';
 					if(Session::is_user($_GET['loginEtudiant'])) {
@@ -282,7 +190,7 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 					ModelEtudiants::delete($_GET['loginEtudiant']);
 					$view = 'deleted';
 					$pagetitle = 'Suppression d\'un utilisateur';
-					if(Session::is_user($_GET['loginEtudiant'])) {
+					if(Session::is_user($_GET['loginUtilisateur'])) {
 						self::deconnect();
 					}
 					require (File::build_path(array('view', 'view.php')));

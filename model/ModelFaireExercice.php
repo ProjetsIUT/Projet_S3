@@ -31,14 +31,12 @@ class ModelFaireExercice extends Model{
       return $this->correction;
     }
 
-    // Getter générique (pas expliqué en TD)
   public function get($nom_attribut) {
     if (property_exists($this, $nom_attribut))
         return $this->$nom_attribut;
     return false;
   }
 
-  // Setter générique (pas expliqué en TD)
   public function set($nom_attribut, $valeur) {
     if (property_exists($this, $nom_attribut))
         $this->$nom_attribut = $valeur;
@@ -101,7 +99,7 @@ class ModelFaireExercice extends Model{
       JOIN agora_ExerciceClassique e ON e.idExercice = f.idExercice 
       JOIN agora_cours c ON e.themeExercice = c.codeCours 
       JOIN agora_matieres m ON c.codeMatiere = m.codeMatiere
-      JOIN agora_enseigner ens ON ens.codeMatiere = ens.codeMatiere 
+      JOIN agora_enseigner ens ON ens.codeMatiere = m.codeMatiere 
       WHERE codeEnseignant=:val1 AND f.correction is NULL";
 
       // Préparation de la requête
@@ -121,6 +119,38 @@ class ModelFaireExercice extends Model{
         return false;
       return $tab_obj[0];
 
+    }
+
+
+    public static function getAllByEnseignant(){
+
+      $login = $_SESSION['loginUtilisateur'];
+
+           $class_name = 'Model'.ucfirst(static::$object);
+
+      $sql = "SELECT DISTINCT f.idExercice, f.loginEtudiant, f.reponse, f.date, f.correction from agora_faireExercice f 
+      JOIN agora_ExerciceClassique e ON e.idExercice = f.idExercice 
+      JOIN agora_cours c ON e.themeExercice = c.codeCours 
+      JOIN agora_matieres m ON c.codeMatiere = m.codeMatiere
+      JOIN agora_enseigner ens ON ens.codeMatiere = m.codeMatiere 
+      WHERE codeEnseignant=:val1 AND f.correction is NULL";
+
+      // Préparation de la requête
+      $req_prep = Model::$pdo->prepare($sql); //permet de protéger la requete SQL
+            
+      $values = array(
+        "val1" => $login,
+      );
+
+      $req_prep->execute($values);
+
+      // On récupère les résultats comme précédemment
+      $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
+      $tab_obj = $req_prep->fetchAll();
+      // Attention, si il n'y a pas de résultats, on renvoie false
+      if (empty($tab_obj))
+        return false;
+      return $tab_obj;
     }
 
   }

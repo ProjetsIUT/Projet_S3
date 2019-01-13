@@ -30,9 +30,29 @@
 
 
 	 		<br>
-			<a>Moyenne générale actuelle: <?php echo $moyenneGenerale ."/20         " ;?></a>
-			<br>
-			<a>Mon classement: <?php echo $monClassement . ' sur ' . $taillePromo .' étudiants';?></a>
+
+	 		<?php 
+
+	 			if($monClassement==-1){
+
+	 				echo '<a> Vous n\'avez pas encore de statistiques </a> <br> ';
+	 			}else{
+
+	 				echo '
+
+	 						<a>Moyenne générale actuelle:' . $moyenneGenerale . '/20</a>
+							<br>
+							<a>Mon classement:' . $monClassement . ' sur ' . $taillePromo .' étudiants</a>
+
+
+
+	 				';
+
+	 			}
+
+	 		?>
+
+		
 
 	 	
 	 		<br>
@@ -40,7 +60,15 @@
 			<img class="graph" src="./view/Notes/graphes/moyenne.php">
 			<br>
 
-			<img class="graph" src="./view/Notes/graphes/moyennesMatieres.php">
+			<?php 
+
+	 			if($monClassement!=-1){
+
+	 				echo '<img class="graph" src="./view/Notes/graphes/moyennesMatieres.php">';
+	 			}
+
+	 		?>
+	
 
 
 	<div>

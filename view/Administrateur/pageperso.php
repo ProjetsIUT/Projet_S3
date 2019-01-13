@@ -27,19 +27,6 @@
             <a href="index.php?controller=etablissements&action=readAll" class="bouton"> Gérer les établissements</a>
         </div>
 
-        <div class="tab" id="tab_compte">
-			<h3> Mon compte </h3>
-			<?php
-			echo '
-			<br>
-			<a class="bouton" href="./index.php?controller=utilisateurs&action=read&loginUtilisateur='.htmlspecialchars($_SESSION['loginUtilisateur']).'"> Consulter mes informations personnelles</a>
-			<br>
-			<br>
-			<a class="bouton" href="./index.php?controller=utilisateurs&action=changemdp&loginUtilisateur='.htmlspecialchars($_SESSION['loginUtilisateur']).'"> Changer mon mot de passe </a>
-			</div>';
-				?>
-		</div>
-
 
 
     </div>

@@ -42,9 +42,7 @@ class ControllerQCM extends Controller{
 	 		$q->save($data);
 		}
 
-		$view="created";
-		$pagetitle="Votre QCM a été enregistré - Agora";
-        require (File::build_path(array('view', 'view.php')));
+		header('Location: ./index.php?controller=QCM&action=list');
 	}
 
 

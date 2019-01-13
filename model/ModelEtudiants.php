@@ -32,20 +32,20 @@ class ModelEtudiants extends ModelUtilisateurs {
 
   public function __construct($data = array()) {
 	  if (!empty($data)) {
-      
+      /*
       $arr = array();
       $arr = get_class_vars("ModelEtudiants");
 
       foreach ($arr as $k) {
         $arr[$k] = $attrib;
-        if(isset($attrib)) {
+        if(isset($attirb)) {
           $this->attrib = $data[$k];
         }
-      } 
-	    //$this->anneeCourantEtudiant= $data["anneeCourantEtudiant"];
-	    //$this->SemestreCourantEtudiant = $data["SemestreCourantEtudiant"];
-	    //$this->codeDepartement=$data["codeDepartement"];
-	    //$this->moyenneGenerale=$data["moyenneGenerale"];
+      } */
+	    $this->anneeCourantEtudiant= $data["anneeCourantEtudiant"];
+	    $this->SemestreCourantEtudiant = $data["SemestreCourantEtudiant"];
+	    $this->codeDepartement=$data["codeDepartement"];
+	    $this->moyenneGenerale=$data["moyenneGenerale"];
 
 	  	}
    }

@@ -4,9 +4,8 @@
 require_once (File::build_path(array('model','ModelExerciceClassique.php')));
 require_once (File::build_path(array('model','ModelCours.php')));
 require_once (File::build_path(array('model','ModelFaireExercice.php')));
-require_once (File::build_path(array('controller', 'Controller.php'))); 
 
-Class ControllerExerciceClassique extends Controller {
+Class ControllerExerciceClassique {
     
     protected static $object = 'ExerciceClassique';
     
@@ -193,7 +192,7 @@ Class ControllerExerciceClassique extends Controller {
             $pagetitle="Erreur - Agora";
             require (File::build_path(array('view', 'error.php')));
         }else{
-        $tab = ModelFaireExercice::selectByEnseignant($_SESSION['loginUtilisateur']);
+        $tab = ModelFaireExercice::getAllByEnseignant();
         
         $view="listCorriger";
         $pagetitle="Mes Exercices - Agora";
