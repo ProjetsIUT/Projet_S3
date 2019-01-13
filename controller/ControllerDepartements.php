@@ -25,15 +25,15 @@ class ControllerDepartements extends Controller{
 
 	public static function read() {
         if(isset($_GET['codeDepartement'])) {
-			$m = ModelMatieres::select($_GET['codeDepartement']);
+			$m = ModelDepartements::select($_GET['codeDepartement']);
             if($m) {
                 if (Session::is_admin()) {
-                    $mcodematiere = $m->get('codeMatiere');
-					$mnommatiere = $m->get('nomMatiere');
-					$d = ModelDepartements::select($m->get('codeDepartement'));
-					$mnomDepartement = $d->get('nomDepartement');
+                    $mcodeDepartement = $m->get('codeDepartement');
+					$mnomDepartement = $m->get('nomMDepartement');
+					$e = ModelEtablissements::select($m->get('codeEtablissement'));
+					$mnomEtablissement = $d->get('nomEtablissement');
 					$view = 'detail';
-                    $pagetitle = 'Details de la matière '.$mnommatiere;
+                    $pagetitle = 'Details du département '.$mnomDepartement;
                     require (File::build_path(array('view', 'view.php')));
                 }
                 else {
@@ -44,14 +44,14 @@ class ControllerDepartements extends Controller{
                 }
             }
             else {
-                $error_code = 'read : codeMatiere inexistant';
+                $error_code = 'read : codeDepartement inexistant';
                 $view = 'error';
                 $pagetitle = 'Erreur';
                 require (File::build_path(array('view', 'error.php')));
             }
         }
         else {
-            $error_code = 'read : codeMatiere vide';
+            $error_code = 'read : codeDepartement vide';
             $view = 'error';
             $pagetitle = 'Erreur';
             require (File::build_path(array('view', 'error.php')));
