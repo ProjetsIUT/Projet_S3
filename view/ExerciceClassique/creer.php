@@ -1,16 +1,16 @@
 
         <form method="post" action="index.php?" enctype="multipart/form-data" id="formulaire_ajouterqcm">
             
-            <p>Nouvel exercice</p>
+            <p>Créer un nouvel exercice :</p>
 		          <div id="part_form">
-                    <p class="p_form">Nom de l'exercice</p>
+                    <p>Nom de l'exercice</p>
                     <input type="text" name="nomExercice"  required/> <br>
 		
 
         
-                   <p class="p_form">Thème</p>
+                   <p>Thème</p>
                     <a>Le thème correspond à un cours enregistré dans une des matières que vous enseignez</a>
-                    <br>
+                    <br> <br>
 
                     <?php 
 
@@ -53,18 +53,18 @@
 
 		
                 
-                    <p class="p_form" for='tempsLimite_id'>Choisir une date limite de rendu</p>
+                    <p for='tempsLimite_id'>Choisir une date limite de rendu</p>
                     <input type="date" name="tempsLimite" id="tempsLimite_id" />
                     <br>
                 
                 
-                    <p class="p_form" for="enonce_id">Ennoncé de l'exercice</p>
+                    <p for="enonce_id">Ennoncé de l'exercice</p>
                     <textarea name="enonce" required></textarea>
                     <br>
                 
                 
 
-                    <p class="p_form">Fichier de Correction (pdf) </p>
+                    <p>Fichier de Correction (pdf) </p>
 
                     <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
                     <input type="file" name="correction" id="correction_id">

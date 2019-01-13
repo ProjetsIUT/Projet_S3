@@ -1,6 +1,6 @@
 <div class="page_content">
 
-	<h1>Statistiques <a href="./index.php?controller=notes&action=list" class="bouton"> Voir les notes des étudiants</a></h1>
+	<h1>Statistiques</h1>
 
 	<div class="box_center">
 
@@ -27,7 +27,7 @@
 
 				<select name="codeMatiere" required onchange="document.getElementById('filtres').submit();" />
 
-						<option value="all" disabled selected>Matiere</option>
+						<option value="" disabled selected>Matiere</option>
 						<option value="all">Voir tout</option>
 
 
@@ -141,20 +141,7 @@
 					<br>
 					<br>
 					<label>Intervalle en jours:</label>
-
-					<?php
-
-						if(isset($_GET['intervalle'])){
-
-							$i = $_GET['intervalle'];
-						}else{
-
-							$i=7;
-						}
-
-					?>
-
-					<input id="input_intervalle" value=<?php echo '"'.$i.'"';?> type=number min=1 max=365 name="intervalle" required onchange="document.getElementById('filtres').submit();">
+					<input id="input_intervalle" value="7" type=number min=1 max=365 name="intervalle" required onchange="document.getElementById('filtres').submit();">
 
 		</form>
 
@@ -175,7 +162,7 @@
 
 		 					echo'	
 
-		 						<a>Moyenne de l\'étudiant '.$_GET['codeEtudiant'].' au cours '. $nomCours . '</a>
+		 						<a>Moyenne de l\'étudiant '.$_GET['codeEtudiant'].' au cours '. $nomCours . '
 		 						<br>
 		 						<img class="graph" src="./view/Notes/graphes/moyenneCours.php">
 		 						<br>';
@@ -192,7 +179,7 @@
 		 					echo'	
 
 
-		 						<a>Moyenne de l\'étudiant '.$_GET['codeEtudiant'].' en '. $nomMatiere . '</a>
+		 						<a>Moyenne de l\'étudiant '.$_GET['codeEtudiant'].' en '. $nomMatiere . '
 		 						<br>
 		 						<img class="graph" src="./view/Notes/graphes/moyennesMatieres.php">
 		 						<br>';
@@ -211,7 +198,7 @@
 
 		 			echo'	
 
-		 				<a>Moyenne générale de la promotion au cours '.$nomCours .'</a>
+		 				<a>Moyenne générale de la promotion au cours '.$nomCours .'
 		 				<br>
 		 				<img class="graph" src="./view/Notes/graphes/moyenneCours.php">
 		 				<br>';
@@ -221,7 +208,7 @@
 
 		 			echo'	
 
-		 				<a>Moyenne générale de la promotion dans toutes les matières</a>
+		 				<a>Moyenne générale de la promotion dans toutes les matières
 		 				<br>
 		 				<img class="graph" src="./view/Notes/graphes/moyennesMatieres.php">
 		 				<br>';
@@ -240,7 +227,7 @@
 
 		 			echo'	
 
-		 				<a>Moyenne générale de la promotion en '.$nomMatiere .'</a>
+		 				<a>Moyenne générale de la promotion en '.$nomMatiere .'
 		 				<br>
 		 				<img class="graph" src="./view/Notes/graphes/moyennesMatieres.php">
 		 				<br>';
@@ -248,7 +235,7 @@
 		 			}else{
 
 		 				echo'
-		 				<a>Moyenne générale de la promotion dans toutes les matières</a>
+		 				<a>Moyenne générale de la promotion dans toutes les matières
 		 				<br>
 		 				<img class="graph" src="./view/Notes/graphes/moyennesMatieres.php">
 		 				<br>';
@@ -262,7 +249,7 @@
 
 		 			echo'	
 
-		 				<a>Moyenne générale de l\'étudiant '.$_GET['codeEtudiant'].'</a>
+		 				<a>Moyenne générale de l\'étudiant '.$_GET['codeEtudiant'].'
 		 				<br>
 		 				<img class="graph" src="./view/Notes/graphes/moyenne.php">
 		 				<br>';

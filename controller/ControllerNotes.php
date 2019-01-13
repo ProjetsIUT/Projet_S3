@@ -30,7 +30,7 @@ class ControllerNotes extends Controller {
 
 			if(!isset($_GET['codeMatiere']) || $_GET['codeMatiere'] === 'all'){
 
-
+ 
 				$tab_notes=ModelNotes::selectByEtud();
 
 				if(!$tab_notes){
@@ -84,56 +84,7 @@ class ControllerNotes extends Controller {
 				$matiere=ModelMatieres::select($codeMatiere_enseig);
 				array_push($tab_nomMatieres_enseig,$matiere->get("nomMatiere"));
 			}
-
-
-			if(!isset($_GET['codeMatiere']) || $_GET['codeMatiere'] === 'all'){
-
-
-				$tab_codes_notes=ModelNotes::getAllByEnseignant();
-				
-				if($tab_codes_notes) {
-					$tab_notes=array();
-					foreach($tab_codes_notes as $code){
-						$note=ModelNotes::select($code);
-						array_push($tab_notes,$note);
-					}
-					
-				}
-				else {
-					$verif = 'Il n\'y a aucune notes pour cette matière';
-				}
-
-				if(!$tab_notes){
-
-					header('Location: ./index.php');
-				}
-
-				$tab_notes=array_reverse($tab_notes);
-				$nomM = 'Matieres';
-				$verif = 'Il n\'y a aucune notes';
-			}
-			else if(isset($_GET['codeMatiere'])) {
-				$m = ModelMatieres::select($_GET['codeMatiere']);
-				
-				if($m) {
-					$nomM = $m->get('nomMatiere');
-				}
-				else {
-					$nomM = 'Matieres';
-				}
-				$tab_codes_notes=ModelNotes::getNotesByMatieresAndEnseignant($_GET['codeMatiere']);
-				if($tab_codes_notes) {
-					$tab_notes=array();
-					foreach($tab_codes_notes as $code){
-						$note=ModelNotes::select($code);
-						array_push($tab_notes,$note);
-					}
-					
-				}
-				else {
-					$verif = 'Il n\'y a aucune notes pour cette matière';
-				}
-			}
+			$tab_notes=ModelNotes::selectAll();
  			$view='list';
         	$pagetitle="Relevé de notes des etudiants- Agora";
         	require (File::build_path(array('view', 'view.php')));
@@ -207,8 +158,11 @@ class ControllerNotes extends Controller {
 						}else{
 
 							$tab_codesMatieres=ModelMatieres::getAllByEnseignant();
-						
+							var_dump($tab_codesMatieres); 
+
 						}
+
+						
 
 						$tab_noms_matieres=array();
 						$tab_moyennes= array();

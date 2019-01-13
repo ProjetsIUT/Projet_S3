@@ -11,10 +11,12 @@
 			}
 			else if(isset($code_connect_failed) && $code_connect_failed === 'error_compte_invalide') {
 				echo '<a style="color:#E70739;">Vous n\'avez pas validé votre email</a>';
-			} 
-			
+			}
+			else {
+				echo '<a style="color:#6e0000;">Bienvenue sur Agora</a>';
+			}
 			?>
-		 
+			<br>
 			<br>
 			<div id="part_form">
 				<input type="hidden" name="controller" value="utilisateurs" />
@@ -28,7 +30,7 @@
 			<input type="submit" value="Se connecter"/>
 			<br>
 			<br>
-			<a class="password" href="index.php?action=mdp_oublie&controller=utilisateurs">Mot de passe oublié ?</a>
+			<a href="index.php?action=mdp_oublie&controller=utilisateurs">Mot de passe oublié ?</a>
 		</form>
 </article>
 

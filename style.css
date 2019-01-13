@@ -88,47 +88,24 @@ html{
     background-attachment: fixed;
 }
 
+body{
 
-#html_etudiant{
+  background-image:url("img/fond-1.jpg");
+  background-size: 100%;
+
+}
+
+
+#page_perso_etudiants{
 
     background-image:url("img/fond-2.jpg");
    
 }
 
-#html_enseignant{
+#page_perso_enseignants{
 
     background-image:url("img/fond-3.jpg");
    
-}
-
-#html_background_1{
-
-      background-image:url("img/fond-1.jpg");
-
-}
-
-#html_background_2{
-
-      background-image:url("img/fond-2.jpg");
-
-}
-
-#html_background_3{
-
-      background-image:url("img/fond-3.jpg");
-
-}
-
-#html_background_4{
-
-      background-image:url("img/fond-4.jpg");
-
-}
-
-#html_background_5{
-
-      background-image:url("img/fond-5.jpg");
-
 }
 
 
@@ -182,29 +159,7 @@ html{
   background-color: rgba(130, 161, 192, 0.9);
   color:white;
   padding-top:10px;
-  margin-top: 150px;
-  margin-bottom: 150px;
 
-
-
-}
-
-#input_enonce{
-
-  margin-bottom:10px;
-  color:blue;
-
-}
-
-#label_proposition_correcte{ 
-
-  margin-top:10px;
-
-}
-
-.p_form{
-
-  font-weight:bold;
 
 }
 
@@ -230,11 +185,6 @@ form>p{
   
 
 
-}
-
-#select_theme{
-
-  width: 397px;
 }
 
 
@@ -363,8 +313,7 @@ nav li:hover .sous_menu{
 .graph{
 
   border-radius:10px;
-  margin-top:15px;
-  margin-bottom: 15px;
+  margin-bottom:10px;
 }
 
 #connexion_inscription {
@@ -489,49 +438,6 @@ footer{
 
 }
 
-.panel{
-
-  margin-top:20px;
-
-}
-
-.panel_box{
-
-  margin-top:20px;
-  border:1px solid;
-  border-color:#0201014d;
-  border-radius:7px;
-  padding:5px;
-
-
-}
-
-.bouton_panel{
-
-    padding: 5px 0px;
-    background-color: #fff3;
-    border-radius: 7px;
-    text-align: center;
-    transition-duration: 0.5s;
-    text-decoration: none;
-    color:black;
-
-}
-
-.bouton_panel:hover{
-
-    background-color:#ff7e004d;;
-    cursor:pointer;
-
-
-}
-
-.icones_right{
-
-  float: right;
-  margin-left: 10px;
-}
-
 .tab:hover{
   
   width: 420px;
@@ -542,21 +448,6 @@ footer{
 .tab:hover ~ a{
   
   color:red;
-
-}
-
-.theme{
-
-  margin-top:150px;
-}
-
-.cours_public{
-
-  float: right;
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
-  font-style: italic;
 
 }
 
@@ -579,19 +470,17 @@ footer{
 
 .div_list:hover{
   
-  width: 420px;
-  height: 320px;
+  padding-left:20px;
+  padding-right:20px;
+  padding-bottom:20px;
 
 }
 
 .box_center{
 
   margin: 20px 26px 0px 26px;
- /* background-color: rgba(130, 161, 192, 0.9);*/
-  background-color:rgba(126, 143, 160, 0.9);
+  background-color: rgba(130, 161, 192, 0.9);
   padding:20px;
-  border-radius:7px;
-  margin-bottom:50px;
 }
 
 
@@ -770,8 +659,8 @@ table{
 
 textarea{
 
-  width:280px;
-  height:130px;
+  width:50% ;
+  height:50%;
 }
 
 form{
@@ -779,10 +668,3 @@ form{
   border-radius: 7px;
 }
 
-.password{
-
-  text-decoration: none;
-  color:white;
-  font-style:italic;
-
-}

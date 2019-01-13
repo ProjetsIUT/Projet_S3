@@ -16,33 +16,33 @@
 
 
 
-				<p>Nouveau QCM</p>
+				<p>Formulaire de création de QCM</p>
 
 
 
 					<?php
 
-						echo('<a class="p_form">Nom du QCM : '.$_GET['nom'].'</a><br><br>');
+						echo('<a>Nom du QCM:'.$_GET['nom'].'</a><br><br>');
 
 
 						$c=$_GET['nbQuestions'];
 
- 
+
 						for($i=1;$i<=$c;$i++){ 
 
 							echo('
 								<div id="part_form">
-								<label class="p_form">Question'. $i . '</label>
+								<label>Question'. $i . '</label>
 								<br>
-								<input id="input_enonce" name="enonce_question'.$i.'"type=text placeholder="Enoncé de la question" required >
+								<input name="enonce_question'.$i.'"type=text placeholder="Enoncé de la question" required >
+								<br>
 								<input name="proposition1_question'.$i.'" type=text  placeholder="Proposition1" required>
 								<br>
 								<input name="proposition2_question'.$i.'" type=text placeholder="Proposition2"required>
 								<input name="proposition3_question'.$i.'" type=text  placeholder="Proposition3" required>
 								<input name="proposition4_question'.$i.'" type=text  placeholder="Proposition4" required>
 								<br>
-								<br>
-								<label id="label_proposition_correcte">Proposition correcte:</label>
+								<label>Proposition correcte:</label>
 								<br>
 								<input name="propositionCorrecte_question'.$i.'" type=number min=1 max=4 value="1" required>
 								<br>

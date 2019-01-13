@@ -179,7 +179,9 @@
                     $pagetitle = 'Erreur dans la BD';
                     require (File::build_path(array('view', 'error.php')));
                   
-              } 
+              } else {
+                  echo 'Une erreur est survenue cette voiture existe déja dans la base de données ! <br> <a href="?action=readAll&controller=voiture"> Retour a la page d\'accueil </a>';
+              }
               die();
             }
           }

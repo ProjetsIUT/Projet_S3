@@ -107,8 +107,6 @@ class ModelCours extends Model{
 
           }
 
-          $tabCours = array_reverse($tabCours);
-
           return $tabCours;
 
 
@@ -124,9 +122,7 @@ class ModelCours extends Model{
 
           $sql = "SELECT codeCours from agora_cours C JOIN agora_matieres M
           ON C.codeMatiere=M.codeMatiere JOIN agora_enseigner E ON E.codeMatiere=M.codeMatiere
-          WHERE codeEnseignant=$login
-          UNION 
-          SELECT codeCours from agora_cours WHERE accesCours=1";
+          WHERE codeEnseignant=$login";
 
           $rep = Model::$pdo->query($sql);
 
@@ -141,8 +137,6 @@ class ModelCours extends Model{
             array_push($tabCours,$cours);
 
           }
-
-          $tabCours=array_reverse($tabCours);
 
           return $tabCours;
 

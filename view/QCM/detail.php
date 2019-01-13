@@ -63,15 +63,8 @@
 
 		?>
 
-	<?php
 
-		if(!Session::is_teacher()){
-
-			echo '	<input type="submit" value="Terminer">';
-		}
-
-	?>
-
+	<input type="submit" value="Terminer">
 
 	</div>
 

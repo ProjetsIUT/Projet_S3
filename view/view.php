@@ -1,26 +1,7 @@
 
 <!DOCTYPE html>
 
-<?php 
-	
-	if(isset($_SESSION['theme']) && $_SESSION['theme']!=0){
-
-		$html = 'html_background_' . $_SESSION['theme'];
-
-	}else{
-
-		$html = 'html_background_1';
-
-	}
-	
-	if (!isset($_SESSION['loginUtilisateur'])){
-
-		$html = 'html_background_1';
-	}
-
-?>
-
-<html id=<?php echo $html; ?>>
+<html id=<?php if(isset($page_id)){ echo ($page_id); } ?>>
     <head>
 		<link rel="icon" href="img/Agora_icone_finale_CR_JulieValentin.png" />
 		<meta charset="utf-8" />
@@ -45,6 +26,9 @@
 				
 				<nav>
 
+					<?php 
+					if(!Session::is_admin()) {
+						echo '
 						<ul>
 
 						<li class="menu1"><a class="menu" href="index.php?controller=cours&action=list">Cours</a>
@@ -63,6 +47,9 @@
 							</ul>
 
 						</li>
+						';
+					}
+						?>
 						
 						<?php
 
@@ -70,18 +57,9 @@
 
 									echo'<li class="menu3"><a class="menu" href="./index.php?controller=notes&action=statsEnseignant">Statistiques</a>';
 
-							}else{
+							}else if(Session::is_student()){
 
 									echo'<li class="menu3"><a class="menu"  href="./index.php?controller=notes&action=statsEtud" >Statistiques</a>';
-							}
-
-							if(Session::is_teacher()){
-
-									echo'<li class="menu4"><a class="menu" href="./index.php?controller=notes&action=list">Notes</a>';
-
-							}else{
-
-									echo'<li class="menu4"><a class="menu"  href="./index.php?controller=notes&action=listByEtud">Notes</a>';
 							}
 
 						?>

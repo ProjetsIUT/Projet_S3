@@ -1,8 +1,9 @@
 <?php
 
 require_once (File::build_path(array('model','ModelExerciceClassique.php')));
+require_once (File::build_path(array('controller', 'Controller.php'))); 
 
-Class ControllerExercice {
+Class ControllerExercice extends Controller{
     
     protected static $object = 'Exercice';
     

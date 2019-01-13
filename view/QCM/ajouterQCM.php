@@ -9,7 +9,7 @@
 
 				<p>Nouveau QCM</p>
 				<div id="part_form">
-				<p class="p_form">Sujet du QCM</p>
+				<p>Sujet du QCM</p>
 
 			
 					<input type="text" name="nom" required placeholder="Titre"/>
@@ -17,7 +17,7 @@
 					<input type="text" name="resume" required placeholder="Resumé"/>
 					<br>
 
-					<p class="p_form">Thème</p>
+					<p>Thème</p>
 					<a>Le thème correspond à un cours enregistré dans une des matières que vous enseignez</a>
 
 					<?php 

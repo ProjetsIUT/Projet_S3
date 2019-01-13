@@ -65,19 +65,9 @@
 
 							$nomExercice=$exercice->get('nomQCM');
 							$cours=ModelCours::select($exercice->get('themeQCM'));
+							$codeCours=$cours->get('codeCours');
+							$nomCours=htmlspecialchars($cours->get('nomCours'));
 
-							if(!$cours){
-
-									$nomCours="Cours supprimé";
-									$codeCours= "";
-							}else{
-
-									$codeCours=$cours->get('codeCours');
-									$nomCours=htmlspecialchars($cours->get('nomCours'));
-
-							}
-
-						
 						}
 
 					}else{
@@ -94,17 +84,8 @@
 
 							$nomExercice = $exercice->get('nomExercice');
 							$cours=ModelCours::select($exercice->get('themeExercice'));
-
-							if(!$cours){
-
-									$nomCours="Cours supprimé";
-									$codeCours= "";
-							}else{
-
-									$codeCours=$cours->get('codeCours');
-									$nomCours=htmlspecialchars($cours->get('nomCours'));
-
-							}
+							$codeCours=$cours->get('codeCours');
+							$nomCours=htmlspecialchars($cours->get('nomCours'));
 
 						}
 

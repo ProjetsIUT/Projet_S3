@@ -71,7 +71,12 @@ class ControllerCours extends Controller{
 		$cours=new ModelCours($data);
 		$cours->save($data);
 
-		header('Location: ./index.php?controller=cours&action=list');
+		$tab = ModelCours::selectAll();
+		$path=array('model','ModelMatieres.php');
+		require_once File::build_path($path);
+		$view="list";
+		$pagetitle="Tous mes cours - Agora";
+		require(File::build_path(array('view','view.php')));
 
 		
 	}
@@ -79,26 +84,9 @@ class ControllerCours extends Controller{
 
 	public static function suppr(){
 
-		if(Session::is_teacher()){
-
-			$codeCours = $_GET["code"];
-			ModelCours::delete($codeCours);
-
-			if(isset($_GET['redirection'])){
-
-				header('Location: ./index.php?controller=enseignants&action=show_perso_page');
-
-			}else{
-
-				self::list();
-
-			}
-
-		}else{
-
-			header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
-
-		}
+		$codeCours = $_GET["code"];
+		ModelCours::delete($codeCours);
+		self::list();
 
 
 	}

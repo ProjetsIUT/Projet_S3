@@ -25,7 +25,7 @@
 					}else if(isset($_POST['action'])){
 						$action=$_POST["action"];
 					}else{
-						$action = "show_login_page";
+						$action = "show_home_page";
 					}
 
 					if(in_array($action, $methods)) {
@@ -36,8 +36,7 @@
 					}
 				}
 				else {
-					$controller_class = 'Controller';
-					$controller_class::errorClass();
+					Controller::errorClass();
 				}
 			}
 			else {

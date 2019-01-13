@@ -14,8 +14,13 @@
                 <input type="text" placeholder="Année X" name="anneencours" id="anneencours_id" required/>
                 <br>
                 <br>
-                <label for="codedepartement_id">Code département : </label>
-                <input type="number" name="codedepartement" id="codedepartement_id" required/>
+                <label for="codedepartement_id">Département : </label>
+                <select name="codedepartement" id="codedepartement_id" size="1" required/>';
+                foreach ($tab_d as $d) {
+                    echo '<option value="'.htmlspecialchars($d->get('codeDepartement')).'"> '.htmlspecialchars($d->get('nomDepartement')).'';
+                }
+                echo '
+                </select>
                 <br>
                 <br>
                 <label for="semestreencours_id">Semestre en cours : </label>
@@ -31,7 +36,12 @@
                 <br>
                 <br>
                 <label for="codedepartement_id">Code département : </label>
-                <input type="number" value="'.htmlspecialchars($_GET['codedepartement']).'" name="codedepartement" id="codedepartement_id" required/>
+                <select value='.htmlspecialchars($_GET['codeDepartement']).' name="codedepartement" id="codedepartement_id" size="1" required/>';
+                foreach ($tab_d as $d) {
+                    echo '<option value="'.htmlspecialchars($d->get('codeDepartement')).'"> '.htmlspecialchars($d->get('nomDepartement')).'';
+                }
+                echo '
+                </select>
                 <br>
                 <br>
                 <label for="semestreencours_id">Semestre en cours : </label>

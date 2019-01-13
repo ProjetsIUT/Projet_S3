@@ -15,11 +15,12 @@ class ModelUtilisateurs extends Model {
   	  private $emailUtilisateur;
 	  private $codeEtablissement;
 	  private $nonce;
-	  private $theme;
 
     public function __construct($data = array()) {
 	  	if (!empty($data)) {
-		
+			// If both $m, $c and $i are not NULL, 
+			// then they must have been supplied
+			// so fall back to constructor with 3 arguments
 			if(isset($data["loginUtilisateur"])) {
 				$this->loginUtilisateur= $data["loginUtilisateur"];
 			}
@@ -47,9 +48,6 @@ class ModelUtilisateurs extends Model {
 			if(isset($data["nonce"])) {
 				$this->nonce=$data["nonce"];
 			}
-
-			$this->theme=1;
-
 		}
    	}
 
