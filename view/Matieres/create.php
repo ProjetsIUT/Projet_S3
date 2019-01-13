@@ -11,7 +11,7 @@
                 echo '
                 <br>
                 <label for="nomMatiere_id">Nom de la matière : </label>
-                <input type="text" name="nomMatiere" id="nomMatiere_id" required/>
+                <input type="text" placeholder="Base de données" name="nomMatiere" id="nomMatiere_id" required/>
                 <br>
                 <br>
                 <label for="codeDepartement_id">Département : </label>

@@ -127,7 +127,7 @@ class ControllerMatieres extends Controller{
         }
 	}
 	
-	public static function update_info_etud() {
+	public static function update() {
         if (isset($_GET['codeMatiere'])) {
             $m = ModelMatieres::select($_GET['codeMatiere']);
             if($m) {
@@ -159,7 +159,7 @@ class ControllerMatieres extends Controller{
         }
 	}
 
-	public static function updated_info_etud() {
+	public static function updated() {
         if(isset($_GET['codeMatiere']) && isset($_GET['nomMatiere']) && isset($_GET['codeDepartement'])) {
             $m = ModelMatieres::select($_GET['codeMatiere']);
             if($m) {

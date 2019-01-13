@@ -1,47 +1,35 @@
 <div class=page_content>
-<h1><?php echo htmlspecialchars($type)?><a class=bouton href="index.php?controller=utilisateurs&action=readAll">Retour à la liste des utilisateurs</a></h1>
+<h1><?php echo htmlspecialchars($type)?><a class=bouton href="index.php?controller=matieres&action=readAll">Retour à la liste des matières</a></h1>
 <article id="page_connexion">
     <form id="formulaire_connexion" method="get" action="index.php">
         <input type="hidden" name="action" value="updated"/>
         <input type="hidden" name="controller" value="matieres"/>
-        <input type="hidden" name="loginEtudiant" value=<?php echo $_GET['loginEtudiant'] ?> />
+        
          
         <?php 
             if($_GET['action'] === 'update') {
                 echo '
-                <br>
-                <label for="anneencours_id">Annee en cours : </label>
-                <input type="text" value="'.htmlspecialchars($uanneencours).'" name="anneencours" id="anneencours_id" required/>
-                <br>
-                <br>
-                <label for="codedepartement_id">Code département : </label>
-                <input type="number" value="'.htmlspecialchars($ucodedepartement).'" name="codedepartement" id="codedepartement_id" required/>
+                <label for="codeMatiere_id"> Code matière : </label>
+                <input type="text" value='.htmlspecialchars($mcodematiere).'name="codeMatiere" id="codeMatiere_id" required/>
                 <br>
                 <br>
-                <label for="semestreencours_id">Semestre en cours : </label>
-                <input type="text" value="'.htmlspecialchars($usemestre).'" name="semestreencours" id="semestreencours_id" required/>
+                <label for="nomMatiere_id">Nom de la matière : </label>
+                <input type="text" value='.htmlspecialchars($mnommatiere).'name="nomMatiere" id="nomMatiere_id" required/>
                 <br>
-                ';
-            }
-            else if($_GET['action'] === 'updated') {
+                <br>
+                <label for="codeDepartement_id">Département : </label>
+                <select name="codeDepartement" value='.htmlspecialchars($mcodeDepartement).'id="codeDepartement_id" size="1" required/>';
+                foreach ($tab_d as $d) {
+                    echo '<option value='.htmlspecialchars($d->get('codeDepartement')).'> '.htmlspecialchars($d->get('nomDepartement')).'';
+                }
                 echo '
-                <br>
-                <label for="anneencours_id">Annee en cours : </label>
-                <input type="text" value="'.htmlspecialchars($_GET['anneeencours']).'" name="anneencours" id="anneencours_id" required/>
-                <br>
-                <br>
-                <label for="codedepartement_id">Code département : </label>
-                <input type="number" value="'.htmlspecialchars($_GET['codedepartement']).'" name="codedepartement" id="codedepartement_id" required/>
-                <br>
-                <br>
-                <label for="semestreencours_id">Semestre en cours : </label>
-                <input type="text" value="'.htmlspecialchars($_GET['semestreencours']).'" name="semestreencours" id="semestreencours_id" required/>
+                </select>
                 <br>
                 ';
             }
         ?>
         <br>
-        <input type="submit" value="Terminer l'inscription" />
+        <input type="submit" value="Terminer la modification" />
     </form>
 </article>
 
