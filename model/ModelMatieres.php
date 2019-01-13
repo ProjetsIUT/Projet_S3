@@ -103,6 +103,35 @@ class ModelMatieres extends Model {
 
   }
 
+  public static function saveAssociation($login,$codeMatiere){
+
+      $u = ModelUtilisateurs::select($login);
+
+
+      if($u->get('typeUtilisateur')==='etudiant'){
+
+          $sql = "INSERT INTO agora_suitMatiere VALUES (:val1, :val2)";
+
+
+      }else{
+
+          $sql = "INSERT INTO agora_enseigner VALUES (:val1, :val2) ";
+
+      }
+
+
+
+      $req_prep = Model::$pdo->prepare($sql);
+      $values = array(
+        "val1" => $login,
+        "val2" => $codeMatiere,
+      );
+      $req_prep->execute($values);
+
+
+
+  }
+
 
 
 }

@@ -11,7 +11,7 @@ class ModelExerciceClassique extends Model{
 
     private $idExercice;
     private $nomExercice;
-    private $themeExercice;
+    private $themeExercice; 
     private $tempsLimite;
     private $fichier;
 
@@ -87,7 +87,7 @@ class ModelExerciceClassique extends Model{
 
   public static function getAllByEnseignant(){
 
-      //Retourne les exs que l'enseignany à le droit de consulter
+          //Retourne les exs que l'enseignant à le droit de consulter
 
           $login = '"'.$_SESSION['loginUtilisateur'].'"';
 

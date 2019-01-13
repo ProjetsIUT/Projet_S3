@@ -112,6 +112,7 @@ class ControllerUtilisateurs extends Controller{
                         $_SESSION['prenomUtilisateur'] = $u->get('prenomUtilisateur');
                         $_SESSION['emailUtilisateur'] = $u->get('emailUtilisateur');
                         $_SESSION['codeEtablissement'] = $u->get('codeUtilisateur');
+                        $_SESSION['theme'] = $u->get('theme');
                         
                         if($_SESSION["typeUtilisateur"] === "etudiant"){ //si c'est un étudiant 
                             $redirection = 'index.php?controller=etudiants&action=show_perso_page';
@@ -554,6 +555,28 @@ class ControllerUtilisateurs extends Controller{
         }
     }
 
+    public static function setBackground(){
+
+        
+         $u = new ModelUtilisateurs();
+                $data = array(
+                    "loginUtilisateur" => $_SESSION['loginUtilisateur'],
+                    "theme" =>$_GET['theme'],
+        );
+        $u->update($data);
+
+        $_SESSION['theme']=$_GET['theme'];
+
+
+        if(Session::is_teacher()){
+
+            header('Location: ./index.php?controller=enseignants&action=show_perso_page');
+        }else{
+
+            header('Location: ./index.php?controller=etudiants&action=show_perso_page');
+        }
+    }
+ 
 
 }
 

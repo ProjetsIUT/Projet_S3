@@ -192,7 +192,7 @@ Class ControllerExerciceClassique {
             $pagetitle="Erreur - Agora";
             require (File::build_path(array('view', 'error.php')));
         }else{
-        $tab = ModelFaireExercice::selectByEnseignant($_SESSION['loginUtilisateur']);
+        $tab = ModelFaireExercice::getAllByEnseignant();
         
         $view="listCorriger";
         $pagetitle="Mes Exercices - Agora";
