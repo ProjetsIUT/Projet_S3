@@ -14,18 +14,19 @@
 
     if ($utype === 'etudiant') {
         echo ('<br><a class= "bouton" href="index.php?controller=etudiants&action=read&loginEtudiant=' . rawurlencode($ulogin) . '" > Consulter les informations universitaires ! </a>');
-        echo ('<br> <br> <a class= "bouton" href="index.php?controller=utilisateurs&action=update&loginUtilisateur=' . rawurlencode($ulogin) . '" > Modifier les informations personnelles ! </a>');
-        echo ('<br> <br> <a class="bouton_suppr" href="index.php?controller=utilisateurs&action=delete&loginUtilisateur=' . rawurlencode($ulogin) . '" >  Supprimer cet étudiant !  </a> <br>');
+        echo ('<br> <br><a class= "bouton" href="index.php?controller=utilisateurs&action=update&loginUtilisateur=' . rawurlencode($ulogin) . '" > Modifier les informations personnelles ! </a>');
     }
     else if ($utype === 'enseignant') {
-        echo ('<br><a class= "bouton" href="index.php?controller=enseignants&action=read&loginEnseignant=' . rawurlencode($ulogin) . '" > Consulter les informations universitaires ! </a>');
         echo ('<br> <br> <a class= "bouton" href="index.php?controller=utilisateurs&action=update&loginUtilisateur=' . rawurlencode($ulogin) . '" > Modifier les informations personnelles ! </a>');
-        echo ('<br> <br> <a class="bouton_suppr" href="index.php?controller=utilisateurs&action=delete&loginUtilisateur=' . rawurlencode($ulogin) . '" >  Supprimer cet enseignant !  </a> <br>');
     }
     else if ($utype === 'administrateur') {
         echo ('<br> <br> <a class= "bouton" href="index.php?controller=utilisateurs&action=update&loginUtilisateur=' . rawurlencode($ulogin) . '" > Modifier les informations personnelles ! </a>');
-        echo ('<br> <br> <a class="bouton_suppr" href="index.php?controller=utilisateurs&action=delete&loginUtilisateur=' . rawurlencode($ulogin) . '" >  Supprimer cet administrateur !  </a> <br>');
     }
+
+    if(Session::is_admin()) {
+        echo ('<br> <br> <a class="bouton_suppr" href="index.php?controller=utilisateurs&action=delete&loginUtilisateur=' . rawurlencode($ulogin) . '" >  Supprimer !  </a>');
+    }
+    echo '<br>';
 ?>
 
 </div>

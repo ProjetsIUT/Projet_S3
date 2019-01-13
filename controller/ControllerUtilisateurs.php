@@ -288,11 +288,10 @@ class ControllerUtilisateurs extends Controller{
                             $redirection = 'index.php?controller=etudiants&action=create_info_etud&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
                             header('Location: '.$redirection);
                         }
-        
-                        if($_GET["typeUtilisateur"] === "enseignant"){ //si c'est un enseignant
-                            $redirection = 'index.php?controller=enseignants&action=create_info_enseig&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
-                            header('Location: '.$redirection);
-                        }
+                        
+                        $view = 'created';
+                        $pagetitle = 'Utilisateur créé - Agora';
+                        require (File::build_path(array('view', 'view.php'))); 
                     }
                     else {
                         $tab_e = ModelEtablissements::selectAll();
@@ -355,14 +354,10 @@ class ControllerUtilisateurs extends Controller{
                         $redirection = 'index.php?controller=etudiants&action=delete&loginEtudiant='.$_GET['loginUtilisateur'];
                         header('Location: '.$redirection);
                     }
-                    else if($u->get('typeUtilisateur') === 'enseignant') {
-                        $redirection = 'index.php?controller=enseignants&action=delete&loginEnseignant='.$_GET['loginUtilisateur'];
-                        header('Location: '.$redirection);
-                    }
                     else {
                         $view = 'deleted';
-                        $pagetitle = 'Administrateur supprimé';
-                        require (File::build_path(array('view', 'error.php')));
+                        $pagetitle = 'Utilisateur supprimé';
+                        require (File::build_path(array('view', 'view.php')));
                     }
                 }
                 else {

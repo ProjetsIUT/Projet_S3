@@ -103,36 +103,44 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 	}
 
 	public static function created_info_etud() {
-        if(isset($_GET['loginEtudiant']) && isset($_GET['anneencours']) && isset($_GET['codedepartement']) && isset($_GET['semestreencours'])) {
-            $u = ModelEtudiants::select($_GET['loginEtudiant']);
-            if($u == false) {
-				$data = array(
-					"loginEtudiant" => $_GET['loginEtudiant'],
-					"anneeCourantEtudiant" => $_GET['anneencours'],
-					"SemestreCourantEtudiant" => $_GET['semestreencours'],
-					"codeDepartement" => $_GET['codedepartement'],
-				);
-				$e = new ModelEtudiants();
-				$e->save($data);
-				$view = 'created_info_etud';
-				$pagetitle = 'Compte crée - Agora';
-				require (File::build_path(array('view', 'view.php')));                    
-			}
-			else {
-                $type = 'Ajout';
-                $tab_d = ModelDepartements::selectAll();
-                $verif = 'Ce nom d\'étudiant existe déja';
-                $view = 'update';
-                $pagetitle = 'Ajout d\'un utilisateur - 2/2 - Agora';
-                require (File::build_path(array('view', 'view.php')));                    
-            }  
-        }
-        else {
-            $error_code = 'created_info_etud : l\'un des champs est vide';
-            $view = 'error';
-            $pagetitle = 'Erreur';
-            require (File::build_path(array('view', 'error.php')));
-        }
+            if(isset($_GET['loginEtudiant']) && isset($_GET['anneencours']) && isset($_GET['codedepartement']) && isset($_GET['semestreencours'])) {
+                $u = ModelEtudiants::select($_GET['loginEtudiant']);
+                if($u == false) {
+                    if(Session::is_admin()) {
+                        $data = array(
+                            "loginEtudiant" => $_GET['loginEtudiant'],
+                            "anneeCourantEtudiant" => $_GET['anneencours'],
+                            "SemestreCourantEtudiant" => $_GET['semestreencours'],
+                            "codeDepartement" => $_GET['codedepartement'],
+                        );
+                        $e = new ModelEtudiants();
+                        $e->save($data);
+                        $view = 'created_info_etud';
+                        $pagetitle = 'Compte crée - Agora';
+                        require (File::build_path(array('view', 'view.php')));
+                    }
+                    else {
+                        $error_code = 'created_info_etud : vous disposez pas des droits suffisant pour accéder à cette page';
+                        $view = 'error';
+                        $pagetitle = 'Erreur';
+                        require (File::build_path(array('view', 'error.php')));
+                    }                    
+                }
+                else {
+                    $type = 'Ajout';
+                    $tab_d = ModelDepartements::selectAll();
+                    $verif = 'Ce nom d\'étudiant existe déja';
+                    $view = 'update';
+                    $pagetitle = 'Ajout d\'un utilisateur - 2/2 - Agora';
+                    require (File::build_path(array('view', 'view.php')));                    
+                }  
+            }
+            else {
+                $error_code = 'created_info_etud : l\'un des champs est vide';
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require (File::build_path(array('view', 'error.php')));
+            }
 	}
 	
 	public static function update_info_etud() {
