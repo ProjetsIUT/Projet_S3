@@ -17,7 +17,7 @@
                 <label for="codedepartement_id">Département : </label>
                 <select name="codedepartement" id="codedepartement_id" size="1" required/>';
                 foreach ($tab_d as $d) {
-                    echo '<option value='.htmlspecialchars($d->get('codeDepartement')).'> '.htmlspecialchars($d->get('nomDepartement')).'';
+                    echo '<option value="'.htmlspecialchars($d->get('codeDepartement')).'"> '.htmlspecialchars($d->get('nomDepartement')).'';
                 }
                 echo '
                 </select>
@@ -38,7 +38,7 @@
                 <label for="codedepartement_id">Code département : </label>
                 <select value='.htmlspecialchars($_GET['codeDepartement']).' name="codedepartement" id="codedepartement_id" size="1" required/>';
                 foreach ($tab_d as $d) {
-                    echo '<option value='.htmlspecialchars($d->get('codeDepartement')).'> '.htmlspecialchars($d->get('nomDepartement')).'';
+                    echo '<option value="'.htmlspecialchars($d->get('codeDepartement')).'"> '.htmlspecialchars($d->get('nomDepartement')).'';
                 }
                 echo '
                 </select>

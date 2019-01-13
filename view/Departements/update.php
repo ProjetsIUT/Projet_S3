@@ -10,17 +10,17 @@
             if($_GET['action'] === 'update') {
                 echo '
                 <label for="codeMatiere_id"> Code matière : </label>
-                <input type="text" value="'.htmlspecialchars($mcodematiere).'" name="codeMatiere" id="codeMatiere_id" required/>
+                <input type="text" value='.htmlspecialchars($mcodematiere).'name="codeMatiere" id="codeMatiere_id" required/>
                 <br>
                 <br>
                 <label for="nomMatiere_id">Nom de la matière : </label>
-                <input type="text" value="'.htmlspecialchars($mnommatiere).'" name="nomMatiere" id="nomMatiere_id" required/>
+                <input type="text" value='.htmlspecialchars($mnommatiere).'name="nomMatiere" id="nomMatiere_id" required/>
                 <br>
                 <br>
                 <label for="codeDepartement_id">Département : </label>
-                <select name="codeDepartement" value="'.htmlspecialchars($mcodeDepartement).'" id="codeDepartement_id" size="1" required/>';
+                <select name="codeDepartement" value='.htmlspecialchars($mcodeDepartement).'id="codeDepartement_id" size="1" required/>';
                 foreach ($tab_d as $d) {
-                    echo '<option value="'.htmlspecialchars($d->get('codeDepartement')).'"> '.htmlspecialchars($d->get('nomDepartement')).'';
+                    echo '<option value='.htmlspecialchars($d->get('codeDepartement')).'> '.htmlspecialchars($d->get('nomDepartement')).'';
                 }
                 echo '
                 </select>

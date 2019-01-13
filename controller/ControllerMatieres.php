@@ -132,6 +132,7 @@ class ControllerMatieres extends Controller{
             $m = ModelMatieres::select($_GET['codeMatiere']);
             if($m) {
                 if (Session::is_admin()) {
+                    $tab_d = ModelDepartements::selectAll();
 						$mcodematiere = $m->get('codeMatiere');
 						$mnommatiere = $m->get('nomMatiere');
 						$mcodeDepartement = $m->get('codeDepartement');
@@ -167,7 +168,7 @@ class ControllerMatieres extends Controller{
                     $data = array(
 						"codeMatiere" => $_GET['codeMatiere'],
 						"nomMatiere" => $_GET['nomMatiere'],
-						"codeDepartement" => $_GET['codedepartement'],
+						"codeDepartement" => $_GET['codeDepartement'],
 					);
 					$n = new ModelMatieres();
 					$n->update($data);

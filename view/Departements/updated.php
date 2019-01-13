@@ -6,7 +6,7 @@
     Vous allez être redirigé vers la page précédente.</p>
     ';
 
-        $redirection = 'index.php?controller=matieres&action=read&codeMatiere='.htmlspecialchars($_GET['codeMatiere']).'';
+        $redirection = 'index.php?controller=etudiants&action=read&codeMatiere='.htmlspecialchars($_GET['codeMatiere']).'';
         header('Refresh: 3; url='.$redirection);
 
 ?>
