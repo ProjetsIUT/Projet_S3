@@ -99,7 +99,7 @@ class ModelFaireExercice extends Model{
       JOIN agora_ExerciceClassique e ON e.idExercice = f.idExercice 
       JOIN agora_cours c ON e.themeExercice = c.codeCours 
       JOIN agora_matieres m ON c.codeMatiere = m.codeMatiere
-      JOIN agora_enseigner ens ON ens.codeMatiere = ens.codeMatiere 
+      JOIN agora_enseigner ens ON ens.codeMatiere = m.codeMatiere 
       WHERE codeEnseignant=:val1";
 
       // Préparation de la requête
