@@ -5,7 +5,7 @@
         <input type="hidden" name="action" value="updated"/>
         <input type="hidden" name="controller" value="matieres"/>
         <input type="hidden" name="loginEtudiant" value=<?php echo $_GET['loginEtudiant'] ?> />
-        
+         
         <?php 
             if($_GET['action'] === 'update') {
                 echo '

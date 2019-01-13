@@ -1,6 +1,6 @@
 
 <?php
-
+require_once File::build_path(array('model', 'ModelDepartements.php'));
  
 $path=array('model','ModelMatieres.php');
 require_once File::build_path($path);
@@ -31,7 +31,8 @@ class ControllerMatieres extends Controller{
                 if (Session::is_admin()) {
                     $mcodematiere = $m->get('codeMatiere');
 					$mnommatiere = $m->get('nomMatiere');
-					$mcodeDepartement = $m->get('codeDepartement');
+					$d = ModelDepartements::select($m->get('codeDepartement'));
+					$mnomDepartement = $d->get('nomDepartement');
 					$view = 'detail';
                     $pagetitle = 'Details de la matière '.$mnommatiere;
                     require (File::build_path(array('view', 'view.php')));
@@ -92,6 +93,7 @@ class ControllerMatieres extends Controller{
 
 	public static function create() {
 		if (Session::is_admin()) {
+			$tab_d = ModelDepartements::selectAll();
 			$type = 'Ajout d\'une matière';
 			$view = 'create';
 			$pagetitle = 'Ajout d\'une matière - Agora';
@@ -105,27 +107,17 @@ class ControllerMatieres extends Controller{
 	}
 
 	public static function created() {
-        if(isset($_GET['codeMatiere']) && isset($_GET['nomMatière']) && isset($_GET['codeDepartement'])) {
-			$m = ModelMatieres::select($_GET['codeMatiere']);
-            if($m == false) {
+        if(isset($_GET['nomMatiere']) && isset($_GET['codeDepartement'])) {
 				$data = array(
-					"codeMatiere" => $_GET['codeMatiere'],
+					//"codeMatiere" => $_GET['codeMatiere'],
 					"nomMatiere" => $_GET['nomMatiere'],
-					"codeDepartement" => $_GET['codedepartement'],
+					"codeDepartement" => $_GET['codeDepartement'],
 				);
 				$n = new ModelMatieres();
 				$n->save($data);
 				$view = 'created';
 				$pagetitle = 'Matiere crée - Agora';
-				require (File::build_path(array('view', 'view.php')));                    
-			}
-			else {
-                $type = 'Ajout d\'une matière';
-                $verif = 'Cette matière existe déja';
-                $view = 'create';
-                $pagetitle = 'Ajout d\'une matiere - Agora';
-                require (File::build_path(array('view', 'view.php')));                    
-            }  
+				require (File::build_path(array('view', 'view.php')));                      
         }
         else {
             $error_code = 'created : l\'un des champs est vide';
@@ -168,7 +160,7 @@ class ControllerMatieres extends Controller{
 	}
 
 	public static function updated_info_etud() {
-        if(isset($_GET['codeMatiere']) && isset($_GET['nomMatière']) && isset($_GET['codeDepartement'])) {
+        if(isset($_GET['codeMatiere']) && isset($_GET['nomMatiere']) && isset($_GET['codeDepartement'])) {
             $m = ModelMatieres::select($_GET['codeMatiere']);
             if($m) {
                 if(Session::is_admin()) {
