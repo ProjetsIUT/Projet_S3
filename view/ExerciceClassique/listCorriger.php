@@ -5,7 +5,8 @@
 	<h1>Liste des Exercices à Corriger
 <?php
 	
-	if(Session::is_teacher()) echo '<a class="bouton" href="./index.php?controller=exerciceClassique&action=creerExercice">Publier un Exercice</a>';
+	if(Session::is_teacher()) echo '<a class="bouton" href="./index.php?controller=exerciceClassique&action=creerExercice">Publier un Exercice</a>
+		<a class="bouton" href="./index.php?controller=exerciceClassique&action=list">Tout mes Exercices</a>';
 	echo '</h1>';
 
 			$i = 0;

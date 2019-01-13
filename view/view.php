@@ -37,8 +37,11 @@
 							<ul class="sous_menu">
 
 								<li><a class="menu texte_sous_menu" href="index.php?controller=QCM&action=list">QCMs</a></li>
+								
+								
 								<li><a class="menu texte_sous_menu" href="index.php?controller=ExerciceClassique&action=list">Classiques</a></li>
-
+							
+							
 							</ul>
 
 						</li>
