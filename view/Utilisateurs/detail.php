@@ -8,7 +8,7 @@
     Prenom : '. htmlspecialchars($uprenom) .' <br>
     Nom : '. htmlspecialchars($unom) .' <br>
     Email : '.htmlspecialchars($uemail).' <br>
-    Code Etablissement : '.htmlspecialchars($ucode).' <br>
+    Nom Etablissement : '.htmlspecialchars($ucode).' <br>
     Type utilisateur : '.htmlspecialchars($utype).'</p>';
     
 

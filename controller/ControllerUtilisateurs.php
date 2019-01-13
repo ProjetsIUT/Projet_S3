@@ -432,7 +432,8 @@ class ControllerUtilisateurs extends Controller{
                     $uprenom = $u->get('prenomUtilisateur');
                     $unom = $u->get('nomUtilisateur');
                     $uemail = $u->get('emailUtilisateur');
-                    $ucode = $u->get('codeEtablissement');
+                    $e = ModelEtablissements::select($u->get('codeEtablissement'));
+                    $ucode = $e->get('nomEtablissement');
                     $utype = $u->get('typeUtilisateur');
                     $view = 'detail';
                     if(Session::is_user($_GET['loginUtilisateur'])) {
