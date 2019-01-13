@@ -31,29 +31,6 @@
 		<br>
 		<br>
 		<label>Matière où enregistrer le cours:</label>
-
-			<?php 
-
-						$path=array('model','ModelMatieres.php');
-						require_once File::build_path($path);
-
-						$tab_matieres = ModelMatieres::selectAll();
-
-						$tab_nom_matieres=array();
-						$tab_code_matieres=array();
-
-						foreach ($tab_matieres as $matiere) {
-
-								
-							array_push($tab_nom_matieres,$matiere->get("nomMatiere"));
-							array_push($tab_code_matieres,$matiere->get("codeMatiere"));
-
-						}
-
-		
-
-
-			?>
 		<br>
 		<br>
 		<select name="code" required />

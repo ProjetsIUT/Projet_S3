@@ -1,8 +1,7 @@
-
-
 <?php
 require_once (File::build_path(array('model','ModelQCM.php')));
 require_once (File::build_path(array('model','ModelCours.php')));
+require_once (File::build_path(array('model','ModelNotes.php')));
 require_once (File::build_path(array('model','ModelQuestions.php')));
 require_once (File::build_path(array('controller', 'Controller.php'))); 
 
@@ -51,40 +50,86 @@ class ControllerQCM extends Controller{
 
 	public static function list(){
 
-		$tab=ModelQCM::selectAll();
+		if(!isset($_SESSION['loginUtilisateur'])){
+
+ 	 		header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
+
+
+		}
+
+		if(Session::is_student()){
+
+			$tab=ModelQCM::getAllByEtud();
+
+		}else{
+
+			$tab=ModelQCM::getAllByEnseignant();
+		}
+
+		
 		$view="list";
 		$pagetitle="Mes QCMs - Agora";
 		require (File::build_path(array('view', 'view.php')));
+
 	}
 
 	public static function suppr(){
 
-		$codeQCM = $_GET["code"];
-		ModelQCM::delete($codeQCM);
-		self::list();
 
+
+		if(!Session::is_admin() && !Session::is_teacher()){
+
+			header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
+
+		}else{
+
+			$codeQCM = $_GET["code"];
+			ModelQCM::delete($codeQCM);
+			self::list();
+
+		}
+	
 
 	}
 
 	public static function afficher(){
 
-		$codeQCM = $_GET["code"];
-		$qcm=ModelQCM::select($codeQCM);
+		if(!isset($_SESSION['loginUtilisateur'])){
 
-		$tab_questions_all= ModelQuestions::selectAll();
-		$tab_questions=array();
+			header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
 
-		foreach ($tab_questions_all as $question) {
 
-			if($question->get("codeQCM")==$codeQCM)
+		}else{
 
-				array_push($tab_questions,$question);
-	
+
+			$codeQCM = $_GET["code"];
+
+			if(ModelNotes::exerciceDejaFait($codeQCM)){
+
+				$error_code="Vous ne pouvez pas réaliser un QCM deux fois";
+				require (File::build_path(array('view', 'error.php')));
+
+			}else{
+
+				$qcm=ModelQCM::select($codeQCM);
+
+				$tab_questions_all= ModelQuestions::selectAll();
+				$tab_questions=array();
+
+				foreach ($tab_questions_all as $question) {
+
+					if($question->get("codeQCM")==$codeQCM)
+
+						array_push($tab_questions,$question);
+			
+					}
+
+				$view="detail";
+				$pagetitle="Mes QCMs - Agora";
+				require (File::build_path(array('view', 'view.php')));
 			}
 
-		$view="detail";
-		$pagetitle="Mes QCMs - Agora";
-		require (File::build_path(array('view', 'view.php')));
+		}
 
 	}
 
@@ -92,21 +137,25 @@ class ControllerQCM extends Controller{
 	public static function corriger(){
 		
 		$codeQCM = $_POST["codeQCM"];
-		$tab_questions_all= ModelQuestions::selectAll();
+
+		$tab_questions_all=unserialize(base64_decode($_POST["tab_questions"]));
 		$compteur = 0;
 		$nbReponseJuste = 0;
 		foreach ($tab_questions_all as $question) {
 
-			if($question->get("codeQCM")==$codeQCM){
+			if($question->get("codeQCM")===$codeQCM){
 
 				$compteur ++;
-				if($_POST["choix_question".$compteur] == $question->get("propositionExacte")){
+				if($_POST["choix_question".$compteur] === $question->get("propositionExacte")){
 					$nbReponseJuste ++;
 				}
 	
 			}
 	
 		}
+
+		$note=($nbReponseJuste/$compteur) * 20;
+		$note=round($note,2);
 		if($compteur != 0){
 			$ModelNote = new ModelNotes();
 			$ModelNote->save(array(
@@ -114,11 +163,17 @@ class ControllerQCM extends Controller{
 				"codeEtudiant"=>$_SESSION["loginUtilisateur"],
 				"codeExercice"=>$codeQCM ,
 				"typeExercice"=>"QCM",
-				"note"=>$nbReponseJuste/$compteur * 20,
+				"note"=>$note,
 				"dateNote"=>date('Y-m-d')
 			,));
+		
+			header('Location: ./index.php?controller=notes&action=listByEtud');
+
+		}else{
+			
+			header('Location: ./index.php');
 		}
-		header('Location: http://webinfo.iutmontp.univ-montp2.fr/~dumairet/PROJET_PHP/Projet_S3/index.php?controller=notes&action=listByEtud'); 
+		 
 	}
 
 

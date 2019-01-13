@@ -78,15 +78,23 @@ Class ControllerExerciceClassique {
         require "$PATH";
     }
 
-   /* public static function list(){
+   public static function list(){
 
-        $tab=ModelExerciceClassique::selectAll();
+        if(Session::is_teacher()){
 
-        $view="list";
+            $tab=ModelExerciceClassique::getAllByEnseignant();
+        }else{
+
+             $tab=ModelExerciceClassique::getAllByEtud();
+        }
+
+
+
+        $view="list_all";
         $pagetitle="Mes Exercices - Agora";
         require (File::build_path(array('view', 'view.php')));
 
-    } */
+    } 
 
         public static function suppr(){
 
@@ -108,7 +116,7 @@ Class ControllerExerciceClassique {
             $id = $e->get("idExercice");
             
             $test = ModelFaireExercice::selectFaireExercice($id, $loginEtudiant);
-            
+        
 
             if($test){
                 

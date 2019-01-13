@@ -5,11 +5,17 @@
 
 	<div class="box_center">
 
-		<form method="get" action="./index.php">
+		<form method="post" action="./index.php">
 		
 
 		<input type="hidden" name="action" value="corriger">
 		<input type="hidden" name="controller" value="QCM">
+		<input type="hidden" name="codeQCM" value=<?php echo '"'.$_GET["code"].'"'; ?> >
+		<?php
+
+			$tab_values=base64_encode(serialize($tab_questions));
+		?>
+		<input type="hidden" name="tab_questions" value=<?php echo ('"'.$tab_values.'"');?>>
 		<?php
 
 			$c=1;
@@ -30,19 +36,19 @@
 
 					<h2>Question'. $c . ': '.$intitule.' </h2>
 
-					<input type=radio name="choix_question'.$c.'" id="question'.$c.'_proposition1" value="'.$c. '"required>
+					<input type=radio name="choix_question'.$c.'" id="question'.$c.'_proposition1" value="1" required>
 					<label for="question'.$c.'_proposition1">'. $proposition1.'</label>
 					<br>
 
-					<input type=radio name="choix_question'.$c.'" id="question'.$c.'_proposition2" value="'.$c.'"required>
+					<input type=radio name="choix_question'.$c.'" id="question'.$c.'_proposition2" value="2" required>
 					<label for="question'.$c.'_proposition2">'. $proposition2.'</label>
 					<br>
 
-					<input type=radio name="choix_question'.$c.'" id="question'.$c.'_proposition3" value="'.$c.'"required>
+					<input type=radio name="choix_question'.$c.'" id="question'.$c.'_proposition3" value="3" required>
 					<label for="question'.$c.'_proposition3">'. $proposition3.'</label>
 					<br>
 
-					<input type=radio name="choix_question'.$c.'" id="question'.$c.'_proposition4" value="'.$c.'"required>
+					<input type=radio name="choix_question'.$c.'" id="question'.$c.'_proposition4" value="4" required>
 					<label for="question'.$c.'_proposition4">'. $proposition4.'</label>
 					<br>
 

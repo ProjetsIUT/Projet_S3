@@ -11,7 +11,6 @@ class ModelMatieres extends Model {
 
 	protected $codeMatiere;
 	protected $nomMatiere;
-	protected $coeff;
 	protected $codeDepartement;
 
   public function get($nom_attribut) {
@@ -32,7 +31,6 @@ class ModelMatieres extends Model {
 
       $this->codeMatiere=$data['codeMatiere'];
       $this->nomMatiere= $data["nomMatiere"];
-      $this->coeff=$data["coeff"];
       $this->codeDepartement=$data["codeDepartement"];
 
     }
@@ -96,9 +94,6 @@ class ModelMatieres extends Model {
 
           }
 
-      if (empty($tab_user)) {
-        return false;
-      }
 
           return $tab;
 

@@ -52,6 +52,68 @@ class ModelExerciceClassique extends Model{
   }
 
 
+  public static function getAllByEtud(){
+
+      //Retourne les exs que l'étudiant à le droit de consulter
+
+          $login = '"'.$_SESSION['loginUtilisateur'].'"';
+
+          $sql = "SELECT idExercice from agora_ExerciceClassique E JOIN agora_cours C
+          ON C.codeCours=E.themeExercice JOIN agora_matieres M ON M.codeMatiere=C.codeMatiere JOIN agora_suitMatiere S ON S.codeMatiere=M.codeMatiere
+          WHERE loginEtudiant=$login";
+
+          $rep = Model::$pdo->query($sql);
+
+          $rep->setFetchMode(PDO::FETCH_NUM);
+          $tab_codes = $rep->fetchAll();
+
+
+          $tab= array();
+
+          foreach ($tab_codes as $key) { 
+
+            $cours=self::select($key[0]);
+            array_push($tab,$cours);
+
+          }
+
+          return $tab;
+
+
+
+  }
+
+  public static function getAllByEnseignant(){
+
+      //Retourne les exs que l'enseignany à le droit de consulter
+
+          $login = '"'.$_SESSION['loginUtilisateur'].'"';
+
+          $sql = "SELECT idExercice from agora_ExerciceClassique E JOIN agora_cours C
+          ON C.codeCours=E.themeExercice JOIN agora_matieres M ON M.codeMatiere=C.codeMatiere JOIN agora_enseigner S ON S.codeMatiere=M.codeMatiere
+          WHERE codeEnseignant=$login";
+
+          $rep = Model::$pdo->query($sql);
+
+          $rep->setFetchMode(PDO::FETCH_NUM);
+          $tab_codes = $rep->fetchAll();
+
+          $tab= array();
+
+          foreach ($tab_codes as $key) { 
+
+            $cours=self::select($key[0]);
+            array_push($tab,$cours);
+
+          }
+
+          return $tab;
+
+
+
+  }
+
+
 }
 
 

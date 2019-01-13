@@ -2,7 +2,7 @@
 
 
 
-	<h1>Liste des Exercices à faire 
+	<h1>Liste des Exercices</h1> 
 <?php
 	
 	if(Session::is_teacher()) echo '<a class="bouton" href="./index.php?controller=exerciceClassique&action=creerExercice">Publier un Exercice</a>';
@@ -29,6 +29,15 @@
 				$date_ajd = date("Y-m-d H:i:s");
 
 			
+				if(Session::is_teacher()){
+ 
+					$bouton_suppr = '<a class="bouton_suppr" href="./index.php?controller=exerciceClassique&action=suppr&code=' .$code_e . '">Supprimer</a> ';
+
+				}else{
+
+					$bouton_suppr = '';
+
+				}
 
 
 				echo '
@@ -44,7 +53,7 @@
 						
 				if($date_e >= date("Y-m-d H:i:s")){		
 					echo'
-						<legend>A rendre avant le ' . $date_e . '</legend>
+						<legend class="time" >A rendre avant le ' . $date_e . '</legend>
 						';
 				}else{
 					$dteStart = new DateTime($date_e); 
@@ -54,16 +63,18 @@
 
 					echo '<legend class="retard"> En retard de ' . $dteDiff->format("%d jour(s), %H heure(s) et %I minute(s)") . '</legend>';
 				}
-				echo '
+					echo '
 
 						<br>
-						<a>'. $theme_e .'</a>
+						<div class="description">
+							<a>'. $theme_e .'</a>
+						</div>
 
 						<div class="bloc_boutons">
 							<h3>	
 							<a class="bouton" href="./index.php?controller=exerciceClassique&action=faireExercice&id=' .$code_e . '">Faire l\'exercice </a> 
 							<a class="bouton" href="./data/'.$theme_e_code.'.pdf">Voir le cours</a>
-							<a class="bouton_suppr" href="./index.php?controller=exerciceClassique&action=suppr&code=' .$code_e . '">Supprimer</a> 
+							'.$bouton_suppr.'
 							 
 							</h3>
 						</div>
