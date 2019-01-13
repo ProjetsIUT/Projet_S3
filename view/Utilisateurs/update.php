@@ -200,7 +200,12 @@
           <br>
           <br>
           <label for="codeEtablissement_id">Code établissement : </label>
-          <input type="number" value='.htmlspecialchars($_GET['codeEtablissement']).' name="codeEtablissement" id="codeEtablissement_id" '.$etat.'/>
+          <select value='.htmlspecialchars($_GET['codeEtablissement']).' name="codeEtablissement" id="codeEtablissement_id" size="1" required/>';
+                foreach ($tab_e as $e) {
+                    echo '<option value='.htmlspecialchars($e->get('codeEtablissement')).'> '.htmlspecialchars($e->get('nomEtablissement')).'';
+                }
+                echo '
+          </select>
           <br>';
         }
         

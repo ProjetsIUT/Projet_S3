@@ -15,7 +15,12 @@
                 <br>
                 <br>
                 <label for="codedepartement_id">Code département : </label>
-                <input type="number" value="'.htmlspecialchars($ucodedepartement).'" name="codedepartement" id="codedepartement_id" required/>
+                <select value="'.htmlspecialchars($uanneencours).'" name="codedepartement" id="codedepartement_id" size="1" required/>';
+                foreach ($tab_d as $d) {
+                    echo '<option value='.htmlspecialchars($d->get('codeDepartement')).'> '.htmlspecialchars($d->get('nomDepartement')).'';
+                }
+                echo '
+                </select>                
                 <br>
                 <br>
                 <label for="semestreencours_id">Semestre en cours : </label>
@@ -23,25 +28,9 @@
                 <br>
                 ';
             }
-            else if($_GET['action'] === 'updated_info_etud') {
-                echo '
-                <br>
-                <label for="anneencours_id">Annee en cours : </label>
-                <input type="text" value="'.htmlspecialchars($_GET['anneeencours']).'" name="anneencours" id="anneencours_id" required/>
-                <br>
-                <br>
-                <label for="codedepartement_id">Code département : </label>
-                <input type="number" value="'.htmlspecialchars($_GET['codedepartement']).'" name="codedepartement" id="codedepartement_id" required/>
-                <br>
-                <br>
-                <label for="semestreencours_id">Semestre en cours : </label>
-                <input type="text" value="'.htmlspecialchars($_GET['semestreencours']).'" name="semestreencours" id="semestreencours_id" required/>
-                <br>
-                ';
-            }
         ?>
         <br>
-        <input type="submit" value="Terminer l'inscription" />
+        <input type="submit" value="Modifier" />
     </form>
 </article>
 

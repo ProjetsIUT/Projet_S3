@@ -475,6 +475,7 @@ class ControllerUtilisateurs extends Controller{
         if (isset($_GET['loginUtilisateur'])) {
             $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
             if($u) {
+                $tab_e = ModelEtablissements::selectAll();
                 if (Session::is_user($_GET['loginUtilisateur']) && !Session::is_admin()) {
                         $ulogin = $u->get('loginUtilisateur');
                         $uprenom = $u->get('prenomUtilisateur');

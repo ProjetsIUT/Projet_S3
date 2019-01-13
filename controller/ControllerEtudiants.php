@@ -140,6 +140,7 @@ class ControllerEtudiants extends ControllerUtilisateurs{
             $u = ModelEtudiants::select($_GET['loginEtudiant']);
             if($u) {
                 if (Session::is_admin()) {
+                        $tab_d = ModelDepartements::selectAll();
 						$ulogin = $_GET['loginEtudiant'];
 						$usemestre = $u->get('SemestreCourantEtudiant');
 						$ucodedepartement = $u->get('codeDepartement');
