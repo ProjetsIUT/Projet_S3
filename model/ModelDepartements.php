@@ -1,3 +1,4 @@
+
 <?php
  
 
@@ -43,4 +44,5 @@ class ModelDepartements extends Model {
 
 	  	}
    }
+
 }

@@ -4,6 +4,7 @@
 require_once (File::build_path(array('model', 'ModelUtilisateurs.php')));
 require_once (File::build_path(array('controller', 'Controller.php'))); 
 require_once (File::build_path(array('lib', 'Security.php')));
+require_once File::build_path(array('model', 'ModelEtablissements.php'));
  
 class ControllerUtilisateurs extends Controller{
 
@@ -231,6 +232,7 @@ class ControllerUtilisateurs extends Controller{
 
     public static function create() {
         if(Session::is_admin()) {
+            $tab_e = ModelEtablissements::selectAll();
             $type = 'Ajout d\'un utilisateur';
             $view = 'update';
             $pagetitle = 'Ajout d\'un utilisateur - 1/2 - Agora';
@@ -287,13 +289,13 @@ class ControllerUtilisateurs extends Controller{
                             $redirection = 'index.php?controller=etudiants&action=create_info_etud&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
                             header('Location: '.$redirection);
                         }
-        
-                        if($_GET["typeUtilisateur"] === "enseignant"){ //si c'est un enseignant
-                            $redirection = 'index.php?controller=enseignants&action=create_info_enseig&loginUtilisateur='.rawurlencode($_GET['loginUtilisateur']).'';
-                            header('Location: '.$redirection);
-                        }
+                        
+                        $view = 'created';
+                        $pagetitle = 'Utilisateur créé - Agora';
+                        require (File::build_path(array('view', 'view.php'))); 
                     }
                     else {
+                        $tab_e = ModelEtablissements::selectAll();
                         $type = 'Ajout';
                         $verif = 'Cette email est déja utilisé';
                         $view = 'update';
@@ -302,6 +304,7 @@ class ControllerUtilisateurs extends Controller{
                     }
                 }
                 else {
+                    $tab_e = ModelEtablissements::selectAll();
                     $type = 'Ajout';
                     $verif = 'Votre email n\'est pas valide !';
                     $view = 'update';
@@ -310,6 +313,7 @@ class ControllerUtilisateurs extends Controller{
                 }
             }
             else {
+                $tab_e = ModelEtablissements::selectAll();
                 $type = 'Ajout';
                 $verif = 'Ce nom d\'utilisateur existe déja';
                 $view = 'update';
@@ -351,14 +355,10 @@ class ControllerUtilisateurs extends Controller{
                         $redirection = 'index.php?controller=etudiants&action=delete&loginEtudiant='.$_GET['loginUtilisateur'];
                         header('Location: '.$redirection);
                     }
-                    else if($u->get('typeUtilisateur') === 'enseignant') {
-                        $redirection = 'index.php?controller=enseignants&action=delete&loginEnseignant='.$_GET['loginUtilisateur'];
-                        header('Location: '.$redirection);
-                    }
                     else {
                         $view = 'deleted';
-                        $pagetitle = 'Administrateur supprimé';
-                        require (File::build_path(array('view', 'error.php')));
+                        $pagetitle = 'Utilisateur supprimé';
+                        require (File::build_path(array('view', 'view.php')));
                     }
                 }
                 else {
@@ -385,7 +385,29 @@ class ControllerUtilisateurs extends Controller{
 
 	public static function readAll() {
         if(Session::is_admin()) {
-            $tab_u = ModelUtilisateurs::selectAll();
+            if(!isset($_GET['typeUtilisateur']) || $_GET['typeUtilisateur'] === 'all') {
+                $tab_u = ModelUtilisateurs::selectAll();
+                $nomM = "Type d'utilisateur";
+                if(empty($tab_u)) {
+                    $verif = "Il n y a aucun utilisateur";
+                }
+            }
+            else if(isset($_GET['typeUtilisateur'])) {
+                $tab_ut = ModelUtilisateurs::selectAll();
+                $nomM = "Type d'utilisateur";
+                if($tab_ut) {
+                    $tab_u = array();
+                    foreach($tab_ut as $ut) {
+                        
+                        if($ut->get('typeUtilisateur') === $_GET['typeUtilisateur']) {
+                            array_push($tab_u,$ut);
+                        }
+                    }
+                }
+                else {
+                    $verif = 'Il n y a aucun'.$_GET['typeUtilisateur'];
+                }
+            }
             $view = 'list';
             $pagetitle = 'Liste des utilisateurs';
             require (File::build_path(array('view', 'view.php')));
@@ -406,7 +428,8 @@ class ControllerUtilisateurs extends Controller{
                     $uprenom = $u->get('prenomUtilisateur');
                     $unom = $u->get('nomUtilisateur');
                     $uemail = $u->get('emailUtilisateur');
-                    $ucode = $u->get('codeEtablissement');
+                    $e = ModelEtablissements::select($u->get('codeEtablissement'));
+                    $ucode = $e->get('nomEtablissement');
                     $utype = $u->get('typeUtilisateur');
                     $view = 'detail';
                     if(Session::is_user($_GET['loginUtilisateur'])) {
@@ -449,6 +472,7 @@ class ControllerUtilisateurs extends Controller{
         if (isset($_GET['loginUtilisateur'])) {
             $u = ModelUtilisateurs::select($_GET['loginUtilisateur']);
             if($u) {
+                $tab_e = ModelEtablissements::selectAll();
                 if (Session::is_user($_GET['loginUtilisateur']) && !Session::is_admin()) {
                         $ulogin = $u->get('loginUtilisateur');
                         $uprenom = $u->get('prenomUtilisateur');
@@ -577,6 +601,26 @@ class ControllerUtilisateurs extends Controller{
         }
     }
  
+
+    public static function show_home_page() {
+        if(Session::is_student()){ //si c'est un étudiant 
+            $redirection = './index.php?controller=etudiants&action=show_perso_page';
+            header('Location: '.$redirection);
+        }
+        else if(Session::is_teacher()){ //si c'est un enseignant
+            $redirection = './index.php?controller=enseignants&action=show_perso_page';
+            header('Location: '.$redirection);
+        }
+        else if(Session::is_admin()){ //si c'est un admin
+            $redirection = './index.php?controller=administrateur&action=show_perso_page';
+            header('Location: '.$redirection);
+        }
+        else {
+            $redirection = './index.php';
+            header('Location: '.$redirection);
+        }
+    }
+
 
 }
 

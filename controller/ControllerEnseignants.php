@@ -45,8 +45,6 @@ class ControllerEnseignants extends ControllerUtilisateurs{
 
     }
 
-
-
 }
  
 ?>

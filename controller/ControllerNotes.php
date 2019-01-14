@@ -30,7 +30,7 @@ class ControllerNotes extends Controller {
 
 			if(!isset($_GET['codeMatiere']) || $_GET['codeMatiere'] === 'all'){
 
-
+ 
 				$tab_notes=ModelNotes::selectByEtud();
 
 				if(!$tab_notes){
