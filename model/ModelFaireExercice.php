@@ -75,7 +75,7 @@ class ModelFaireExercice extends Model{
       $class_name = 'Model'.ucfirst(static::$object);
       $primary_key1 = 'idExercice';
       $primary_key2 = 'loginEtudiant';
-      $set = 'correction = \''.$correction.'\'';
+      $set = "correction = '$correction'";
       
       $sql = "UPDATE $table_name SET $set WHERE $primary_key1=:val1 AND $primary_key2=:val2";
       $values = array(
