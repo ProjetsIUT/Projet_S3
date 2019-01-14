@@ -1,5 +1,5 @@
 <div class=page_content>
-<h1>Gestion des matières <a href="index.php?controller=matieres&action=create" class="bouton">+ Ajouter une matière</a></h1>
+<h1>Gestion des matières <a href="index.php?controller=matieres&action=create" class="bouton">+ Ajouter une matière</a><a class="bouton" href="./index.php?controller=matieres&action=ajoutAssociation">+Gérer les associations</a></h1>
 <article id="page_connexion">
 <div id="formulaire_connexion">
     <p>Voici la liste des matières, cliquez sur une matière pour la modifier</p>
