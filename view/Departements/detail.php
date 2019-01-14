@@ -8,7 +8,7 @@
     Nom du département : '. htmlspecialchars($mnomDepartement) .' <br>
     Nom de l\'établissement : '. htmlspecialchars($mnomEtablissement) .' <br>
     
-    <p style="color:#E70739;"> Attention ! Avant de supprimer une matière, il faut que tous les cours de celle-ci soit supprimé avant pour la version Alpha d\'Agora</p> <br>';
+    ';
     
 
         echo ('<br> <br> <a class= "bouton" href="index.php?controller=departements&action=update&codeDepartement=' . rawurlencode($mcodeDepartement) . '" > Modifier les informations du département ! </a>');
