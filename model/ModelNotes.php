@@ -155,7 +155,7 @@ class ModelNotes extends Model{
               SELECT codeNote
               FROM agora_notes an
               JOIN agora_ExerciceClassique aec ON an.codeExercice = aec.idExercice
-              JOIN agora_cours ac ON aec.idExercice = ac.codeCours
+              JOIN agora_cours ac ON aec.themeExercice = ac.codeCours
               JOIN agora_matieres am ON ac.codeMatiere = am.codeMatiere
               JOIN agora_enseigner es ON es.codeMatiere=am.codeMatiere
               WHERE es.codeEnseignant=:val

@@ -90,7 +90,6 @@ class ControllerNotes extends Controller {
 
 
 				$tab_codes_notes=ModelNotes::getAllByEnseignant();
-				
 				if($tab_codes_notes) {
 					$tab_notes=array();
 					foreach($tab_codes_notes as $code){
