@@ -616,10 +616,12 @@ class ControllerUtilisateurs extends Controller{
             header('Location: '.$redirection);
         }
         else {
-            $redirection = './index.php';
+            $redirection = './index.php?controller=utilisateurs&action=show_login_page';
             header('Location: '.$redirection);
         }
+        
     }
+
 
 
 }
