@@ -91,7 +91,7 @@
 
 			}
 		}else{
-			echo "aucun ex";
+			echo "<h1>Vous n'avez aucun Exercices à corriger </h1>";
 		}
 
 		?>
