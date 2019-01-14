@@ -58,7 +58,7 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 
      public static function show_perso_page(){
 
-     	if(isset($_SESSION['loginUtilisateur'])){
+     	if(Session::is_student()){
 
 			$e = ModelEtudiants::select($_SESSION['loginUtilisateur']);
 			$_SESSION['anneeCourantEtudiant'] = $e->get('anneeCourantEtudiant');
@@ -83,7 +83,9 @@ class ControllerEtudiants extends ControllerUtilisateurs{
 	        require (File::build_path(array('view', 'view.php')));
 
     	}else{
-    		header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
+    		$error_code = 'Accès à cette page interdit pour votre compte';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
     	}
 	}
 	

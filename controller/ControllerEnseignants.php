@@ -30,18 +30,22 @@ class ControllerEnseignants extends ControllerUtilisateurs{
 
     
      public static function show_perso_page(){
+        if(Session::is_teacher()) {
+            $tab_cours=ModelCours::getAllByEnseignant();
 
-     	$tab_cours=ModelCours::getAllByEnseignant();
+            $tab_exs=ModelFaireExercice::getAllByEnseignant();
 
-     	$tab_exs=ModelFaireExercice::getAllByEnseignant();
+            ControllerNotes::setGraphsEnseignant();
 
-     	ControllerNotes::setGraphsEnseignant();
-
-        $view='pageperso';
-        $page_id="page_perso_enseignants";
-        $pagetitle="Agora - La nouvelle façon d'apprendre";
-        require (File::build_path(array('view', 'view.php')));
-
+            $view='pageperso';
+            $page_id="page_perso_enseignants";
+            $pagetitle="Agora - La nouvelle façon d'apprendre";
+            require (File::build_path(array('view', 'view.php')));
+        }else{
+            $error_code = 'Accès à cette page interdit pour votre compte';
+            $pagetitle = 'Erreur';
+            require (File::build_path(array('view', 'error.php')));
+        }
 
     }
 
