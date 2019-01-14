@@ -81,11 +81,11 @@
 									echo'<li class="menu3"><a class="menu"  href="./index.php?controller=notes&action=statsEtud" >Statistiques</a>';
 							}
 
-							if(Session::is_teacher()){
+							if(Session::is_teacher() && !Session::is_admin()){
 
 									echo'<li class="menu4"><a class="menu" href="./index.php?controller=notes&action=list">Notes</a>';
 
-							}else{
+							}else if(!Session::is_admin()){
 
 									echo'<li class="menu4"><a class="menu"  href="./index.php?controller=notes&action=listByEtud">Notes</a>';
 							}
