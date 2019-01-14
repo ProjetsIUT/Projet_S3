@@ -9,7 +9,7 @@
 
 									<h1>Mes Exercices
 									<a class="bouton" href="./index.php?controller=exerciceClassique&action=creerExercice">Publier un Exercice</a>
-									<a class="bouton" href="./index.php?controller=exerciceClassique&action=list_en_attente">Exercices à corriger</a>
+									<a class="bouton" href="./index.php?controller=exerciceClassique&action=list_a_corriger">Exercices à corriger</a>
 
 			</h1>';	
 
@@ -18,7 +18,7 @@
 			echo '
 
 									<h1>Mes Exercices
-									<a class="bouton" href="./index.php?controller=exerciceClassique&action=creerExercice">Voir mes rendus</a>
+									<a class="bouton" href="./index.php?controller=exerciceClassique&action=list_en_attente">Voir mes rendus</a>
 			
 
 			</h1>';	
@@ -78,9 +78,15 @@
 							<a>'. $theme_e .'</a>
 						</div>
 
+						
 						<div class="bloc_boutons">
-							<h3>	
-							<a class="bouton" href="./index.php?controller=exerciceClassique&action=faireExercice&id=' .$code_e . '">Faire l\'exercice </a> 
+							<h3>';
+							if(Session::is_student()){
+						echo '	
+							
+							<a class="bouton" href="./index.php?controller=exerciceClassique&action=faireExercice&id=' .$code_e . '">Faire l\'exercice </a>';
+							}
+							echo ' 
 							<a class="bouton" href="./data/'.$theme_e_code.'.pdf">Voir le cours</a>
 							'.$bouton_suppr.'
 							 
@@ -107,7 +113,7 @@
 
 			}
 		}else{
-			echo "aucun ex";
+			echo "<h1>Vous n'avez aucun Exercices </h1>";
 		}
 
 		?>

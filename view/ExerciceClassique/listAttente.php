@@ -1,6 +1,6 @@
-<div class="page_content">
+	<div class="page_content">
 
-	<h1>Liste des Exercices (en attente de correction) 
+	<h1>Mes rendus
 
 	<?php
 
@@ -8,7 +8,7 @@
 	
 	if(Session::is_student()) echo '<a class="bouton" href="./index.php?controller=exerciceClassique&action=list_a_faire">Voir les exercices à réaliser </a>';
 	echo '</h1>';
-var_dump($tab);
+
 			$i = 0;
 			$d = 0;
 			if($tab){
@@ -93,7 +93,7 @@ var_dump($tab);
 
 			}
 		}else{
-			echo "aucun ex";
+			echo "<h1>Vous n'avez aucun rendu </h1>";
 		}
 
 

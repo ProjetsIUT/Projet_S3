@@ -117,7 +117,7 @@ class ModelFaireExercice extends Model{
       // Attention, si il n'y a pas de résultats, on renvoie false
       if (empty($tab_obj))
         return false;
-      return $tab_obj[0];
+      return $tab_obj;
 
     }
 

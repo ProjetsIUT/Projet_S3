@@ -65,14 +65,17 @@ Class ControllerExerciceClassique extends Controller {
             $e = new ModelExerciceClassique($idExercice,$nomExercice, $tempsLimite, $enonce, $name);
             $e->save($data);
             
-            $view = "created";
-            $pagetitle = "Créé !!!";
-            require (File::build_path(array('view', 'view.php')));
+            header('Location: ./index.php?controller=ExerciceClassique&action=list');
         }
         
     }
 
     public static function faireExercice(){
+        if(!isset($_SESSION['loginUtilisateur'])){
+
+            header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
+        }
+
         if(!Session::is_student()){
             $error_code = "acces non autorisé";
             $pagetitle="Erreur - Agora";
@@ -96,31 +99,42 @@ Class ControllerExerciceClassique extends Controller {
 
    public static function list(){
 
+    if(!isset($_SESSION['loginUtilisateur'])){
+
+            header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
+        }
+
         if(Session::is_teacher()){
 
             $tab=ModelExerciceClassique::getAllByEnseignant();
+            $view="list_all";
+            $pagetitle="Mes Exercices - Agora";
+            require (File::build_path(array('view', 'view.php')));
         }else{
 
-             $tab=ModelExerciceClassique::getAllByEtud();
+             self::list_a_faire();
         }
 
 
 
-        $view="list_all";
-        $pagetitle="Mes Exercices - Agora";
-        require (File::build_path(array('view', 'view.php')));
+        
 
     } 
 
         public static function suppr(){
 
-        $id = $_GET["id"];
+        $id = $_GET["code"];
         ModelExerciceClassique::delete($id);
         self::list();
 
     }
 
     public static function list_en_attente(){
+         if(!isset($_SESSION['loginUtilisateur'])){
+
+            header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
+        }
+
          if(!Session::is_student()){
             $error_code = "acces non autorisé";
             $pagetitle="Erreur - Agora";
@@ -158,6 +172,11 @@ Class ControllerExerciceClassique extends Controller {
 
     public static function list_a_faire(){
         
+        if(!isset($_SESSION['loginUtilisateur'])){
+
+            header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
+        }
+         
          if(!Session::is_student()){
             $error_code = "acces non autorisé";
             $pagetitle="Erreur - Agora";
@@ -181,13 +200,19 @@ Class ControllerExerciceClassique extends Controller {
 
         }
 
-        $view="list";
+        $view="list_all";
         $pagetitle="Mes Exercices - Agora";
         require (File::build_path(array('view', 'view.php')));
     }
     }
 
     public static function list_a_corriger(){
+         
+         if(!isset($_SESSION['loginUtilisateur'])){
+
+            header('Location: ./index.php?controller=Utilisateurs&action=show_login_page');
+        }
+
          if(!Session::is_teacher()){
             $error_code = "acces non autorisé";
             $pagetitle="Erreur - Agora";

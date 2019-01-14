@@ -54,6 +54,7 @@ class ModelExerciceClassique extends Model{
     return false;
   }
 
+
   public static function getAllByEtud(){
 
       //Retourne les exs que l'étudiant à le droit de consulter
@@ -114,6 +115,7 @@ class ModelExerciceClassique extends Model{
 
 
   }
+
 
 }
 
