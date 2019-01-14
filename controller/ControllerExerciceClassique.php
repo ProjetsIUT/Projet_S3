@@ -64,9 +64,7 @@ Class ControllerExerciceClassique {
             $e = new ModelExerciceClassique($idExercice,$nomExercice, $tempsLimite, $enonce, $name);
             $e->save($data);
             
-            $view = "created";
-            $pagetitle = "Créé !!!";
-            require (File::build_path(array('view', 'view.php')));
+            header('Location: ./index.php?controller=ExerciceClassique&action=list');
         }
         
     }

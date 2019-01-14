@@ -48,9 +48,7 @@ class ControllerFaireExercice{
         $obj->save($data);
 
 
-        $view = "fait";
-        $pagetitle = "Exercice Fait";
-        require (File::build_path(array('view', 'view.php')));
+        header('Location: ./index.php?controller=ExerciceClassique&action=list_en_attente');
 
        }
     }
